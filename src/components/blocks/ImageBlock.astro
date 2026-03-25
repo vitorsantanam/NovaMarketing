@@ -1,0 +1,19 @@
+---
+/** blocks/ImageBlock.astro */
+import { getStrapiImageUrl, type StrapiImage } from '../../lib/strapi';
+interface Props { image?: StrapiImage; caption?: string; }
+const { image, caption } = Astro.props;
+---
+{image && (
+  <figure class="my-8">
+    <img
+      src={getStrapiImageUrl(image)}
+      alt={image.alternativeText || caption || ''}
+      width={image.width}
+      height={image.height}
+      loading="lazy"
+      class="w-full rounded-xl object-cover"
+    />
+    {caption && <figcaption class="text-center text-sm text-text-muted mt-2">{caption}</figcaption>}
+  </figure>
+)}

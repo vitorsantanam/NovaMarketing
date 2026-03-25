@@ -1,0 +1,69 @@
+---
+/**
+ * components/seo/SeoHead.astro
+ * Meta tags completos: title, description, canonical, OG, Twitter, hreflang
+ */
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noIndex?: boolean;
+  locale?: string;
+  alternates?: { lang: string; url: string }[];
+  siteUrl: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/og-default.jpg',
+  noIndex = false,
+  locale = 'es',
+  alternates = [],
+  siteUrl,
+} = Astro.props;
+
+const ogLocale = locale === 'ca' ? 'ca_ES' : 'es_ES';
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
+const ogImageFull = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+---
+
+<!-- Primary Meta -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Robots -->
+{noIndex
+  ? <meta name="robots" content="noindex, nofollow" />
+  : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+}
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageFull} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:locale" content={ogLocale} />
+<meta property="og:site_name" content="Nova Marketing" />
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageFull} />
+
+<!-- Hreflang -->
+{alternates.map(({ lang, url }) => (
+  <link rel="alternate" hreflang={lang} href={url} />
+))}
+<!-- x-default siempre apunta a la versión española -->
+{!alternates.find(a => a.lang === 'x-default') && (
+  <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+)}

@@ -1,0 +1,182 @@
+---
+/**
+ * BaseLayout.astro — v5 Minimalist Premium (Back to Example Design)
+ * Shell HTML principal con el fondo de partículas, el resplandor del cursor y SEO.
+ */
+import SeoHead from '../components/seo/SeoHead.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+import Header from '../components/global/Header.astro';
+import Footer from '../components/global/Footer.astro';
+import CtaSticky from '../components/cta/CtaSticky.astro';
+import ContactModal from '../components/cta/ContactModal.astro';
+import '../styles/global.css';
+
+import type { Locale } from '../lib/i18n';
+import type { SeoFields, GlobalSettings } from '../lib/strapi';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noIndex?: boolean;
+  locale?: Locale;
+  alternates?: { lang: string; url: string }[];
+  seo?: SeoFields;
+  schemas?: object[];
+  settings?: GlobalSettings;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  noIndex = false,
+  locale = 'es',
+  alternates = [],
+  seo,
+  schemas = [],
+  settings,
+} = Astro.props;
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+---
+
+<!DOCTYPE html>
+<html lang={locale === 'ca' ? 'ca' : 'es'}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <SeoHead
+    title={seo?.metaTitle || title}
+    description={seo?.metaDescription || description}
+    canonical={seo?.canonicalUrl || canonical}
+    ogImage={seo?.ogImage ? `${SITE_URL}${seo.ogImage.url}` : ogImage}
+    noIndex={seo?.noIndex ?? noIndex}
+    locale={locale}
+    alternates={alternates}
+    siteUrl={SITE_URL}
+  />
+
+  {schemas.map(schema => (
+    <SchemaOrg schema={schema} />
+  ))}
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+
+<body class="bg-white text-black antialiased selection:bg-accent selection:text-white">
+
+  <!-- v5 Dynamic Layers -->
+  <canvas id="canvas-bg"></canvas>
+  <div class="cursor-glow" id="cursor-glow"></div>
+
+  <Header locale={locale} alternates={alternates} settings={settings} />
+
+  <main id="main-content">
+    <slot />
+  </main>
+
+  <Footer locale={locale} settings={settings} />
+
+  <CtaSticky locale={locale} settings={settings} />
+  <ContactModal locale={locale} />
+
+  <!-- Global v5 Scripts (Particles + Cursor + Reveal) -->
+  <script>
+    /* 1. Reveal Animation */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    /* 2. Particle Canvas Background */
+    function initParticles() {
+        const canvas = document.getElementById('canvas-bg') as HTMLCanvasElement;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        
+        let particles: any[] = [];
+        const particleCount = 20;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            x: number; y: number; size: number; speedX: number; speedY: number; opacity: number;
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.2 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                if (!ctx) return;
+                ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function create() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx!.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        create();
+        animate();
+    }
+
+    /* 3. Cursor Glow Effect */
+    function initCursorGlow() {
+        const glow = document.getElementById('cursor-glow');
+        if (!glow) return;
+        window.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+    }
+
+    /* Init Core */
+    function init() {
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        initParticles();
+        initCursorGlow();
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('astro:page-load', init);
+  </script>
+
+</body>
+</html>

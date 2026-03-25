@@ -1,0 +1,42 @@
+---
+/**
+ * components/global/LanguageSwitcher.astro
+ * Selector de idioma ES/CA con enlace a la página equivalente
+ */
+import { LOCALE_LABELS, type Locale } from '../../lib/i18n';
+
+interface Props {
+  locale: Locale;
+  alternates: { lang: string; url: string }[];
+}
+
+const { locale, alternates } = Astro.props;
+
+function getAltUrl(targetLang: string): string {
+  const alt = alternates.find(a => a.lang === targetLang);
+  if (alt) {
+    // Convert Absolute canonical URL to Relative layout router for local development navigation
+    return alt.url.replace(/^https?:\/\/[^\/]+/, '');
+  }
+  return targetLang === 'ca' ? '/ca' : '/';
+}
+---
+
+<div class="flex items-center gap-1 rounded-full bg-zinc-100 border border-black/5 p-1" role="group" aria-label="Selector de idioma">
+  {(['es', 'ca'] as Locale[]).map(lang => (
+    <a
+      href={getAltUrl(lang)}
+      hreflang={lang}
+      class:list={[
+        'px-3 py-1.5 text-[10px] font-black uppercase rounded-full transition-all duration-200',
+        locale === lang
+          ? 'bg-black text-white shadow-sm'
+          : 'text-zinc-500 hover:text-black hover:bg-zinc-200/50'
+      ]}
+      aria-label={lang === 'es' ? 'Cambiar a Español' : 'Canviar a Català'}
+      aria-current={locale === lang ? 'true' : undefined}
+    >
+      {LOCALE_LABELS[lang]}
+    </a>
+  ))}
+</div>

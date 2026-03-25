@@ -1,0 +1,279 @@
+---
+/**
+ * src/pages/ca/agencia-seo-per-pimes.astro
+ * Versió en Català de la pàgina de SEO per a Pimes
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-seo-para-pymes', '/agencia-seo-per-pimes', SITE_URL);
+
+const steps = [
+  { title: "Auditoria SEO Inicial", desc: "Analitzem la teva pime i la seva presència digital amb una auditoria completa per detectar errors tècnics i marge de millora." },
+  { title: "Keyword Research", desc: "Busquem les paraules clau que et porten clients i conversions, no només visites. Estratègia enfocada a la intenció de compra." },
+  { title: "SEO On-Page", desc: "Optimitzem el contingut de la teva web, meta-etiquetes, velocitat de càrrega i treballem l'enllaçat intern per facilitar el rastreig." },
+  { title: "Linkbuilding de Qualitat", desc: "Aconseguim que altres webs de referència uns enllacin per aconseguir major autoritat als ulls de Google i pujar posicions." },
+  { title: "SEO Local", desc: "Posicionem el teu negoci a la teva ciutat i Google Maps per captar clients locals de forma immediata." }
+];
+
+const benefits = [
+  { title: "Trànsit orgànic constant sense pagar per cada clic", desc: "A diferència de Google Ads, el SEO genera visites recurrents i estables que no depenen del teu pressupost diari d'inversió." },
+  { title: "Millora de l'autoritat de marca i confiança", desc: "Aparèixer als primers llocs de Google de forma orgànica transmet serietat, lideratge i genera una gran confiança en l'usuari." },
+  { title: "Resultats mesurables amb informes mensuals", desc: "Transparència absoluta. Analitzem el trànsit, les conversions i les posicions de les teves paraules clau perquè entenguis el ROI." }
+];
+---
+
+<BaseLayout
+  title="Agència SEO per a Pimes | Auditoria i Estratègia SEO | Nova Marketing"
+  description="Multipliquem el trànsit i les vendes de la teva pime amb posicionament SEO a Google. Auditoria inicial gratis, SEO local i Estratègia ROI."
+  locale="ca"
+  alternates={alternates}
+>
+
+    
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        
+        <!-- Background Grid Mesh -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+
+        <!-- Glow Orbs -->
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal relative z-10">
+            <!-- Glassmorphic Subtitle Badge -->
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Especialistes en Posicionament
+            </span>
+
+            <!-- H1 Style -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase font-black tracking-tighter leading-[0.80] mb-6 text-zinc-900 flex flex-col items-center text-center">
+                <span>Agència de</span>
+                <span>Posicionament SEO</span>
+                <span class="bg-gradient-to-r from-accent via-accent/90 to-purple-600 bg-clip-text text-transparent px-4 overflow-visible inline-block">a Barcelona</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
+                Multipliquem el trànsit i les vendes de la teva pime amb estratègies de posicionament orgànic a Google que generen rentabilitat a llarg termini.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
+                    SOL·LICITAR AUDITORIA GRATIS
+                </a>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- ═══ SECCIÓN 1: AUDITORÍA Y ESTRATEGIA ═══════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <h2 class="text-2xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Auditoria i Estratègia SEO Personalitzada per al teu Negoci
+            </h2>
+            <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed w-[75%] mx-auto">
+                No comencem a cegues ni utilitzem plantilles genèriques. Analitzem la teva web de dalt a baix per detectar errors tècnics i dissenyem una estratègia de Keywords orientada 100% a convertir visites en vendes.
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓN 2: CÓMO TRABAJAMOS (ROADMAP) ════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <h2 class="text-2xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Com treballem el SEO de la teva empresa
+                </h2>
+                <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed space-y-4">
+                    <p>
+                        Oblida't del SEO en pilot automàtic. Comptaràs amb un <strong>Account Manager dedicat</strong> que treballarà al teu costat per resoldre els teus dubtes, supervisar cada avanç i mantenir-te informat amb reports clars. Tindràs el control mentre optimitzem la teva web per atraure més clients.
+                    </p>
+                </div>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
+                
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {steps.map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal" style={`transition-delay: ${index * 100}ms`}>
+                            
+                            <div class="hidden md:block md:flex-1 text-right md:order-1">
+                                {index % 2 === 0 && (
+                                    <div class="md:pr-12">
+                                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{step.title}</h3>
+                                        <p class="text-sm text-zinc-500 font-light max-w-md ml-auto">{step.desc}</p>
+                                    </div>
+                                )}
+                            </div>
+                            
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all duration-300">
+                                0{index + 1}
+                            </div>
+
+                            <div class="flex-1 text-left md:order-3">
+                                <div class="md:pl-12">
+                                    <h3 class:list={["text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900", index % 2 === 0 ? "md:hidden" : ""]}>{step.title}</h3>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md mr-auto", index % 2 === 0 ? "md:hidden" : ""]}>{step.desc}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓN 3: BENEFICIOS (CARDS) ══════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-[#0a0a0b] text-white border-y border-white/5 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <h2 class="text-2xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-white leading-[0.9]">
+                    Beneficis d'invertir en Posicionament Web
+                </h2>
+                <p class="text-zinc-400 w-[75%] mx-auto font-light text-sm sm:text-base">Resultats estables i creixement orgànic real.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {benefits.map((benefit, i) => (
+                    <div class="group p-8 border border-white/5 bg-zinc-900/40 backdrop-blur-xl border-zinc-800/50 rounded-sm hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal" style={`transition-delay: ${i * 100}ms`}>
+                        <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 text-white">{benefit.title}</h3>
+                        <p class="text-sm text-zinc-400 font-light leading-relaxed">{benefit.desc}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓN 4: CASOS DE ÉXITO ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">SEO que funciona</span>
+                <h2 class="text-2xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-black mb-2 text-zinc-900 leading-[0.9]">
+                    Casos d'èxit de SEO per a Pimes
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+                <div class="bg-white border-zinc-100 hover:border-accent/20 hover:shadow-lg transition-all p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">E-COMMERCE</span>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Botiga Online Calçat</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Trànsit orgànic multiplicat per 400% després d'optimitzar arquitectura web i resoldre canibalitzacions.</p>
+                    </div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">+400% Trànsit</div>
+                </div>
+
+                <div class="bg-white border-zinc-100 hover:border-accent/20 hover:shadow-lg transition-all p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all" style="transition-delay: 100ms">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">LOCAL SEO</span>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Clínica Estètica Sabadell</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Posicionament en top 3 per a termes d'alta intenció de compra en la ciutat local.</p>
+                    </div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">Top 3 Google</div>
+                </div>
+
+                <div class="bg-white border-zinc-100 hover:border-accent/20 hover:shadow-lg transition-all p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all" style="transition-delay: 200ms">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">B2B SEO</span>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Subministraments Industrials</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Estratègia de continguts tècnics dirigits a decisors B2B, augmentant vendes corporatives x2.</p>
+                    </div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">x2 Conversions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CONTACTO ═══════════════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-12 opacity-70 block">AUDITORIA SEO GRATIS</span>
+                <h2 class="text-3xl sm:text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.8] mb-8 sm:mb-12">
+                   ANALITZEM <br>LA TEVA WEB <br>SENSE COST
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Escriu-nos i et donarem un full de ruta factible per millorar posicions.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8 sm:space-y-12" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 sm:gap-12 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3 sm:gap-4">
+                                <label class="opacity-30">NOM</label>
+                                <input type="text" name="name" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3 sm:gap-4">
+                                <label class="opacity-30">WEB (URL)</label>
+                                <input type="url" name="url" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESSIONAL</label>
+                            <input type="email" name="email" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA SEO</label>
+                            <textarea name="msg" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Quin és el teu objectiu?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6 sm:!py-8">REBRE LA MEVA AUDITORIA</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = (e.target as HTMLFormElement).querySelector('button');
+        if (btn) {
+            btn.innerHTML = '¡ENVIAT CORRECTAMENT!';
+            btn.style.background = '#000000';
+        }
+    });
+
+    function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

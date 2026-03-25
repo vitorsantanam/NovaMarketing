@@ -1,0 +1,304 @@
+---
+/**
+ * index.astro — v6 Optimized Minimalist
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { strapiClient } from '../lib/strapi';
+import { buildAlternates } from '../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/', '/', SITE_URL);
+
+// Defined 4 standard service cards for SMEs
+const services = [
+    { 
+        title: 'Posicionamiento SEO', 
+        desc: 'Optimizamos tu presencia en Google para que los clientes de tu zona te encuentren antes que a la competencia, multiplicando tus visitas de negocio.', 
+        icon: 'Search'
+    },
+    { 
+        title: 'Google Ads', 
+        desc: 'Campañas de publicidad de pago por clic (SEM) diseñadas para generar contactos cualificados y ventas inmediatas. El impulso que tu pyme necesita hoy.', 
+        icon: 'TrendingUp'
+    },
+    { 
+        title: 'Diseño de páginas web', 
+        desc: 'Sitios web desarrollados a medida para cada cliente. Atractivos, ultrarrápidos y 100% enfocados a la conversión para convertir visitas en clientes finales.', 
+        icon: 'Settings'
+    },
+    { 
+        title: 'Consultoría de marketing', 
+        desc: 'Estrategia continua para optimizar tu inversión. Te ayudamos a tomar las decisiones empresariales correctas para el crecimiento de tu negocio.', 
+        icon: 'Target'
+    },
+];
+
+const icons: Record<string, any> = {
+  Search: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-7 h-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>`,
+  TrendingUp: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-7 h-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>`,
+  Settings: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-7 h-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82 1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`,
+  Target: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-7 h-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>`
+}
+---
+
+<BaseLayout
+  title="Nova Marketing | Agencia de marketing digital para PYMES"
+  description="Multiplicamos el tráfico y las ventas de tu pyme con marketing digital avanzado. Especialistas en SEO, SEM y Consultoría."
+  locale="es"
+  alternates={alternates}
+>
+
+    <!-- ═══ HERO (v6 line wrap fix + simplified) ═══════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <!-- Background Grid Mesh -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+
+        <!-- Glow Orbs -->
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-7xl mx-auto w-full text-center">
+            <div class="reveal">
+                <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                ESPECIALISTAS EN CRECIMIENTO
+            </span>
+                
+                <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase font-black tracking-tighter leading-[0.82] mb-6 text-zinc-900 flex flex-col items-center text-center">
+                    <span>Agencia de</span>
+                    <span>Marketing Digital</span>
+                    <span class="bg-gradient-to-r from-accent via-accent/90 to-purple-600 bg-clip-text text-transparent px-4 overflow-visible inline-block">para Pymes</span>
+                </h1>
+                
+                <p class="text-base sm:text-xl text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-10 whitespace-normal sm:whitespace-nowrap">
+                    Somos el departamento de marketing que toda empresa necesita.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 mt-4">
+                    <a href="#contact" class="btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        ESTRATEGIAS PARA PYMES
+                    </a>
+                    <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] sm:!bg-transparent sm:!text-black border-2 border-black sm:border-black/10 hover:border-black hover:!bg-zinc-50 sm:shadow-none !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black cursor-pointer hidden md:inline-flex justify-center items-center">
+                        HABLEMOS DE TU PROYECTO
+                    </button>
+                    <div class="md:hidden w-full sm:w-auto">
+                        <a href="https://wa.me/34644738270" class="btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black w-full text-center flex justify-center">
+                            📲 WHATSAPP
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ GRID: SERVICIOS 360 (v6 Standard Grid) ════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 relative overflow-hidden px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 sm:mb-24 gap-6 md:gap-12">
+                <div class="reveal">
+                    <h2 class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Servicios de marketing para pymes</h2>
+                    <p class="text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tighter mb-2 font-[Montserrat] font-black" style="font-family: 'Montserrat', sans-serif; font-weight: 900;">Marketing 360º</p>
+                </div>
+                <p class="text-zinc-500 max-w-md font-light text-sm sm:text-base tracking-wide leading-relaxed reveal">
+                   Las mejores estrategias de marketing para pymes <br class="hidden md:inline" /> implementadas por tu departamento de marketing.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+                {services.map((s, i) => (
+                    <div class="group flex flex-col justify-between p-8 sm:p-12 service-card h-full bg-white rounded-3xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden reveal flex-1" style={`transition-delay: ${i * 100}ms`}>
+                        <!-- Hover Gradient Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                        <!-- Number Overlay Background -->
+                        <div class="absolute -bottom-6 -right-4 text-9xl font-black text-black/2 group-hover:text-accent/[0.04] transition-all duration-500 select-none">
+                            0{i + 1}
+                        </div>
+
+                        <div class="relative z-10 flex flex-col h-full justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-8 sm:mb-12">
+                                    <div class="w-14 h-14 bg-zinc-50 border border-black/5 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:bg-accent group-hover:border-accent group-hover:text-white text-accent shadow-sm">
+                                        <Fragment set:html={icons[s.icon]} />
+                                    </div>
+                                </div>
+                                <h3 class="text-xl sm:text-2xl uppercase mb-4 tracking-tighter group-hover:text-accent transition-colors font-black text-zinc-900 border-b border-zinc-100 group-hover:border-accent/20 pb-2 w-fit">
+                                    {s.title}
+                                </h3>
+                                <p class="text-xs sm:text-sm text-zinc-500 leading-relaxed font-light">{s.desc}</p>
+                            </div>
+
+                            <div class="mt-8 pt-6 border-t border-zinc-50 flex items-center justify-between">
+                                <span class="text-[9px] font-black tracking-widest text-accent flex items-center gap-1 group-hover:gap-2 transition-all">
+                                    SABER MÁS <span class="text-sm">→</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Dash and Analytics REMOVED by request -->
+
+    <!-- ═══ SECCIÓN PYME: DIFERENCIACIÓN (NUEVA) ═══════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 relative overflow-hidden border-t border-black/5">
+        <!-- Deco meshes -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+        <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+        <div class="absolute -bottom-40 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl opacity-10"></div>
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-4">
+                    Nova es tu Agencia <br class="hidden sm:inline" /> de Marketing si eres una Pyme
+                </h2>
+                <p class="text-zinc-500 max-w-2xl mx-auto font-light text-base sm:text-lg tracking-wide leading-relaxed">
+                    La confianza se construye con hechos. Trabajamos con total transparencia y comunicación directa para que sientas que somos una extensión real de tu negocio.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="group p-8 sm:p-10 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex flex-col justify-between h-full reveal">
+                    <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
+<div class="p-3 bg-zinc-50 border border-black/5 w-fit rounded-xl mb-6 group-hover:bg-accent/5 group-hover:border-accent/10 transition-colors">
+  <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+</div>
+                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Trato personalizado y cercano</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">No eres una cuenta más. Tu negocio es nuestra prioridad absoluta. Hablamos tu idioma y nos implicamos en tu crecimiento diario.</p>
+                </div>
+                <div class="group p-8 sm:p-10 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex flex-col justify-between h-full reveal" style="transition-delay: 100ms">
+                    <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
+<div class="p-3 bg-zinc-50 border border-black/5 w-fit rounded-xl mb-6 group-hover:bg-accent/5 group-hover:border-accent/10 transition-colors">
+  <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+</div>
+                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Planes escalables y presupuesto ajustado</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Crecemos contigo. Inversión inteligente diseñada para maximizar el retorno (ROI) sin comprometer la salud financiera de tu negocio.</p>
+                </div>
+                <div class="group p-8 sm:p-10 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex flex-col justify-between h-full reveal" style="transition-delay: 200ms">
+                    <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
+<div class="p-3 bg-zinc-50 border border-black/5 w-fit rounded-xl mb-6 group-hover:bg-accent/5 group-hover:border-accent/10 transition-colors">
+  <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 012-2h2a2 2 0 012 2v6m-6 0h6M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+</div>
+                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Reportes claros: Entiende cada euro</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Transparencia total. Sin jergas técnicas incomprensibles. Solo métricas de negocio, contactos generados y ventas conseguidas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓN CASOS DE ÉXITO (NUEVA) ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-extrabold mb-2">
+                    Casos de Éxito de Pymes <br class="hidden md:inline" /> que ya crecen con nosotros
+                </h2>
+            </div>
+
+            <!-- Carousel-style Container: Flex on mobile (snap), Grid on Desktop -->
+            <div class="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-4 gap-6 pb-8 md:pb-0 scrollbar-hide">
+                
+                <div class="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all reveal">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">SEO + ADS</span>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Clínica Dental Martínez</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Multiplicamos la captación de pacientes locales optimizando Google Business y campañas hiper-segmentadas.</p>
+                    </div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">+150% Leads</div>
+                </div>
+
+                <div class="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all reveal" style="transition-delay: 100ms">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">E-COMMERCE</span>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Ferretería El Tornillo</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Desarrollo de tienda online conectada a stock real. Ventas recurrentes a nivel nacional desde el primer mes.</p>
+                    </div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">x3 Ventas</div>
+                </div>
+
+                <div class="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all reveal" style="transition-delay: 200ms">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">LOCAL SEO</span>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Restaurante El Sabor</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Posicionamiento en "restaurantes cerca de mí". Lleno garantizado cada fin de semana sin inversión en ADS.</p>
+                    </div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">100% Ocupación</div>
+                </div>
+
+                <div class="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all reveal" style="transition-delay: 300ms">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">SOCIAL ADS</span>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Moda Joven Lara</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Estrategia de Instagram Ads con micro-influencers de la zona de Sabadell. Ventas directas por DM y web.</p>
+                    </div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">-40% CAC</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CONTACTO (v6 Banner Banner) ════════════════════════════════════ -->
+    <section id="contact" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-12 block opacity-70">SOLICITA TU ANÁLISIS</span>
+                <h2 class="text-5xl sm:text-8xl font-black uppercase tracking-tighter leading-[0.8] mb-8 sm:mb-12">
+                   EMPIEZA <br>A CRECER <br>HOY
+                </h2>
+                <div class="space-y-6 text-base sm:text-xl">
+                    <p class="font-light max-w-md">Escríbenos y te daremos una hoja de ruta factible.</p>
+                    <ul class="text-[9px] sm:text-xs font-black tracking-widest space-y-3 uppercase opacity-90">
+                        <li>→ AUDITORÍA TÉCNICA GRATIS</li>
+                        <li>→ ANÁLISIS DE COMPETENCIA</li>
+                        <li>→ PROPUESTA DE KEYWORDS</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8 sm:space-y-12" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 sm:gap-12 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3 sm:gap-4">
+                                <label class="opacity-30">NOMBRE</label>
+                                <input type="text" name="name" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3 sm:gap-4">
+                                <label class="opacity-30">WEB (URL)</label>
+                                <input type="url" name="url" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESIONAL</label>
+                            <input type="email" name="email" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">¿CUÁL ES TU MAYOR RETO?</label>
+                            <textarea name="msg" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6 sm:!py-8">RECIBIR MI AUDITORÍA</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = (e.target as HTMLFormElement).querySelector('button');
+        if (btn) {
+            btn.innerHTML = '¡ENVIADO CORRECTAMENTE!';
+            btn.style.background = '#000000';
+        }
+    });
+</script>

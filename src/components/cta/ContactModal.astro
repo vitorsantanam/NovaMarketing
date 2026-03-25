@@ -1,0 +1,164 @@
+---
+/**
+ * src/components/cta/ContactModal.astro
+ * Modal popup para contacto en Desktop.
+ */
+interface Props {
+  locale?: string;
+}
+const { locale = 'es' } = Astro.props;
+
+const t = {
+  es: {
+    title: 'CUÉNTANOS TU PROYECTO',
+    name: 'Nombre *',
+    email: 'Email Profesional *',
+    web: 'Web / URL',
+    phone: 'Teléfono',
+    msg: 'Mensaje',
+    terms: 'Acepto y he leído los términos y condiciones',
+    submit: 'ENVIAR SOLICITUD',
+  },
+  ca: {
+    title: 'EXPLICA\'NS EL TEU PROJECTE',
+    name: 'Nom *',
+    email: 'Email Professional *',
+    web: 'Web / URL',
+    phone: 'Telèfon',
+    msg: 'Missatge',
+    terms: 'Accepto i he llegit els termes i condicions',
+    submit: 'ENVIAR SOL·LICITUD',
+  }
+}[locale as 'es' | 'ca'] || {
+  es: {
+    title: 'CUÉNTANOS TU PROYECTO',
+    name: 'Nombre *',
+    email: 'Email Profesional *',
+    web: 'Web / URL',
+    phone: 'Teléfono',
+    msg: 'Mensaje',
+    terms: 'Acepto y he leído los términos y condiciones',
+    submit: 'ENVIAR SOLICITUD',
+  }
+};
+---
+
+<!-- Modal Overlay -->
+<div id="contact-modal" class="fixed inset-0 z-[100] bg-black/40 backdrop-blur-md items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none hidden">
+    <!-- Modal Dialog -->
+    <div class="bg-white max-w-xl w-full p-8 sm:p-12 shadow-[0_40px_100px_rgba(0,0,0,0.2)] rounded-sm relative scale-95 transition-transform duration-300" id="modal-content">
+        
+        <!-- Close button -->
+        <button id="close-modal-btn" class="absolute top-5 right-5 text-zinc-400 hover:text-black transition-colors focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-6 h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+
+        <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t.title}</span>
+        <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tighter mb-8 text-gradient">CONTACTAR</h2>
+
+        <form id="desktop-modal-form" class="space-y-6">
+            <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                <div class="flex flex-col gap-3">
+                    <label class="opacity-30">{t.name}</label>
+                    <input type="text" name="name" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                </div>
+                <div class="flex flex-col gap-3">
+                    <label class="opacity-30">{t.email}</label>
+                    <input type="email" name="email" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                <div class="flex flex-col gap-3">
+                    <label class="opacity-30">{t.web}</label>
+                    <input type="url" name="url" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                </div>
+                <div class="flex flex-col gap-3">
+                    <label class="opacity-30">{t.phone}</label>
+                    <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                <label class="opacity-30">{t.msg}</label>
+                <textarea name="msg" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none"></textarea>
+            </div>
+
+            <!-- Terms and conditions Checkbox -->
+            <div class="flex items-start gap-2 mt-4">
+                <input type="checkbox" id="terms-agree" name="terms" required class="mt-1 accent-accent">
+                <label for="terms-agree" class="text-xs text-zinc-500 font-light cursor-pointer select-none">
+                    {t.terms}
+                </label>
+            </div>
+
+            <button type="submit" class="w-full btn-mktg-v5 !py-5 shadow-[0_10px_30px_rgba(0,0,0,0.1)]">{t.submit}</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        const modal = document.getElementById('contact-modal');
+        const content = document.getElementById('modal-content');
+        if (!modal || !content) return;
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('pointer-events-none');
+            modal.classList.add('pointer-events-auto', 'flex', 'opacity-100');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+        }, 10);
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('contact-modal');
+        const content = document.getElementById('modal-content');
+        if (!modal || !content) return;
+        content.classList.remove('scale-100');
+        content.classList.add('scale-95');
+        modal.classList.remove('opacity-100', 'pointer-events-auto');
+        modal.classList.add('pointer-events-none');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }, 300);
+    }
+
+    /* Event bindings - outside page load for maximum reliability */
+    document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        
+        // Open trigger
+        if (target && target.closest('.contact-modal-trigger')) {
+            e.preventDefault();
+            openModal();
+        }
+        
+        // Close on backdrop click
+        if (target && target.id === 'contact-modal') {
+             closeModal();
+        }
+    });
+
+    // Close on explicitly x button trigger hook
+    document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target && target.closest('#close-modal-btn')) {
+             closeModal();
+        }
+    });
+
+    document.addEventListener('submit', (e) => {
+         const target = e.target as HTMLFormElement;
+         if (target && target.id === 'desktop-modal-form') {
+              e.preventDefault();
+              const btn = target.querySelector('button');
+              if (btn) {
+                  btn.innerHTML = '¡SOLICITUD ENVIADA!';
+                  btn.style.background = '#000000';
+              }
+         }
+    });
+
+</script>

@@ -1,0 +1,135 @@
+/* ============================================================
+   Nova Marketing — Design System v5 (Back to Minimalist Premium)
+   Tailwind v4 CSS-first + Light Minimalist + Blue Accents
+   ============================================================ */
+
+/* ─── TAILWIND v4 IMPORT ─── */
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+
+/* ─── TAILWIND v4 THEME ─── */
+@theme {
+  --color-primary: #000000;
+  --color-accent: #3b82f6;
+  --color-bg: #ffffff;
+  
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ─── BASE RESET ─── */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-primary);
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+}
+
+/* ─── TYPOGRAPHY ─── */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+
+
+
+
+/* ─── CUSTOM COMPONENTS ─── */
+
+/* Glass Card */
+.service-card, .method-card, .feature-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.service-card:hover, .method-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--color-accent);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+/* Accents */
+.accent-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.accent-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background-color: var(--color-accent);
+  z-index: -1;
+  opacity: 0.3;
+}
+
+/* Background Particle Canvas */
+#canvas-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Cursor Glow */
+.cursor-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+}
+
+/* Reveal Animation */
+.reveal {
+  opacity: 0;
+}
+
+.reveal.active {
+  animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Buttons */
+.btn-mktg-v5 {
+  display: inline-block;
+  padding: 1.2rem 3rem;
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  transition: all 0.3s ease;
+}
+
+.btn-mktg-v5:hover {
+  background-color: var(--color-accent);
+  transform: scale(1.05);
+}

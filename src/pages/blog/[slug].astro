@@ -1,0 +1,201 @@
+---
+/**
+ * pages/blog/[slug].astro
+ * Artículo individual del blog con sidebar, autor, relacionados y CTAs
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/global/Breadcrumbs.astro';
+import BlockRenderer from '../../components/blocks/BlockRenderer.astro';
+import { strapiClient } from '../../lib/strapi';
+import { buildAlternates } from '../../lib/i18n';
+import { articleSchema } from '../../lib/schema';
+import type { BlogPost, AuthorSettings } from '../../lib/strapi';
+import { getStrapiImageUrl } from '../../lib/strapi';
+
+export async function getStaticPaths() {
+  try {
+    const res = await strapiClient.getBlogPosts('es');
+    const authorRes = await strapiClient.getAuthor();
+    const author = authorRes.data;
+
+    return res.data.map((item: any) => {
+      const post: BlogPost = item.attributes ?? item;
+      return {
+        params: { slug: post.slug },
+        props: { post, author },
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
+const { post, author }: { post: BlogPost; author: AuthorSettings } = Astro.props;
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const canonicalPath = `/blog/${post.slug}`;
+const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+const alternates = buildAlternates(canonicalPath, `/blog/${post.slug}`, SITE_URL);
+
+const schemas = author ? [articleSchema(post, author, canonicalUrl)] : [];
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Blog', url: '/blog' },
+  { name: post.title, url: canonicalPath },
+];
+
+function formatDate(dateStr?: string) {
+  if (!dateStr) return '';
+  return new Date(dateStr).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<BaseLayout
+  title={post.seo?.metaTitle || `${post.title} | Blog Nova Marketing`}
+  description={post.seo?.metaDescription || post.excerpt || ''}
+  canonical={canonicalUrl}
+  locale="es"
+  alternates={alternates}
+  schemas={schemas}
+>
+  <div class="container">
+    <Breadcrumbs items={breadcrumbs} locale="es" siteUrl={SITE_URL} />
+  </div>
+
+  <!-- Layout con sidebar -->
+  <div class="container py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12">
+
+      <!-- MAIN - Artículo -->
+      <article>
+        <!-- Meta del artículo -->
+        <header class="mb-8">
+          {post.category && (
+            <a href={`/blog/categoria/${post.category.slug}`} class="badge mb-4 hover:bg-electric/20 transition-colors">
+              {post.category.name}
+            </a>
+          )}
+
+          <h1 class="font-heading font-black text-text-primary mb-4" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: -0.02em;">
+            {post.title}
+          </h1>
+
+          {post.excerpt && (
+            <p class="text-lg text-text-secondary leading-relaxed mb-6">{post.excerpt}</p>
+          )}
+
+          <!-- Autor + Fecha -->
+          {author && (
+            <div class="flex items-center gap-4 py-4 border-t border-b border-border">
+              {author.photo && (
+                <img
+                  src={getStrapiImageUrl(author.photo)}
+                  alt={author.name}
+                  class="w-12 h-12 rounded-full object-cover"
+                  loading="eager"
+                />
+              )}
+              <div>
+                <div class="font-heading font-semibold text-text-primary">{author.name}</div>
+                <div class="text-text-muted text-sm flex items-center gap-2">
+                  {author.jobTitle && <span>{author.jobTitle}</span>}
+                  {author.jobTitle && post.publishedDate && <span>·</span>}
+                  {post.publishedDate && <time datetime={post.publishedDate}>{formatDate(post.publishedDate)}</time>}
+                </div>
+              </div>
+            </div>
+          )}
+        </header>
+
+        <!-- Imagen destacada -->
+        {post.featuredImage && (
+          <img
+            src={getStrapiImageUrl(post.featuredImage)}
+            alt={post.featuredImage.alternativeText || post.title}
+            width={post.featuredImage.width}
+            height={post.featuredImage.height}
+            class="w-full rounded-2xl object-cover mb-8 max-h-96"
+            loading="eager"
+          />
+        )}
+
+        <!-- Contenido del artículo -->
+        <div class="prose">
+          {post.content?.length > 0
+            ? <BlockRenderer blocks={post.content} />
+            : <p>Contenido no disponible.</p>
+          }
+        </div>
+
+        <!-- Autor box (final del artículo) -->
+        {author && (
+          <div class="mt-12 p-6 rounded-2xl bg-surface border border-border flex gap-5 items-start">
+            {author.photo && (
+              <img
+                src={getStrapiImageUrl(author.photo)}
+                alt={author.name}
+                class="w-16 h-16 rounded-xl object-cover shrink-0"
+                loading="lazy"
+              />
+            )}
+            <div>
+              <div class="font-heading font-bold text-text-primary mb-1">{author.name}</div>
+              {author.jobTitle && <div class="text-electric text-sm font-medium mb-2">{author.jobTitle}</div>}
+              {author.bio && <p class="text-text-secondary text-sm leading-relaxed">{author.bio}</p>}
+              <div class="flex gap-3 mt-3">
+                {author.linkedinUrl && <a href={author.linkedinUrl} target="_blank" class="text-text-muted hover:text-electric text-xs uppercase tracking-wider font-heading font-semibold transition-colors">LinkedIn</a>}
+                {author.twitterUrl && <a href={author.twitterUrl} target="_blank" class="text-text-muted hover:text-electric text-xs uppercase tracking-wider font-heading font-semibold transition-colors">Twitter / X</a>}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- Artículos relacionados (mismo CMS) -->
+        <div class="mt-12 pt-8 border-t border-border">
+          <h2 class="font-heading font-bold text-text-primary text-xl mb-6">
+            {post.category ? `Más artículos de ${post.category.name}` : 'Últimos artículos de Nova Marketing'}
+          </h2>
+          <p class="text-text-muted text-sm">(Se cargan dinámicamente en build time desde el CMS)</p>
+        </div>
+      </article>
+
+      <!-- SIDEBAR -->
+      <aside class="hidden lg:block">
+        <div class="sticky top-[88px] space-y-6">
+
+          <!-- CTA sidebar -->
+          <div class="card p-6 glow-border">
+            <p class="font-heading font-bold text-text-primary mb-2">¿Quieres más clientes?</p>
+            <p class="text-text-secondary text-sm mb-4">Primera reunión gratuita. Sin compromisos.</p>
+            <a href="/#contacto" class="btn btn-primary w-full justify-center text-sm">Contactar</a>
+            <a
+              href={`https://wa.me/${import.meta.env.PUBLIC_WHATSAPP}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-whatsapp w-full justify-center text-sm mt-2"
+            >
+              💬 WhatsApp
+            </a>
+          </div>
+
+          <!-- Servicios del sidebar -->
+          <div class="card p-6">
+            <p class="text-text-muted text-xs uppercase tracking-widest font-heading font-semibold mb-4">Servicios</p>
+            <ul class="space-y-2">
+              {['SEO', 'Google Ads', 'Diseño Web', 'Redes Sociales'].map(s => (
+                <li>
+                  <a href={`/servicios/${s.toLowerCase().replace(/ /g, '-')}`} class="text-sm text-text-secondary hover:text-electric transition-colors">
+                    → {s}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+</BaseLayout>

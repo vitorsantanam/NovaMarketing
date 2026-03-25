@@ -1,0 +1,49 @@
+---
+/**
+ * Footer.astro — v5 Minimalist Premium
+ */
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="py-24 bg-black border-t border-white/5 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col lg:flex-row justify-between items-start gap-20">
+            <div>
+                <div class="text-3xl font-heading font-black tracking-tighter mb-8 text-white">
+                    Nova Marketing
+                </div>
+                <p class="text-zinc-500 max-w-sm font-light text-sm tracking-widest uppercase italic">
+                   Agencia de Crecimiento Avanzado para Pymes. <br>
+                   Sabadell, Barcelona.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-16 uppercase text-[10px] font-black tracking-[0.3em] text-white">
+                <div class="flex flex-col gap-6">
+                    <span class="text-zinc-600">EXPLORAR</span>
+                    <a href="/" class="hover:text-accent transition-colors">AGENCIA</a>
+                    <a href="/servicios" class="hover:text-accent transition-colors">SERVICIOS</a>
+                    <a href="/blog" class="hover:text-accent transition-colors">BLOG</a>
+                </div>
+                <div class="flex flex-col gap-6">
+                    <span class="text-zinc-600">DIGITAL</span>
+                    <a href="https://linkedin.com" target="_blank" class="hover:text-accent transition-colors">LINKEDIN</a>
+                    <a href="https://instagram.com" target="_blank" class="hover:text-accent transition-colors">INSTAGRAM</a>
+                </div>
+                <div class="flex flex-col gap-6">
+                    <span class="text-zinc-600">LEGAL</span>
+                    <a href="/privacidad" class="hover:text-accent transition-colors">PRIVACIDAD</a>
+                    <a href="/cookies" class="hover:text-accent transition-colors">COOKIES</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-24 pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-black tracking-[0.3em] uppercase text-zinc-600">
+            <div>© {currentYear} <span class="normal-case">Nova Marketing</span> AGENCY. TODOS LOS DERECHOS RESERVADOS.</div>
+            <div class="flex gap-10">
+                <span class="text-accent underline decoration-accent/30 underline-offset-4">ENGINE: V5.0.0</span>
+                <span>BASED IN SABADELL, ES.</span>
+            </div>
+        </div>
+    </div>
+</footer>

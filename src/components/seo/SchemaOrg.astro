@@ -1,0 +1,11 @@
+---
+/**
+ * components/seo/SchemaOrg.astro
+ * Renderiza un bloque JSON-LD en el <head>
+ */
+interface Props {
+  schema: object;
+}
+const { schema } = Astro.props;
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

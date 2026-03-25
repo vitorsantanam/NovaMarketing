@@ -1,0 +1,55 @@
+---
+/**
+ * components/blocks/BlockRenderer.astro
+ * Dispatcher automático para bloques del CMS (Dynamic Zone)
+ * Añadir aquí nuevos tipos de bloques a medida que se creen
+ */
+
+import TextBlock from './TextBlock.astro';
+import CtaBlock from './CtaBlock.astro';
+import FaqBlock from './FaqBlock.astro';
+import ClientLogos from './ClientLogos.astro';
+import StatsBlock from './StatsBlock.astro';
+import NewsletterBlock from './NewsletterBlock.astro';
+import ImageBlock from './ImageBlock.astro';
+import QuoteBlock from './QuoteBlock.astro';
+import CaseStudyBlock from './CaseStudyBlock.astro';
+
+import type { ContentBlock } from '../../lib/strapi';
+
+interface Props {
+  blocks: ContentBlock[];
+}
+
+const { blocks } = Astro.props;
+---
+
+{blocks?.map((block) => {
+  switch (block.__component) {
+    case 'blocks.text-block':
+      return <TextBlock {...block} />;
+    case 'blocks.cta-block':
+      return <CtaBlock {...block} />;
+    case 'blocks.faq-block':
+      return <FaqBlock {...block} />;
+    case 'blocks.client-logos':
+      return <ClientLogos {...block} />;
+    case 'blocks.stats-block':
+      return <StatsBlock {...block} />;
+    case 'blocks.newsletter-block':
+      return <NewsletterBlock {...block} />;
+    case 'blocks.image-block':
+      return <ImageBlock {...block} />;
+    case 'blocks.quote-block':
+      return <QuoteBlock {...block} />;
+    case 'blocks.case-study-block':
+      return <CaseStudyBlock {...block} />;
+    default:
+      // En desarrollo, mostrar bloque desconocido como warning
+      return import.meta.env.DEV
+        ? <div class="my-4 p-3 border border-warning rounded text-warning text-sm">
+            Bloque desconocido: {(block as any).__component}
+          </div>
+        : null;
+  }
+})}

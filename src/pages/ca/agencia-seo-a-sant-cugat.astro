@@ -1,0 +1,540 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-seo-en-sant-cugat', '/ca/agencia-seo-a-sant-cugat', SITE_URL);
+
+---
+
+<BaseLayout
+  title="Agència de Posicionament SEO a Sant Cugat | Nova Marketing"
+  description="Estratègies de posicionament SEO local a Sant Cugat. Auditoria, Linkbuilding i Google Maps per a pimes que busquen trànsit orgànic i vendes."
+  locale="ca"
+  alternates={alternates}
+>
+
+    
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        
+        <!-- Background Grid Mesh -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+
+        <!-- Glow Orbs -->
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal relative z-10">
+            <!-- Glassmorphic Subtitle Badge -->
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Visibilitat Orgànica Local
+            </span>
+
+            <!-- H1 Style -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase font-black tracking-tighter leading-[0.80] mb-6 text-zinc-900 flex flex-col items-center text-center">
+                <span>Agència de</span>
+                <span>Posicionament SEO</span>
+                <span class="bg-gradient-to-r from-accent via-accent/90 to-purple-600 bg-clip-text text-transparent px-4 overflow-visible inline-block">a Sant Cugat</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
+                Optimitzem la teva presència a Google per dominar les cerques a Sant Cugat. Enfocament en SEO per a serveis B2B, consultories i perfils corporatius d’alt poder adquisitiu. Trànsit web qualificat enfocat a la conversió.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
+                    MULTIPLICAR EL MEU TRÀNSIT ORGÀNIC
+                </a>
+            </div>
+        </div>
+    </section>
+    
+
+    
+    <!-- ═══ SECCIÓN 1: ESPECIALISTAS / H2 ══════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
+        
+        <div class="max-w-6xl mx-auto">
+            <!-- Header section -->
+            <div class="max-w-3xl mx-auto text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">SEO Experts</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85] text-gradient">
+                    Especialistes en SEO Local a Sant Cugat
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El mercat de Sant Cugat exigeix una optimització quirúrgica. No n'hi ha prou amb aparèixer a Google. Cal posicionar la teva marca a les zones de major demanda comercial com Valldoreix, Mira-sol, Parc Central. Estudiem la teva competència i tracem el camí per superar-la a les SERPs.
+                </p>
+            </div>
+
+            <!-- Bento Grid Frame structure -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 reveal">
+                
+                <!-- Card 1: Main Big Bento -->
+                <div class="md:col-span-8 bg-white p-8 sm:p-12 border border-black/5 rounded-2xl shadow-sm group hover:border-black/10 hover:shadow-xl transition-all duration-500 flex flex-col justify-between relative overflow-hidden min-h-[350px]">
+                    <div class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div>
+                        <div class="self-start p-4 bg-zinc-50 border border-black/5 rounded-2xl mb-6 shadow-sm group-hover:bg-accent/10 group-hover:border-accent/10 transition-colors">
+                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-4 max-w-md">
+                            Auditoria SEO a Sant Cugat
+                        </h3>
+                        <p class="text-sm sm:text-base text-zinc-400 font-light leading-relaxed max-w-lg">
+                            Analitzem la salut tècnica de la teva web detectant errors d'indexació i rastreig que frenen la teva visibilitat a Sant Cugat.
+                        </p>
+                    </div>
+
+                    <div class="mt-8 flex justify-between items-center">
+                        <a href="#contacto" class="contact-modal-trigger flex items-center gap-2 text-xs font-black tracking-widest text-black group-hover:text-accent transition-colors">
+                            MÉS INFORMACIÓ 
+                            <span class="transform group-hover:translate-x-1 transition-transform">→</span>
+                        </a>
+                        <div class="text-5xl font-black text-black/5">01</div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Small Bento -->
+                <div class="md:col-span-4 bg-white p-8 border border-black/5 rounded-2xl shadow-sm hover:border-black/10 hover:shadow-xl transition-all duration-500 flex flex-col justify-between group">
+                    <div>
+                        <div class="p-4 bg-zinc-50 border border-black/5 rounded-2xl w-fit mb-4 group-hover:bg-accent/10 transition-colors">
+                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-black uppercase tracking-tighter text-zinc-900 mb-2">Keyword Research per a Empreses a Sant Cugat</h3>
+                        <p class="text-xs text-zinc-400 font-light leading-relaxed">Identifiquem les cerques exactes que realitzen els usuaris de Sant Cugat per captar trànsit amb alta intenció de compra.</p>
+                    </div>
+                    <div class="mt-6 flex justify-between items-center">
+                         <a href="#contacto" class="contact-modal-trigger text-[10px] font-black tracking-widest text-accent hover:underline">MÉS INFO</a>
+                         <div class="text-3xl font-black text-black/5">02</div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Small Bento -->
+                <div class="md:col-span-4 bg-white p-8 border border-black/5 rounded-2xl shadow-sm hover:border-black/10 hover:shadow-xl transition-all duration-500 flex flex-col justify-between group">
+                    <div>
+                        <div class="p-4 bg-zinc-50 border border-black/5 rounded-2xl w-fit mb-4 group-hover:bg-accent/10 transition-colors">
+                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-black uppercase tracking-tighter text-zinc-900 mb-2">Optimització SEO On-Page a Sant Cugat</h3>
+                        <p class="text-xs text-zinc-400 font-light leading-relaxed">Ajustem títols, encapçalaments i continguts de la teva web perquè Google entengui la rellevància del teu negoci a Sant Cugat.</p>
+                    </div>
+                    <div class="mt-6 flex justify-between items-center">
+                         <a href="#contacto" class="contact-modal-trigger text-[10px] font-black tracking-widest text-accent hover:underline">MÉS INFO</a>
+                         <div class="text-3xl font-black text-black/5">03</div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Medium Bento (Span remaining) -->
+                <div class="md:col-span-8 bg-zinc-900 text-white p-8 sm:p-12 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col sm:flex-row justify-between items-center gap-6 group overflow-hidden relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative z-10 flex flex-col justify-between h-full">
+                        <div>
+                            <div class="p-4 bg-white/5 border border-white/5 rounded-2xl w-fit mb-4 group-hover:bg-accent/20 transition-colors">
+                                <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter text-white mb-2 max-w-md">Estratègia de Linkbuilding a Sant Cugat</h3>
+                            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed max-w-md">Construïm enllaços de qualitat que transfereixen autoritat al teu domini, millorant el teu rànquing davant competidors a l'àrea.</p>
+                        </div>
+                        <div class="mt-6">
+                            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-3 !px-6 !text-[10px] !bg-white !text-black shadow-lg">
+                                COMENÇAR
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative z-10 text-8xl font-black text-white/5">04</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+
+    
+    
+    <!-- ═══ METODOLOGÍA: BARRA DE PROGRESO ════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Evolución Orgánica</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85] text-gradient">
+                    La Nostra Metodologia SEO
+                </h2>
+                <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed">
+                    <p>Un full de ruta progressiu per guanyar autoritat web.</p>
+                </div>
+            </div>
+
+            <div class="timeline-container relative">
+                <!-- Outer Path track connector -->
+                <div class="absolute left-4 md:left-1/2 top-10 bottom-12 w-[2px] bg-zinc-100 md:-translate-x-1/2 overflow-hidden">
+                    <div class="progress-bar absolute top-0 left-0 w-full bg-accent transition-all duration-100" style="height: 0%;"></div>
+                </div>
+                
+                <div class="space-y-12 md:space-y-20 flex flex-col items-center">
+
+                    <!-- Paso 1 -->
+                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                        <!-- Left Desktop card or spacing -->
+                        <div class="hidden md:block md:flex-1 text-right md:order-1 md:pr-12">
+                            <div class="bg-zinc-50 p-8 rounded-2xl border border-black/5 hover:border-black/10 transition-all hover:shadow-xl group relative overflow-hidden text-left">
+                                <div class="absolute -bottom-6 -right-6 text-9xl font-black text-black/2 group-hover:text-accent/5 transition-colors duration-500">01</div>
+                                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-3 text-zinc-900 border-b-2 border-accent w-fit pb-1">1. Auditoria SEO a Sant Cugat</h3>
+                                <p class="text-sm text-zinc-500 font-light max-w-md">Analitzem la salut tècnica de la teva web detectant errors d'indexació i rastreig que frenen la teva visibilitat a Sant Cugat.</p>
+                            </div>
+                        </div>
+
+                        <!-- Node Center -->
+                        <div class="absolute left-0 md:static md:order-2 flex justify-center items-center z-10 w-10 md:w-auto">
+                            <div class="relative flex items-center justify-center">
+                                <div class="absolute inset-0 bg-accent/20 rounded-full animate-ping opacity-60"></div>
+                                <div class="node-circle w-10 h-10 rounded-full border-2 border-accent bg-white text-zinc-900 flex items-center justify-center font-black text-sm shadow-lg">01</div>
+                            </div>
+                        </div>
+
+                        <!-- Mobile card support -->
+                        <div class="pl-12 md:pl-0 flex-1 text-left md:order-3 md:pl-12">
+                            <div class="bg-zinc-50 p-6 rounded-xl border border-black/5 md:hidden">
+                                <h3 class="text-lg font-black uppercase tracking-tighter mb-2 text-zinc-900">1. Auditoria SEO a Sant Cugat</h3>
+                                <p class="text-xs text-zinc-500 font-light">Analitzem la salut tècnica de la teva web detectant errors d'indexació i rastreig que frenen la teva visibilitat a Sant Cugat.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paso 2 -->
+                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                         <!-- Spacing/Card desktop for mobile-first order -->
+                         <div class="hidden md:block md:flex-1 text-left md:order-3 md:pl-12">
+                              <div class="bg-zinc-50 p-8 rounded-2xl border border-black/5 hover:border-black/10 transition-all hover:shadow-xl group relative overflow-hidden text-left">
+                                <div class="absolute -bottom-6 -right-6 text-9xl font-black text-black/2 group-hover:text-accent/5 transition-colors duration-500">02</div>
+                                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-3 text-zinc-900 border-b-2 border-accent w-fit pb-1">2. Keyword Research per a Empreses a Sant Cugat</h3>
+                                <p class="text-sm text-zinc-500 font-light max-w-md">Identifiquem les cerques exactes que realitzen els usuaris de Sant Cugat per captar trànsit amb alta intenció de compra.</p>
+                              </div>
+                         </div>
+
+                        <!-- Node Center -->
+                           <div class="absolute left-0 md:static md:order-2 flex justify-center items-center z-10 w-10 md:w-auto">
+                             <div class="node-circle w-10 h-10 rounded-full border-2 border-accent/20 bg-white text-zinc-900 flex items-center justify-center font-black text-sm shadow-md hover:border-accent hover:bg-zinc-900 hover:text-white transition-all duration-300">02</div>
+                           </div>
+
+                        <!-- Mobile card support -->
+                        <div class="pl-12 md:pl-0 flex-1 text-left md:order-1 md:pr-12">
+                            <div class="bg-zinc-50 p-6 rounded-xl border border-black/5 md:hidden">
+                                <h3 class="text-lg font-black uppercase tracking-tighter mb-2 text-zinc-900">2. Keyword Research per a Empreses a Sant Cugat</h3>
+                                <p class="text-xs text-zinc-500 font-light">Identifiquem les cerques exactes que realitzen els usuaris de Sant Cugat per captar trànsit amb alta intenció de compra.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paso 3 -->
+                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                        <div class="hidden md:block md:flex-1 text-right md:order-1 md:pr-12">
+                            <div class="bg-zinc-50 p-8 rounded-2xl border border-black/5 hover:border-black/10 transition-all hover:shadow-xl group relative overflow-hidden text-left">
+                                <div class="absolute -bottom-6 -right-6 text-9xl font-black text-black/2 group-hover:text-accent/5 transition-colors duration-500">03</div>
+                                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-3 text-zinc-900 border-b-2 border-accent w-fit pb-1">3. Optimització SEO On-Page a Sant Cugat</h3>
+                                <p class="text-sm text-zinc-500 font-light max-w-md">Ajustem títols, encapçalaments i continguts de la teva web perquè Google entengui la rellevància del teu negoci a Sant Cugat.</p>
+                            </div>
+                        </div>
+
+                        <!-- Node Center -->
+                        <div class="absolute left-0 md:static md:order-2 flex justify-center items-center z-10 w-10 md:w-auto">
+                             <div class="node-circle w-10 h-10 rounded-full border-2 border-accent/20 bg-white text-zinc-900 flex items-center justify-center font-black text-sm shadow-md hover:border-accent hover:bg-zinc-900 hover:text-white transition-all duration-300">03</div>
+                        </div>
+
+                        <!-- Mobile card support -->
+                        <div class="pl-12 md:pl-0 flex-1 text-left md:order-3 md:pl-12">
+                            <div class="bg-zinc-50 p-6 rounded-xl border border-black/5 md:hidden">
+                                <h3 class="text-lg font-black uppercase tracking-tighter mb-2 text-zinc-900">3. Optimització SEO On-Page a Sant Cugat</h3>
+                                <p class="text-xs text-zinc-500 font-light">Ajustem títols, encapçalaments i continguts de la teva web perquè Google entengui la rellevància del teu negoci a Sant Cugat.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+    
+    
+    <!-- ═══ SECCIÓN 2: CONSULTORÍA / H2 ════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                
+                <!-- Image side with mesh effects -->
+                <div class="md:col-span-5 relative group flex justify-center">
+                    <!-- Glow mesh behind -->
+                    <div class="absolute inset-0 bg-accent/20 rounded-full blur-3xl opacity-30 group-hover:scale-105 transition-transform duration-500"></div>
+                    
+                    <div class="relative w-full max-w-sm">
+                        <!-- Polka Dots Background Pattern -->
+                        <div class="absolute -top-6 -left-6 w-24 h-24 bg-[radial-gradient(#000000_15%,transparent_15%)] bg-[length:12px_12px] opacity-20"></div>
+                        
+                        <div class="overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-4 border-white">
+                            <img src="/img/consultor-de-seo-a-sant-cugat.webp" alt="Consultor de SEO a Sant cugat" class="w-full h-auto object-cover transform scale-100 group-hover:scale-102 transition-transform duration-700">
+                        </div>
+
+                        <!-- Floating Floating badge with Glassmorphism -->
+                        <div class="absolute -bottom-4 -right-4 backdrop-blur-md bg-black/90 text-white px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 border border-white/10">
+                            <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                            <div class="text-[10px] sm:text-xs font-black uppercase tracking-widest">Estrategia SEO</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text side -->
+                <div class="md:col-span-7 text-left">
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Visibilitat Orgànica</span>
+                    <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85] text-gradient">
+                        Consultor de SEO a Sant cugat
+                    </h2>
+                    <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">
+                        Assesoro pimes per optimitzar la seva presència orgànica. No es tracta només d’aparèixer a Google, es tracta de dominar les cerques del teu públic objectiu i captar Leads de negoci reals.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+                            <div class="text-sm font-black uppercase tracking-wider text-black mb-2">On-Page</div>
+                            <p class="text-xs text-zinc-400 font-light">Optimització de còdig i text.</p>
+                        </div>
+                        <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+                            <div class="text-sm font-black uppercase tracking-wider text-black mb-2">Linkbuilding</div>
+                            <p class="text-xs text-zinc-400 font-light">Autoritat i enllaços qualificats.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+        
+    
+    <!-- ═══ SECCIÓN 3: PUNTOS CLAVE ════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-[#0a0a0b] text-white border-y border-white/5 px-4 sm:px-6">
+        <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+<div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.5em] text-accent mb-6 block">Estratègia Dirigida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-white leading-[0.9]">
+                    Posicionament a Google Maps a Sant Cugat
+                </h2>
+                <p class="text-zinc-400 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Per al comerç local i els serveis a Sant Cugat, el Local Pack de Google és el canal de captació més rentable. Gestionem i optimitzem la teva fitxa de Google Business Profile perquè el teu negoci encapçali el Pack de resultats local davant usuaris que busquen des del seu smartphone.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left reveal">
+                <!-- Tarjeta 1 -->
+                <div class="bg-zinc-900/40 backdrop-blur-xl p-8 border border-zinc-800/40 rounded-2xl shadow-sm hover:border-accent/40 hover:shadow-[0_20px_40px_-15px_rgba(var(--accent-rgb),0.1)] hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="text-4xl text-white/5 font-black mb-6 group-hover:text-accent transition-colors">01</div>
+                    <h3 class="font-black text-xl uppercase tracking-tighter text-white mb-3">Precisió de Públic</h3>
+                    <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                        Només impactem usuaris llestos per comprar els teus serveis o productes, ignorant el trànsit curiós sense intenció comercial.
+                    </p>
+                </div>
+                <!-- Tarjeta 2 -->
+                <div class="bg-zinc-900/40 backdrop-blur-xl p-8 border border-zinc-800/40 rounded-2xl shadow-sm hover:border-accent/40 hover:shadow-[0_20px_40px_-15px_rgba(var(--accent-rgb),0.1)] hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="text-4xl text-white/5 font-black mb-6 group-hover:text-accent transition-colors">02</div>
+                    <h3 class="font-black text-xl uppercase tracking-tighter text-white mb-3">Escalfament del Lead</h3>
+                    <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                        Redactem anuncis i continguts enfocats als beneficis clau que busca el teu arquetip de client ideal.
+                    </p>
+                </div>
+                <!-- Tarjeta 3 -->
+                <div class="bg-zinc-900/40 backdrop-blur-xl p-8 border border-zinc-800/40 rounded-2xl shadow-sm hover:border-accent/40 hover:shadow-[0_20px_40px_-15px_rgba(var(--accent-rgb),0.1)] hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="text-4xl text-white/5 font-black mb-6 group-hover:text-accent transition-colors">03</div>
+                    <h3 class="font-black text-xl uppercase tracking-tighter text-white mb-3">Dominació Local</h3>
+                    <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                        Assegurem presència d'absoluta autoritat a les àrees geogràfiques de major rendibilitat per al teu negoci.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+
+
+    <!-- ═══ SECCIÓN 4: RESULTADOS / CASOS ÉXITO ════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Resultats de Posicionament Web a Sant Cugat
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Posicionamiento en el Local Pack multiplicando las visitas físicas en un trimestre.
+                </p>
+            </div>
+
+            <!-- Panel de Métricas Directas -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 reveal text-center">
+                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
+                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+40%</div>
+                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Mitjana de Conversió</div>
+                </div>
+                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
+                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">-35%</div>
+                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Reducció Cost / Clic</div>
+                </div>
+                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
+                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x4.5</div>
+                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Retorn Inversió (ROI)</div>
+                </div>
+                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
+                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+200</div>
+                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Leads Qualificats/Mes</div>
+                </div>
+            </div>
+
+            <!-- Casos de Éxito Emulados -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+                <div class="bg-zinc-950 text-white p-10 rounded-2xl border border-zinc-800 relative overflow-hidden group hover:shadow-2xl hover:border-zinc-700 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
+<div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
+<div class="flex items-center gap-2 mb-6 text-accent">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        </div>
+                        <p class="font-light text-lg sm:text-xl leading-relaxed mb-8">
+                            "Vam retallar la despesa innecessària el primer mes. Ara reben visites qualificades directes als nostres serveis principals augmentant la cartera de clients."
+                        </p>
+                    </div>
+                    <div>
+                        <div class="font-black">Empresa de Servicios B2B</div>
+                        <div class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Cas d´Èxit Real</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-10 rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:border-accent/10 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col justify-between group flex flex-col justify-between" style="transition-delay: 100ms">
+                    <div>
+                        <div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
+<div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
+<div class="flex items-center gap-2 mb-6 text-accent">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        </div>
+                        <p class="font-light text-zinc-600 text-lg sm:text-xl leading-relaxed mb-8">
+                           "La claredat amb què expliquen on va cada euro i per què, ens va permetre duplicar les vendes. Hem deixat d´experimentar per anar sobre assegurança." 
+                        </p>
+                    </div>
+                    <div>
+                        <div class="font-black text-zinc-900">Compañía Industrial</div>
+                        <div class="text-[10px] text-zinc-400 uppercase tracking-widest mt-1">Cas d´Èxit Real</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+
+<!-- ═══ SECCIÓN 5: CONTACTO / H2 ═════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO ORGÁNICO</span>
+                <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   Contactar amb Experts SEO a Sant Cugat
+                </h2>
+                <p class="font-light max-w-sm text-base sm:text-lg">
+                    Demana el teu diagnòstic SEO ara. Analitzaré la teva web i et diré quins passos fer per escalar posicions a Sant Cugat.
+                </p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-6" id="contact-form">
+                        <div class="grid grid-cols-1 gap-4 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-2">
+                                <label class="opacity-30">NOMBRE</label>
+                                <input type="text" name="name" required class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-4 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-2">
+                                <label class="opacity-30">EMAIL</label>
+                                <input type="email" name="email" required class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">MENSAJE</label>
+                            <textarea name="msg" rows="2" class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-4 shadow-md">SOL·LICITAR DIAGNÒSTIC</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<script>
+    function initTimeline() {
+        const progressBars = document.querySelectorAll('.progress-bar');
+        const timelines = document.querySelectorAll('.timeline-container');
+        if (progressBars.length === 0 || timelines.length === 0) return;
+
+        function updateProgress() {
+            timelines.forEach((timeline, i) => {
+                const progressBar = progressBars[i];
+                if (!progressBar) return;
+                const rect = timeline.getBoundingClientRect();
+                const winHeight = window.innerHeight;
+                const topPassed = (winHeight / 2) - rect.top;
+                let percentage = (topPassed / rect.height) * 100;
+                percentage = Math.max(0, Math.min(100, percentage));
+                progressBar.style.height = `${percentage}%`;
+
+                const nodes = timeline.querySelectorAll('.node-circle');
+                nodes.forEach((node) => {
+                    const nodeTop = node.getBoundingClientRect().top;
+                    if (nodeTop < winHeight / 2) {
+                        node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                    } else {
+                        node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                    }
+                });
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>
+
+</BaseLayout>
+
+<script>
+    if (document.getElementById('contact-form')) {
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            if (btn) {
+                btn.innerHTML = 'SOL·LICITUD REBUDA!';
+                btn.style.background = '#000000';
+            }
+        });
+    }
+</script>
+  

@@ -1,0 +1,143 @@
+---
+/**
+ * Header.astro — v6 optimized layout
+ */
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { type Locale } from '../../lib/i18n';
+import type { GlobalSettings } from '../../lib/strapi';
+
+interface Props {
+  locale?: Locale;
+  alternates?: { lang: string; url: string }[];
+  settings?: GlobalSettings;
+}
+
+const { locale = 'es', alternates = [], settings } = Astro.props;
+const prefix = locale === 'ca' ? '/ca' : '';
+
+const t = {
+  es: {
+    agencia: 'Agencia',
+    servicios: 'Servicios',
+    blog: 'Blog de marketing',
+    casos: 'Casos de éxito',
+    contactar: 'CONTACTAR',
+    services: [
+      { href: '/agencia-seo-para-pymes', label: 'Posicionamiento SEO' },
+      { href: '/agencia-sem-para-pymes', label: 'Google Ads' },
+      { href: '/diseno-web-para-pymes', label: 'Diseño de Páginas Web' },
+      { href: '/consultoria-marketing-para-pymes', label: 'Consultoría de Marketing' },
+    ]
+  },
+  ca: {
+    agencia: 'Agència',
+    servicios: 'Serveis',
+    blog: 'Blog de marketing',
+    casos: 'Casos d\'èxit',
+    contactar: 'CONTACTAR',
+    services: [
+      { href: '/ca/agencia-seo-per-pimes', label: 'Posicionament SEO' },
+      { href: '/ca/agencia-sem-per-pimes', label: 'Google Ads' },
+      { href: '/ca/disseny-web-per-pimes', label: 'Disseny de Pàgines Web' },
+      { href: '/ca/consultoria-marketing-per-pimes', label: 'Consultoria de Marketing' },
+    ]
+  }
+
+
+
+}[locale];
+
+const services = t.services;
+const currentPath = Astro.url.pathname;
+
+---
+
+<header class="fixed top-0 left-0 w-full z-50 bg-white border-b border-black/5 py-2 sm:py-3">
+  <div class="relative max-w-full px-4 sm:px-12 md:px-16 flex items-center justify-between md:grid md:grid-cols-3 h-12 md:h-14">
+    
+    <!-- BRAND (Centered on Mobile, Left on Desktop) -->
+    <div class="flex items-center absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">
+      <a href={`${prefix}/`} class="flex items-center gap-2 group">
+        <div class="text-[2.5rem] font-heading font-black tracking-tighter leading-none transition-colors duration-200 group-hover:text-accent flex items-center">
+          <span>NOVA</span><span class="text-accent">.</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- NAV DESKTOP (Centered) -->
+    <nav class="hidden md:flex items-center justify-center gap-5">
+      <a href={`${prefix}/`} class:list={['text-[12px] uppercase font-bold tracking-[0.15em] hover:text-accent transition-colors whitespace-nowrap', currentPath === `${prefix}/` ? 'text-accent' : 'text-zinc-700']}> {t.agencia} </a>
+ 
+       <!-- Dropdown Servicios -->
+       <div class="relative group">
+         <button class:list={['text-[12px] uppercase font-bold tracking-[0.15em] hover:text-accent transition-colors flex items-center gap-1 cursor-pointer whitespace-nowrap', currentPath.includes('agencia-seo') || currentPath.startsWith(`${prefix}/servicios`) || currentPath.startsWith(`${prefix}/serveis`) ? 'text-accent' : 'text-zinc-700']}>
+           {t.servicios}
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:rotate-180 transition-transform"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+
+        <div class="absolute top-8 left-1/2 -translate-x-1/2 w-52 bg-white border border-black/5 shadow-lg rounded-md invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 mt-2 p-1.5 flex flex-col gap-0.5 z-50">
+          {services.map(s => (
+            <a href={s.href} class="text-[11px] uppercase font-bold tracking-wider text-zinc-600 hover:text-accent hover:bg-zinc-50 px-3 py-2 rounded transition-colors whitespace-nowrap">
+              {s.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <a href={`${prefix}/blog`} class:list={['text-[12px] uppercase font-bold tracking-[0.15em] hover:text-accent transition-colors whitespace-nowrap', currentPath.startsWith(`${prefix}/blog`) ? 'text-accent' : 'text-zinc-700']}> {t.blog} </a>
+      <a href={`${prefix}/casos-exito`} class:list={['text-[12px] uppercase font-bold tracking-[0.15em] hover:text-accent transition-colors whitespace-nowrap', currentPath.startsWith(`${prefix}/casos-exito`) ? 'text-accent' : 'text-zinc-700']}> {t.casos} </a>
+</nav>
+
+    <!-- ACTIONS (Far Right) -->
+    <div class="flex items-center justify-end gap-6 ml-auto md:ml-0">
+      <div class="hidden md:flex items-center gap-4">
+        <LanguageSwitcher locale={locale} alternates={alternates} />
+        <button class="contact-modal-trigger btn-mktg-v5 !py-3 !px-6 !text-[11px] font-black shadow-sm">{t.contactar}</button>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button class="md:hidden w-8 h-8 flex flex-col justify-center items-end gap-1.5 focus:outline-none" id="mobile-menu-btn">
+        <div class="w-6 h-px bg-black"></div>
+        <div class="w-4 h-px bg-black"></div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="hidden md:hidden absolute top-[52px] left-0 w-full bg-white border-b border-black/5 shadow-lg px-5 py-4 flex flex-col gap-4 z-40" id="mobile-menu">
+     <a href={`${prefix}/`} class="text-[12px] uppercase font-bold tracking-wider text-zinc-700"> {t.agencia} </a>
+     
+     <details class="group flex flex-col gap-1.5 list-none">
+        <summary class="text-[12px] uppercase font-black tracking-wider text-zinc-700 cursor-pointer flex justify-between items-center decoration-none">
+          <span>{t.servicios}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-200 group-open:rotate-180"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="flex flex-col gap-2 pl-3 mt-1 mr-0">
+            {services.map(s => (
+                <a href={s.href} class="text-[11px] uppercase font-bold tracking-wider text-zinc-600">
+                  {s.label}
+                </a>
+            ))}
+        </div>
+     </details>
+
+     <a href={`${prefix}/blog`} class="text-[12px] uppercase font-bold tracking-wider text-zinc-700"> {t.blog} </a>
+     <a href={`${prefix}/casos-exito`} class="text-[12px] uppercase font-bold tracking-wider text-zinc-700"> {t.casos} </a>
+
+     
+     <div class="mt-1 pt-3 border-t border-black/5 flex justify-center">
+         <LanguageSwitcher locale={locale} alternates={alternates} />
+     </div>
+  </div>
+</header>
+<div class="h-[72px] md:h-[80px]"></div>
+
+<script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    }
+</script>

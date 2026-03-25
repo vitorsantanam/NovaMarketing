@@ -1,0 +1,13 @@
+---
+/** blocks/TextBlock.astro — Bloque de texto/HTML rico */
+interface Props {
+  content: string;
+  backgroundColor?: string;
+}
+const { content, backgroundColor } = Astro.props;
+---
+<div
+  class="prose my-8 mx-auto"
+  style={backgroundColor ? `background:${backgroundColor}; padding:2rem; border-radius:1rem;` : ''}
+  set:html={content}
+/>

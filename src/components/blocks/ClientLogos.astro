@@ -1,0 +1,31 @@
+---
+/** blocks/ClientLogos.astro — Grid de logos de clientes */
+import { getStrapiImageUrl, type StrapiImage } from '../../lib/strapi';
+
+interface Props {
+  title?: string;
+  logos?: StrapiImage[];
+}
+
+const { title, logos = [] } = Astro.props;
+---
+
+{logos.length > 0 && (
+  <div class="my-12">
+    {title && (
+      <p class="text-center text-text-muted text-sm uppercase tracking-widest font-heading font-semibold mb-8">{title}</p>
+    )}
+    <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+      {logos.map((logo) => (
+        <img
+          src={getStrapiImageUrl(logo)}
+          alt={logo.alternativeText || 'Cliente de Nova Marketing'}
+          width={logo.width > 160 ? 160 : logo.width}
+          height="auto"
+          loading="lazy"
+          class="h-8 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0"
+        />
+      ))}
+    </div>
+  </div>
+)}

@@ -1,0 +1,25 @@
+---
+/** blocks/StatsBlock.astro — Métricas/estadísticas visuales */
+interface StatItem {
+  value: string;
+  label: string;
+  description?: string;
+}
+interface Props {
+  items: StatItem[];
+}
+const { items = [] } = Astro.props;
+---
+<div class="my-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+  {items.map((item, i) => (
+    <div
+      class="card text-center"
+      data-animate
+      data-animate-delay={String(i * 100)}
+    >
+      <div class="text-3xl md:text-4xl font-heading font-black text-electric mb-1">{item.value}</div>
+      <div class="text-sm font-semibold text-text-primary">{item.label}</div>
+      {item.description && <div class="text-xs text-text-muted mt-1">{item.description}</div>}
+    </div>
+  ))}
+</div>

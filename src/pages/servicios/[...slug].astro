@@ -1,0 +1,134 @@
+---
+/**
+ * pages/servicios/[...slug].astro
+ * Landing de servicio individual — Soporta slugs simples y padre/hijo:
+ *   /servicios/seo
+ *   /servicios/marketing-digital-sabadell/posicionamiento-seo
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/global/Breadcrumbs.astro';
+import BlockRenderer from '../../components/blocks/BlockRenderer.astro';
+import { strapiClient } from '../../lib/strapi';
+import { buildAlternates, t } from '../../lib/i18n';
+import { serviceSchema, breadcrumbSchema } from '../../lib/schema';
+import type { Service } from '../../lib/strapi';
+
+export async function getStaticPaths() {
+  try {
+    const res = await strapiClient.getServices('es');
+    return res.data.map((item: any) => {
+      const service: Service = item.attributes ?? item;
+      const slug = service.parentSlug
+        ? `${service.parentSlug}/${service.slug}`
+        : service.slug;
+      return {
+        params: { slug },
+        props: { service },
+      };
+    });
+  } catch {
+    // Sin Strapi activo, no generamos rutas dinámicas
+    return [];
+  }
+}
+
+const { service } = Astro.props;
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const locale = 'es';
+
+const canonicalPath = `/servicios/${service.parentSlug ? `${service.parentSlug}/` : ''}${service.slug}`;
+const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+
+// hreflang alternates (el slug catalán vendría de la versión localizada en Strapi)
+const alternates = buildAlternates(canonicalPath, `/serveis/${service.slug}`, SITE_URL);
+
+const schemas = [serviceSchema(service, canonicalUrl)];
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Servicios', url: '/servicios' },
+  ...(service.parentSlug
+    ? [{ name: service.parentSlug.replace(/-/g, ' '), url: `/servicios/${service.parentSlug}` }]
+    : []),
+  { name: service.title, url: canonicalPath },
+];
+---
+
+<BaseLayout
+  title={service.seo?.metaTitle || `${service.title} | Nova Marketing`}
+  description={service.seo?.metaDescription || service.excerpt || `Servicio de ${service.title} para pymes. Nova Marketing.`}
+  canonical={canonicalUrl}
+  locale={locale}
+  alternates={alternates}
+  schemas={schemas}
+>
+  <!-- Breadcrumbs -->
+  <div class="container">
+    <Breadcrumbs items={breadcrumbs} locale={locale} siteUrl={SITE_URL} />
+  </div>
+
+  <!-- Hero del servicio -->
+  <section class="section pt-8" aria-labelledby="service-heading">
+    <div class="container max-w-4xl">
+      <div class="badge mb-4">Servicio</div>
+      <h1 id="service-heading" class="font-heading font-black text-text-primary mb-4" style="font-size: clamp(2rem, 4vw, 3.5rem);">
+        {service.heroHeadline || service.title}
+      </h1>
+      {(service.heroSubheadline || service.excerpt) && (
+        <p class="text-lg md:text-xl text-text-secondary leading-relaxed mb-8 max-w-[60ch]">
+          {service.heroSubheadline || service.excerpt}
+        </p>
+      )}
+
+      <!-- CTAs -->
+      <div class="hidden lg:flex flex-wrap gap-4">
+        <a href="#contacto" class="contact-modal-trigger btn btn-primary">Solicitar información</a>
+        <a href={`tel:${import.meta.env.PUBLIC_PHONE}`} class="btn btn-secondary">📞 Llamar</a>
+      </div>
+      <div class="flex lg:hidden flex-col gap-3 max-w-xs">
+        <a href={`https://wa.me/${import.meta.env.PUBLIC_WHATSAPP}`} target="_blank" class="btn btn-whatsapp justify-center">💬 WhatsApp</a>
+        <a href="#contacto" class="contact-modal-trigger btn btn-primary justify-center">Más información</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Imagen destacada -->
+  {service.featuredImage && (
+    <div class="container max-w-5xl mb-12">
+      <img
+        src={service.featuredImage.url}
+        alt={service.featuredImage.alternativeText || service.title}
+        class="w-full h-64 md:h-96 object-cover rounded-2xl"
+        loading="eager"
+      />
+    </div>
+  )}
+
+  <!-- Contenido dinámico del CMS -->
+  {service.content?.length > 0 && (
+    <div class="container max-w-4xl">
+      <BlockRenderer blocks={service.content} />
+    </div>
+  )}
+
+  <!-- CTA final -->
+  <section id="contacto" class="section">
+    <div class="container max-w-2xl text-center">
+      <h2 class="font-heading font-black text-text-primary mb-4" style="font-size: clamp(1.5rem, 3vw, 2.5rem);">
+        ¿Hablamos sobre {service.title}?
+      </h2>
+      <p class="text-text-secondary mb-8">Primera consulta gratuita. Sin compromisos.</p>
+      <div class="hidden lg:flex justify-center gap-4">
+        <a href="/#contacto" class="btn btn-primary text-base px-8">Contactar</a>
+        <a href={`tel:${import.meta.env.PUBLIC_PHONE}`} class="btn btn-secondary text-base px-6">📞 Llamar</a>
+        <a href={`https://calendly.com/novamarketing`} target="_blank" class="btn btn-ghost text-base px-6">📅 Agendar reunión</a>
+      </div>
+      <div class="flex lg:hidden flex-col gap-3 max-w-xs mx-auto">
+        <a href={`https://wa.me/${import.meta.env.PUBLIC_WHATSAPP}`} target="_blank" class="btn btn-whatsapp justify-center">💬 WhatsApp</a>
+        <a href={`tel:${import.meta.env.PUBLIC_PHONE}`} class="btn btn-secondary justify-center">📞 Llamar</a>
+        <a href="/#contacto" class="btn btn-ghost justify-center">✉️ Formulario</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

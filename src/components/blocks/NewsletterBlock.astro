@@ -1,0 +1,55 @@
+---
+/** blocks/NewsletterBlock.astro — Bloque de suscripción al boletín */
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'Recibe consejos de marketing semanales',
+  description = 'Estrategias prácticas para pymes. Sin spam.',
+} = Astro.props;
+---
+<div
+  class="my-12 rounded-2xl p-8 text-center"
+  style="background: rgba(153,255,0,0.05); border: 1px solid rgba(153,255,0,0.15);"
+>
+  <h3 class="font-heading font-bold text-xl text-text-primary mb-2">{title}</h3>
+  <p class="text-text-secondary text-sm mb-5">{description}</p>
+
+  <form
+    class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+    id="newsletter-form"
+    novalidate
+  >
+    <input
+      type="email"
+      name="email"
+      id="newsletter-email"
+      placeholder="tu@email.com"
+      required
+      class="form-input flex-1"
+      aria-label="Email para newsletter"
+    />
+    <button type="submit" class="btn btn-primary shrink-0">Suscribirse</button>
+  </form>
+
+  <p id="newsletter-msg" class="mt-3 text-sm text-electric hidden"></p>
+</div>
+
+<script>
+  document.getElementById('newsletter-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const email = (form.elements.namedItem('email') as HTMLInputElement)?.value;
+    const msg = document.getElementById('newsletter-msg');
+
+    // Aquí conectas a tu herramienta de email marketing (Mailchimp, Brevo, etc.)
+    console.log('Newsletter subscription:', email);
+
+    if (msg) {
+      msg.textContent = '✅ ¡Suscrito! Revisa tu email para confirmar.';
+      msg.classList.remove('hidden');
+    }
+    form.reset();
+  });
+</script>

@@ -1,0 +1,572 @@
+- Loading Strapi
+[2026-03-19 16:29:36.787] [33mwarn[39m: admin.auth.options.expiresIn is deprecated and will be removed in Strapi 6. Please configure admin.auth.sessions.maxRefreshTokenLifespan and admin.auth.sessions.maxSessionLifespan.
+- Building build context
+
+[INFO] Including the following ENV variables as part of the JS bundle:
+    - ADMIN_PATH
+    - STRAPI_ADMIN_BACKEND_URL
+    - STRAPI_TELEMETRY_DISABLED
+    - STRAPI_AI_URL
+    - STRAPI_ANALYTICS_URL
+✔ Building build context (407ms)
+- Creating admin
+✔ Creating admin (558ms)
+✔ Loading Strapi (3454ms)
+- Generating types
+✔ Generating types (1105ms)
+- Compiling TS
+- Cleaning dist dir c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/backend/dist
+✔ Cleaning dist dir (195ms)
+✔ Compiling TS (2460ms)
+
+ Project information
+
+[90m┌────────────────────[39m[90m┬──────────────────────────────────────────────────┐[39m
+[90m│[39m Time               [90m│[39m Thu Mar 19 2026 16:29:41 GMT+0100 (hora estánda… [90m│[39m
+[90m│[39m Launched in        [90m│[39m 7042 ms                                          [90m│[39m
+[90m│[39m Environment        [90m│[39m development                                      [90m│[39m
+[90m│[39m Process PID        [90m│[39m 36660                                            [90m│[39m
+[90m│[39m Version            [90m│[39m 5.40.0 (node v24.11.1)                           [90m│[39m
+[90m│[39m Edition            [90m│[39m Community                                        [90m│[39m
+[90m│[39m Database           [90m│[39m sqlite                                           [90m│[39m
+[90m│[39m Database name      [90m│[39m .tmp\data.db                                     [90m│[39m
+[90m└────────────────────[39m[90m┴──────────────────────────────────────────────────┘[39m
+
+ Actions available
+
+Welcome back!
+To access the server ⚡️, go to:
+http://localhost:1337
+
+[2026-03-19 16:29:41.485] [32minfo[39m: Strapi started successfully
+[2026-03-19 16:29:59.025] [32mhttp[39m: HEAD /api/pages (16 ms) 403
+[2026-03-19 16:39:25.043] [32mhttp[39m: POST /api/pages (475 ms) 201
+[2026-03-19 16:39:25.124] [32mhttp[39m: POST /api/pages (38 ms) 201
+[2026-03-19 16:39:25.182] [32mhttp[39m: POST /api/pages (31 ms) 201
+[2026-03-19 16:39:25.251] [32mhttp[39m: POST /api/pages (46 ms) 201
+[2026-03-19 16:39:25.289] [32mhttp[39m: POST /api/pages (26 ms) 201
+[2026-03-19 16:39:25.323] [32mhttp[39m: POST /api/pages (20 ms) 201
+[2026-03-19 16:39:25.386] [32mhttp[39m: POST /api/pages (36 ms) 201
+[2026-03-19 16:39:25.423] [32mhttp[39m: POST /api/pages (21 ms) 201
+[2026-03-19 16:39:25.460] [32mhttp[39m: POST /api/pages (23 ms) 201
+[2026-03-19 16:39:25.489] [32mhttp[39m: POST /api/pages (20 ms) 201
+[2026-03-19 16:39:25.527] [32mhttp[39m: POST /api/pages (24 ms) 201
+[2026-03-19 16:39:25.558] [32mhttp[39m: POST /api/pages (20 ms) 201
+[2026-03-19 16:39:25.592] [32mhttp[39m: POST /api/pages (21 ms) 201
+[2026-03-19 16:39:25.790] [32mhttp[39m: POST /api/pages (110 ms) 201
+[2026-03-19 16:39:25.853] [32mhttp[39m: POST /api/pages (48 ms) 201
+[2026-03-19 16:39:25.880] [32mhttp[39m: POST /api/pages (18 ms) 201
+[2026-03-19 16:39:25.919] [32mhttp[39m: POST /api/pages (28 ms) 201
+[2026-03-19 16:39:25.946] [32mhttp[39m: POST /api/pages (19 ms) 201
+[2026-03-19 16:39:25.974] [32mhttp[39m: POST /api/pages (22 ms) 201
+[2026-03-19 16:39:25.999] [32mhttp[39m: POST /api/pages (18 ms) 201
+[2026-03-19 16:39:26.032] [32mhttp[39m: POST /api/pages (24 ms) 201
+[2026-03-19 16:39:26.061] [32mhttp[39m: POST /api/pages (21 ms) 201
+[2026-03-19 16:39:26.089] [32mhttp[39m: POST /api/pages (20 ms) 201
+[2026-03-19 16:39:26.119] [32mhttp[39m: POST /api/pages (22 ms) 201
+[2026-03-19 16:39:26.140] [32mhttp[39m: POST /api/pages (16 ms) 201
+[2026-03-19 16:39:26.166] [32mhttp[39m: POST /api/pages (19 ms) 201
+[2026-03-19 16:42:39.000] [32mhttp[39m: GET /api/pages?pagination[limit]=100 (602 ms) 200
+[2026-03-19 17:24:47.048] [32mhttp[39m: GET /admin (1197 ms) 200
+[2026-03-19 17:25:21.856] [32mhttp[39m: GET /admin/project-type (7 ms) 200
+[2026-03-19 17:25:22.997] [32mhttp[39m: GET /admin/init (35 ms) 200
+[2026-03-19 17:25:34.525] [32mhttp[39m: POST /admin/login (230 ms) 200
+[2026-03-19 17:25:34.589] [32mhttp[39m: GET /admin/users/me (36 ms) 200
+[2026-03-19 17:25:34.646] [32mhttp[39m: GET /admin/users/me/permissions (56 ms) 200
+[2026-03-19 17:25:34.725] [32mhttp[39m: GET /admin/information (27 ms) 200
+[2026-03-19 17:25:34.730] [32mhttp[39m: GET /admin/telemetry-properties (82 ms) 200
+[2026-03-19 17:25:34.898] [32mhttp[39m: GET /admin/guided-tour-meta (30 ms) 200
+[2026-03-19 17:25:34.918] [32mhttp[39m: GET /admin/license-limit-information (18 ms) 200
+[2026-03-19 17:25:34.943] [32mhttp[39m: GET /admin/homepage/layout (22 ms) 200
+[2026-03-19 17:25:35.443] [32mhttp[39m: GET /content-manager/homepage/recent-documents?action=update (77 ms) 200
+[2026-03-19 17:25:35.479] [32mhttp[39m: GET /content-manager/homepage/recent-documents?action=publish (34 ms) 200
+[2026-03-19 17:25:35.513] [32mhttp[39m: GET /content-manager/homepage/count-documents (33 ms) 200
+[2026-03-19 17:25:35.533] [32mhttp[39m: GET /admin/homepage/key-statistics (19 ms) 200
+[2026-03-19 17:25:55.481] [32mhttp[39m: GET /content-manager/init (17 ms) 200
+[2026-03-19 17:25:55.520] [32mhttp[39m: GET /content-manager/content-types-settings (36 ms) 200
+[2026-03-19 17:25:55.749] [32mhttp[39m: GET /content-manager/init (13 ms) 200
+[2026-03-19 17:25:55.819] [32mhttp[39m: GET /content-manager/content-types/api::page.page/configuration (16 ms) 200
+[2026-03-19 17:25:55.879] [32mhttp[39m: GET /content-manager/collection-types/api::page.page?page=1&pageSize=10&sort=title%3AASC (58 ms) 200
+[2026-03-19 17:25:56.181] [32mhttp[39m: GET /i18n/locales (15 ms) 200
+[2026-03-19 17:25:56.198] [32mhttp[39m: GET /admin/ai-feature-config (35 ms) 200
+[2026-03-19 17:26:00.303] [32mhttp[39m: GET /i18n/settings (64 ms) 200
+[2026-03-19 17:26:00.374] [32mhttp[39m: GET /i18n/ai-localization-jobs/collection-types/api::page.page/undefined (71 ms) 200
+[2026-03-19 17:27:11.987] [32mhttp[39m: GET /content-manager/collection-types/api::page.page/kkfp2ulih1two3gz4cvaxy32? (678 ms) 200
+[2026-03-19 17:27:12.365] [32mhttp[39m: GET /i18n/settings (126 ms) 200
+[2026-03-19 17:27:12.413] [32mhttp[39m: GET /i18n/ai-localization-jobs/collection-types/api::page.page/kkfp2ulih1two3gz4cvaxy32 (47 ms) 200
+[2026-03-19 17:27:12.520] [32mhttp[39m: GET /content-manager/preview/url/api::page.page?documentId=kkfp2ulih1two3gz4cvaxy32&locale=es&status=published (104 ms) 404
+[2026-03-19 17:27:12.609] [32mhttp[39m: GET /content-manager/collection-types/api::page.page/kkfp2ulih1two3gz4cvaxy32/actions/countDraftRelations? (87 ms) 200
+[2026-03-19 17:33:49.640] [32mhttp[39m: GET /admin (267 ms) 200
+[2026-03-19 17:33:51.126] [32mhttp[39m: GET /admin/project-type (10 ms) 200
+[2026-03-19 17:33:52.307] [32mhttp[39m: GET /admin/init (42 ms) 200
+[2026-03-19 17:33:52.386] [32mhttp[39m: GET /admin/users/me (77 ms) 200
+[2026-03-19 17:33:52.412] [32mhttp[39m: GET /admin/users/me/permissions (100 ms) 200
+[2026-03-19 17:33:52.461] [32mhttp[39m: GET /admin/information (48 ms) 200
+[2026-03-19 17:33:52.468] [32mhttp[39m: GET /admin/telemetry-properties (50 ms) 200
+[2026-03-19 17:33:52.676] [32mhttp[39m: GET /admin/guided-tour-meta (46 ms) 200
+[2026-03-19 17:33:52.714] [32mhttp[39m: GET /admin/homepage/layout (25 ms) 200
+[2026-03-19 17:33:52.720] [32mhttp[39m: GET /admin/license-limit-information (36 ms) 200
+[2026-03-19 17:33:53.165] [32mhttp[39m: GET /content-manager/homepage/recent-documents?action=update (58 ms) 200
+[2026-03-19 17:33:53.192] [32mhttp[39m: GET /content-manager/homepage/recent-documents?action=publish (26 ms) 200
+[2026-03-19 17:33:53.214] [32mhttp[39m: GET /content-manager/homepage/count-documents (20 ms) 200
+[2026-03-19 17:33:53.232] [32mhttp[39m: GET /admin/homepage/key-statistics (17 ms) 200
+[2026-03-19 17:34:03.557] [32mhttp[39m: GET /content-manager/init (17 ms) 200
+[2026-03-19 17:34:03.605] [32mhttp[39m: GET /content-manager/content-types-settings (42 ms) 200
+[2026-03-19 17:34:03.714] [32mhttp[39m: GET /content-manager/init (12 ms) 200
+[2026-03-19 17:34:03.774] [32mhttp[39m: GET /content-manager/collection-types/api::page.page/nzl1hl45n7wteiinceojbyym? (31 ms) 200
+[2026-03-19 17:34:03.790] [32mhttp[39m: GET /content-manager/content-types/api::page.page/configuration (16 ms) 200
+[2026-03-19 17:34:03.875] [32mhttp[39m: GET /i18n/locales (18 ms) 200
+[2026-03-19 17:34:03.888] [32mhttp[39m: GET /i18n/settings (12 ms) 200
+[2026-03-19 17:34:03.906] [32mhttp[39m: GET /i18n/ai-localization-jobs/collection-types/api::page.page/nzl1hl45n7wteiinceojbyym (17 ms) 200
+[2026-03-19 17:34:03.922] [32mhttp[39m: GET /content-manager/preview/url/api::page.page?documentId=nzl1hl45n7wteiinceojbyym&locale=ca&status=published (15 ms) 404
+[2026-03-19 17:34:03.926] [32mhttp[39m: GET /admin/ai-feature-config (73 ms) 200
+[2026-03-19 17:34:04.116] [32mhttp[39m: GET /content-manager/collection-types/api::page.page/nzl1hl45n7wteiinceojbyym/actions/countDraftRelations? (11 ms) 200
+[2026-03-19 17:48:22.982] [32mhttp[39m: HEAD /api/services (467 ms) 404
+[2026-03-19 17:49:45.837] [32mhttp[39m: HEAD /api/services (257 ms) 404
+[2m17:50:28[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2m.strapi/client/index.html[22m
+[2m17:50:28[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mC:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/backend/.strapi/client/app.js[22m
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 17:50:32.146] [32mhttp[39m: GET /admin/content-manager/collection-types/api::page.page/kkfp2ulih1two3gz4cvaxy32 (1081 ms) 500
+[2026-03-19 17:50:46.193] [32mhttp[39m: GET /favicon.ico (227 ms) 200
+[2026-03-19 17:57:09.195] [32mhttp[39m: HEAD /api/services (42 ms) 404
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 17:57:45.640] [32mhttp[39m: GET /admin (16 ms) 500
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 17:58:17.648] [32mhttp[39m: GET /admin (8 ms) 500
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 17:58:51.221] [32mhttp[39m: GET /admin (9 ms) 500
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 17:59:39.479] [32mhttp[39m: GET /admin (6 ms) 500
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 18:00:43.053] [32mhttp[39m: GET /admin (23 ms) 500
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 18:01:49.840] [32mhttp[39m: GET /admin (3 ms) 500
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 18:02:53.319] [32mhttp[39m: GET /admin (7 ms) 500
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 18:03:56.896] [32mhttp[39m: GET /admin (11 ms) 500
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 18:05:01.683] [32mhttp[39m: GET /admin/auth/login (42 ms) 500
+[2026-03-19 18:08:13.511] [32mhttp[39m: GET /api/pages (686 ms) 403
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 18:08:19.853] [32mhttp[39m: GET /admin (185 ms) 500
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 18:10:44.317] [32mhttp[39m: GET /admin (292 ms) 500
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 18:18:00.956] [32mhttp[39m: GET /admin (171 ms) 500
+[ERROR] Failed to serve admin panel in development mode: Error: ENOENT: no such file or directory, open 'c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\.strapi\client\index.html'
+    at async open (node:internal/fs/promises:642:25)
+    at async Object.readFile (node:internal/fs/promises:1279:14)
+    at async serveAdmin (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\strapi\src\node\vite\watch.ts:134:22)
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\body.js:45:17
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\middlewares\powered-by.js:12:9
+    at async cors (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@koa\cors\index.js:106:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\galos\\.gemini\\antigravity\\scratch\\buzzmarketing-web\\backend\\.strapi\\client\\index.html'
+}
+[2026-03-19 18:23:13.464] [32mhttp[39m: GET /admin (1556 ms) 500
+[2026-03-19 18:28:35.094] [32mhttp[39m: HEAD /api/pages (764 ms) 403
+[2026-03-19 18:39:43.453] [32mhttp[39m: HEAD /api/services (161 ms) 404
+[2m18:46:14[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2m.strapi/client/index.html[22m
+[2m18:46:14[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2m.strapi/client/index.html[22m
+[2m19:44:24[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2m.strapi/client/index.html[22m
+[2m19:51:28[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2m.strapi/client/index.html[22m
+[2m19:52:39[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2m.strapi/client/index.html[22m
+[2m19:53:12[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/build/index.html[22m
+[2026-03-19 20:08:14.232] [32mhttp[39m: GET /admin (27 ms) 200
+[2026-03-19 20:08:15.153] [32mhttp[39m: GET /admin/project-type (5 ms) 200
+[2026-03-19 20:08:15.777] [32mhttp[39m: GET /admin/init (35 ms) 200
+[2026-03-19 20:08:15.800] [32mhttp[39m: GET /admin/users/me (21 ms) 401
+[2026-03-19 20:08:15.801] [32mhttp[39m: GET /admin/users/me/permissions (19 ms) 401
+[2026-03-19 20:08:15.808] [32mhttp[39m: GET /admin/information (6 ms) 401
+[2026-03-19 20:08:15.810] [32mhttp[39m: GET /admin/telemetry-properties (5 ms) 401
+[2026-03-19 20:08:15.860] [32mhttp[39m: POST /admin/access-token (50 ms) 200
+[2026-03-19 20:08:15.913] [32mhttp[39m: GET /admin/users/me (16 ms) 200
+[2026-03-19 20:08:15.932] [32mhttp[39m: GET /admin/users/me/permissions (18 ms) 200
+[2026-03-19 20:08:15.944] [32mhttp[39m: GET /admin/information (28 ms) 200
+[2026-03-19 20:08:16.030] [32mhttp[39m: GET /admin/guided-tour-meta (17 ms) 200
+[2026-03-19 20:08:16.050] [32mhttp[39m: GET /admin/homepage/layout (16 ms) 200
+[2026-03-19 20:08:16.054] [32mhttp[39m: GET /admin/license-limit-information (22 ms) 200
+[2026-03-19 20:08:16.252] [31merror[39m: Cannot read properties of undefined (reading 'pluginOptions')
+TypeError: Cannot read properties of undefined (reading 'pluginOptions')
+    at c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:56:45
+    at Array.map (<anonymous>)
+    at getContentTypesMeta (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:39:39)
+    at Object.queryLastDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:119:38)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.getRecentlyUpdatedDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:158:46)
+    at async Object.getRecentDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\controllers\homepage.js:50:23)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+[2026-03-19 20:08:16.253] [32mhttp[39m: GET /content-manager/homepage/recent-documents?action=update (14 ms) 500
+[2026-03-19 20:08:16.265] [32mhttp[39m: GET /content-manager/homepage/recent-documents?action=publish (11 ms) 200
+[2026-03-19 20:08:16.274] [31merror[39m: Cannot read properties of undefined (reading 'pluginOptions')
+TypeError: Cannot read properties of undefined (reading 'pluginOptions')
+    at c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:56:45
+    at Array.map (<anonymous>)
+    at getContentTypesMeta (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:39:39)
+    at Object.getCountDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:168:38)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.getCountDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\controllers\homepage.js:55:23)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+[2026-03-19 20:08:16.275] [32mhttp[39m: GET /content-manager/homepage/count-documents (10 ms) 500
+[2026-03-19 20:08:16.287] [32mhttp[39m: GET /admin/homepage/key-statistics (12 ms) 200
+[2026-03-19 20:08:29.935] [32mhttp[39m: GET /content-manager/init (13 ms) 200
+[2026-03-19 20:08:29.972] [32mhttp[39m: GET /content-manager/content-types-settings (32 ms) 200
+[2026-03-19 20:08:30.074] [32mhttp[39m: GET /content-manager/init (12 ms) 200
+[2026-03-19 20:08:30.120] [32mhttp[39m: GET /content-manager/content-types/plugin::users-permissions.user/configuration (11 ms) 200
+[2026-03-19 20:08:30.147] [32mhttp[39m: GET /content-manager/collection-types/plugin::users-permissions.user?page=1&pageSize=10&sort=username%3AASC (27 ms) 200
+[2026-03-19 20:08:35.167] [31merror[39m: Cannot read properties of undefined (reading 'pluginOptions')
+TypeError: Cannot read properties of undefined (reading 'pluginOptions')
+    at c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:56:45
+    at Array.map (<anonymous>)
+    at getContentTypesMeta (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:39:39)
+    at Object.queryLastDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:119:38)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.getRecentlyUpdatedDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:158:46)
+    at async Object.getRecentDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\controllers\homepage.js:50:23)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+[2026-03-19 20:08:35.168] [32mhttp[39m: GET /content-manager/homepage/recent-documents?action=update (18 ms) 500
+[2026-03-19 20:08:35.181] [31merror[39m: Cannot read properties of undefined (reading 'pluginOptions')
+TypeError: Cannot read properties of undefined (reading 'pluginOptions')
+    at c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:56:45
+    at Array.map (<anonymous>)
+    at getContentTypesMeta (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:39:39)
+    at Object.getCountDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:168:38)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.getCountDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\controllers\homepage.js:55:23)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+[2026-03-19 20:08:35.182] [32mhttp[39m: GET /content-manager/homepage/count-documents (14 ms) 500
+[2026-03-19 20:08:59.372] [32mhttp[39m: GET /admin/plugins/content-type-builder (6 ms) 200
+[2026-03-19 20:09:00.107] [32mhttp[39m: GET /admin/project-type (4 ms) 200
+[2026-03-20 09:00:55.631] [32mhttp[39m: GET /admin/init (45 ms) 200
+[2026-03-20 09:00:55.666] [32mhttp[39m: GET /admin/users/me (27 ms) 401
+[2026-03-20 09:00:55.669] [32mhttp[39m: GET /admin/users/me/permissions (2 ms) 401
+[2026-03-20 09:00:55.673] [32mhttp[39m: GET /admin/information (3 ms) 401
+[2026-03-20 09:00:55.678] [32mhttp[39m: GET /admin/telemetry-properties (4 ms) 401
+[2026-03-20 09:00:55.772] [32mhttp[39m: POST /admin/access-token (91 ms) 200
+[2026-03-20 09:00:55.850] [32mhttp[39m: GET /admin/users/me (65 ms) 200
+[2026-03-20 09:00:55.870] [32mhttp[39m: GET /admin/users/me/permissions (82 ms) 200
+[2026-03-20 09:00:55.896] [32mhttp[39m: GET /admin/information (16 ms) 200
+[2026-03-20 09:00:55.984] [32mhttp[39m: GET /admin/guided-tour-meta (30 ms) 200
+[2026-03-20 09:00:56.019] [32mhttp[39m: GET /admin/homepage/layout (26 ms) 200
+[2026-03-20 09:00:56.058] [32mhttp[39m: GET /admin/license-limit-information (68 ms) 200
+[2026-03-20 09:00:56.163] [31merror[39m: Cannot read properties of undefined (reading 'pluginOptions')
+TypeError: Cannot read properties of undefined (reading 'pluginOptions')
+    at c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:56:45
+    at Array.map (<anonymous>)
+    at getContentTypesMeta (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:39:39)
+    at Object.queryLastDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:119:38)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.getRecentlyUpdatedDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:158:46)
+    at async Object.getRecentDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\controllers\homepage.js:50:23)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+[2026-03-20 09:00:56.165] [32mhttp[39m: GET /content-manager/homepage/recent-documents?action=update (35 ms) 500
+[2026-03-20 09:00:56.183] [32mhttp[39m: GET /content-manager/homepage/recent-documents?action=publish (14 ms) 200
+[2026-03-20 09:00:56.197] [31merror[39m: Cannot read properties of undefined (reading 'pluginOptions')
+TypeError: Cannot read properties of undefined (reading 'pluginOptions')
+    at c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:56:45
+    at Array.map (<anonymous>)
+    at getContentTypesMeta (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:39:39)
+    at Object.getCountDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:168:38)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.getCountDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\controllers\homepage.js:55:23)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+[2026-03-20 09:00:56.198] [32mhttp[39m: GET /content-manager/homepage/count-documents (15 ms) 500
+[2026-03-20 09:00:56.210] [32mhttp[39m: GET /admin/homepage/key-statistics (44 ms) 200
+[2026-03-20 09:00:58.999] [32mhttp[39m: GET /content-manager/init (23 ms) 200
+[2026-03-20 09:00:59.034] [32mhttp[39m: GET /content-manager/content-types-settings (33 ms) 200
+[2026-03-20 09:00:59.254] [32mhttp[39m: GET /content-manager/init (88 ms) 200
+[2026-03-20 09:00:59.279] [32mhttp[39m: GET /content-manager/content-types/plugin::users-permissions.user/configuration (23 ms) 200
+[2026-03-20 09:00:59.335] [32mhttp[39m: GET /content-manager/collection-types/plugin::users-permissions.user?page=1&pageSize=10&sort=username%3AASC (55 ms) 200
+[2026-03-20 09:01:06.488] [32mhttp[39m: GET /admin/project-settings (13 ms) 200
+[2026-03-20 09:01:06.524] [32mhttp[39m: GET /content-manager/init (21 ms) 200
+[2026-03-20 09:01:09.250] [31merror[39m: Cannot read properties of undefined (reading 'pluginOptions')
+TypeError: Cannot read properties of undefined (reading 'pluginOptions')
+    at c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:56:45
+    at Array.map (<anonymous>)
+    at getContentTypesMeta (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:39:39)
+    at Object.queryLastDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:119:38)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.getRecentlyUpdatedDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:158:46)
+    at async Object.getRecentDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\controllers\homepage.js:50:23)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+[2026-03-20 09:01:09.251] [32mhttp[39m: GET /content-manager/homepage/recent-documents?action=update (15 ms) 500
+[2026-03-20 09:01:09.261] [31merror[39m: Cannot read properties of undefined (reading 'pluginOptions')
+TypeError: Cannot read properties of undefined (reading 'pluginOptions')
+    at c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:56:45
+    at Array.map (<anonymous>)
+    at getContentTypesMeta (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:39:39)
+    at Object.getCountDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\services\homepage.js:168:38)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.getCountDocuments (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\content-manager\dist\server\homepage\controllers\homepage.js:55:23)
+    at async returnBodyMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:46:20)
+    at async policiesMiddleware (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\policy.js:21:9)
+    at async c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\@strapi\core\dist\services\server\compose-endpoint.js:27:20
+    at async serve (c:\Users\galos\.gemini\antigravity\scratch\buzzmarketing-web\backend\node_modules\koa-static\index.js:59:5)
+[2026-03-20 09:01:09.261] [32mhttp[39m: GET /content-manager/homepage/count-documents (10 ms) 500
+[2026-03-20 09:01:21.511] [32mhttp[39m: GET /content-manager/init (9 ms) 200
+[2m9:02:35[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/build/index.html[22m
+[2m9:02:35[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2m.strapi/client/index.html[22m
+[2026-03-20 09:02:36.697] [32mhttp[39m: GET /admin/content-manager/collection-types/plugin::users-permissions.user?page=1&pageSize=10&sort=username:ASC (55 ms) 200
+[2026-03-20 09:02:38.322] [32mhttp[39m: GET /admin/project-type (4 ms) 200
+[2026-03-20 09:02:39.550] [32mhttp[39m: GET /admin/init (8 ms) 200
+[2026-03-20 09:02:39.577] [32mhttp[39m: GET /admin/users/me (20 ms) 200
+[2026-03-20 09:02:39.603] [32mhttp[39m: GET /admin/users/me/permissions (25 ms) 200
+[2026-03-20 09:02:39.669] [32mhttp[39m: GET /admin/information (32 ms) 200
+[2026-03-20 09:02:39.673] [32mhttp[39m: GET /admin/telemetry-properties (23 ms) 200
+[2026-03-20 09:02:39.790] [32mhttp[39m: GET /admin/guided-tour-meta (23 ms) 200
+[2026-03-20 09:02:39.805] [32mhttp[39m: GET /content-manager/init (11 ms) 200
+[2026-03-20 09:02:39.838] [32mhttp[39m: GET /content-manager/content-types-settings (31 ms) 200
+[2026-03-20 09:02:39.841] [32mhttp[39m: GET /admin/license-limit-information (50 ms) 200
+[2026-03-20 09:02:40.105] [32mhttp[39m: GET /content-manager/init (13 ms) 200
+[2026-03-20 09:02:40.204] [32mhttp[39m: GET /content-manager/content-types/plugin::users-permissions.user/configuration (17 ms) 200
+[2026-03-20 09:02:40.255] [32mhttp[39m: GET /content-manager/collection-types/plugin::users-permissions.user?page=1&pageSize=10&sort=username%3AASC (38 ms) 200
+[2m9:03:13[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/build/index.html[22m
+[2026-03-20 09:03:13.343] [32mhttp[39m: GET /admin/content-manager/collection-types/plugin::users-permissions.user?page=1&pageSize=10&sort=username:ASC (9 ms) 200
+[2026-03-20 09:03:14.736] [32mhttp[39m: GET /admin/project-type (3 ms) 200
+[2026-03-20 09:03:15.841] [32mhttp[39m: GET /admin/init (5 ms) 200
+[2026-03-20 09:03:15.870] [32mhttp[39m: GET /admin/users/me (20 ms) 200
+[2026-03-20 09:03:15.889] [32mhttp[39m: GET /admin/users/me/permissions (18 ms) 200
+[2026-03-20 09:03:15.917] [32mhttp[39m: GET /admin/information (24 ms) 200
+[2026-03-20 09:03:15.921] [32mhttp[39m: GET /admin/telemetry-properties (14 ms) 200
+[2026-03-20 09:03:16.046] [32mhttp[39m: GET /admin/guided-tour-meta (15 ms) 200
+[2026-03-20 09:03:16.060] [32mhttp[39m: GET /content-manager/init (10 ms) 200
+[2026-03-20 09:03:16.093] [32mhttp[39m: GET /content-manager/content-types-settings (29 ms) 200
+[2026-03-20 09:03:16.143] [32mhttp[39m: GET /admin/license-limit-information (95 ms) 200
+[2026-03-20 09:03:16.375] [32mhttp[39m: GET /content-manager/init (13 ms) 200
+[2026-03-20 09:03:16.448] [32mhttp[39m: GET /content-manager/content-types/plugin::users-permissions.user/configuration (13 ms) 200
+[2026-03-20 09:03:16.473] [32mhttp[39m: GET /content-manager/collection-types/plugin::users-permissions.user?page=1&pageSize=10&sort=username%3AASC (24 ms) 200
+[2m9:03:48[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mdist/build/index.html[22m
+[2m9:03:49[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2m.strapi/client/index.html[22m
+[2026-03-20 09:03:49.331] [32mhttp[39m: GET /admin/content-manager/collection-types/plugin::users-permissions.user?page=1&pageSize=10&sort=username:ASC (3 ms) 200
+[2026-03-20 09:03:50.349] [32mhttp[39m: GET /admin/project-type (3 ms) 200
+[2026-03-20 09:03:51.961] [32mhttp[39m: GET /admin/init (5 ms) 200
+[2026-03-20 09:03:51.983] [32mhttp[39m: GET /admin/users/me (13 ms) 200
+[2026-03-20 09:03:52.001] [32mhttp[39m: GET /admin/users/me/permissions (17 ms) 200
+[2026-03-20 09:03:52.032] [32mhttp[39m: GET /admin/information (24 ms) 200
+[2026-03-20 09:03:52.033] [32mhttp[39m: GET /admin/telemetry-properties (13 ms) 200
+[2026-03-20 09:03:52.178] [32mhttp[39m: GET /admin/guided-tour-meta (21 ms) 200
+[2026-03-20 09:03:52.221] [32mhttp[39m: GET /content-manager/init (10 ms) 200
+[2026-03-20 09:03:52.248] [32mhttp[39m: GET /content-manager/content-types-settings (26 ms) 200
+[2026-03-20 09:03:52.251] [32mhttp[39m: GET /admin/license-limit-information (42 ms) 200
+[2026-03-20 09:03:52.371] [32mhttp[39m: GET /content-manager/init (12 ms) 200
+[2026-03-20 09:03:52.432] [32mhttp[39m: GET /content-manager/content-types/plugin::users-permissions.user/configuration (14 ms) 200
+[2026-03-20 09:03:52.451] [32mhttp[39m: GET /content-manager/collection-types/plugin::users-permissions.user?page=1&pageSize=10&sort=username%3AASC (17 ms) 200

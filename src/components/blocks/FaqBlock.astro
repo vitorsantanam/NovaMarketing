@@ -1,0 +1,45 @@
+---
+/** blocks/FaqBlock.astro — Acordeón FAQ con schema markup */
+import { faqSchema } from '../../lib/schema';
+import SchemaOrg from '../seo/SchemaOrg.astro';
+
+interface Props {
+  title?: string;
+  items: { question: string; answer: string }[];
+}
+
+const { title = 'Preguntas frecuentes', items = [] } = Astro.props;
+const schema = items.length ? faqSchema(items) : null;
+---
+
+{schema && <SchemaOrg schema={schema} />}
+
+<section class="my-16">
+  {title && (
+    <h2 class="font-heading font-bold text-2xl text-text-primary mb-8 text-center">{title}</h2>
+  )}
+
+  <div class="space-y-3 max-w-2xl mx-auto">
+    {items.map((item, i) => (
+      <details
+        class="group card cursor-pointer select-none"
+        id={`faq-${i}`}
+      >
+        <summary class="flex items-center justify-between gap-4 font-heading font-semibold text-text-primary list-none cursor-pointer py-1">
+          {item.question}
+          <svg
+            class="w-5 h-5 shrink-0 text-electric transition-transform duration-300 group-open:rotate-45"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+        </summary>
+        <div class="mt-3 pt-3 border-t border-border text-text-secondary text-sm leading-relaxed">
+          <Fragment set:html={item.answer} />
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
