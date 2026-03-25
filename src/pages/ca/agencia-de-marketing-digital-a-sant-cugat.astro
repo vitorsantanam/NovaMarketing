@@ -245,7 +245,7 @@ const benefits = [
                         <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
                             <div class="flex flex-col gap-3">
                                 <label class="opacity-30">NOM</label>
-                                <input type="text" name="name" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
                             </div>
                             <div class="flex flex-col gap-3">
                                 <label class="opacity-30">TELÈFON</label>
@@ -254,11 +254,11 @@ const benefits = [
                         </div>
                         <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
                             <label class="opacity-30">EMAIL PROFESSIONAL</label>
-                            <input type="email" name="email" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
                         </div>
                         <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
                             <label class="opacity-30">CONSULTA</label>
-                            <textarea name="msg" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Quin és el teu objectiu comercial a Sant Cugat?"></textarea>
+                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Quin és el teu objectiu comercial a Sant Cugat?"></textarea>
                         </div>
                         <button type="submit" class="w-full btn-mktg-v5 !py-6">DESPEGAR EL MEU PROJECTE</button>
                     </form>

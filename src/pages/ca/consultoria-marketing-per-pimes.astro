@@ -217,7 +217,7 @@ const services = [
                         <div class="grid sm:grid-cols-2 gap-6 sm:gap-12 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
                             <div class="flex flex-col gap-3 sm:gap-4">
                                 <label class="opacity-30">NOM</label>
-                                <input type="text" name="name" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
                             </div>
                             <div class="flex flex-col gap-3 sm:gap-4">
                                 <label class="opacity-30">TELÈFON</label>
@@ -226,11 +226,11 @@ const services = [
                         </div>
                         <div class="flex flex-col gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
                             <label class="opacity-30">EMAIL PROFESSIONAL</label>
-                            <input type="email" name="email" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
                         </div>
                         <div class="flex flex-col gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
                             <label class="opacity-30">ESTAT ACTUAL</label>
-                            <textarea name="msg" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Quin és el teu repte principal en marketing avui?"></textarea>
+                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Quin és el teu repte principal en marketing avui?"></textarea>
                         </div>
                         <button type="submit" class="w-full btn-mktg-v5 !py-6 sm:!py-8">RESERVAR CONSULTORIA</button>
                     </form>
