@@ -38,7 +38,95 @@ const icons: Record<string, any> = {
   TrendingUp: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-7 h-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>`,
   Settings: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-7 h-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82 1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`,
   Target: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-7 h-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>`
-}
+const homeSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Nova Marketing",
+  "legalName": "Nova Marketing",
+  "url": "https://novamarketing.es",
+  "logo": "https://novamarketing.es/agencia-marketing-pymes-nova-marketing-logo.png",
+  "image": "https://novamarketing.es/agencia-marketing-pymes-nova-marketing-logo.png",
+  "description": "El departamento de marketing que toda pyme necesita. Agencia de marketing digital especializada en pymes.",
+  "slogan": "El departamento de marketing que toda pyme necesita",
+  "founder": {
+    "@type": "Person",
+    "name": "Sergio García"
+  },
+  "foundingDate": "2020",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Carrer de Bilbao 1",
+    "addressLocality": "Sabadell",
+    "addressRegion": "Barcelona",
+    "postalCode": "08202",
+    "addressCountry": "ES"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 41.5492150198795,
+    "longitude": 2.1150599711651217
+  },
+  "telephone": "+34644738270",
+  "email": "hola@novamarketing.es",
+  "openingHours": "Mo-Fr 08:00-20:00",
+  "areaServed": [
+    {
+      "@type": "Country",
+      "name": "Spain"
+    },
+    {
+      "@type": "City",
+      "name": "Sabadell"
+    },
+    {
+      "@type": "City",
+      "name": "Barcelona"
+    }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/company/nova-marketing-pymes/",
+    "https://www.instagram.com/nova_marketing_pymes/"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios de Marketing Digital",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Posicionamiento SEO",
+          "url": "https://novamarketing.es/agencia-seo-para-pymes/"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Agencia SEM",
+          "url": "https://novamarketing.es/agencia-sem-para-pymes/"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Diseño web",
+          "url": "https://novamarketing.es/diseno-web-para-pymes/"
+"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Consultoría de marketing",
+          "url": "https://novamarketing.es/consultoria-marketing-para-pymes/"
+        }
+      }
+    ]
+  }
+};
 ---
 
 <BaseLayout
@@ -46,6 +134,7 @@ const icons: Record<string, any> = {
   description="Multiplicamos el tráfico y las ventas de tu pyme con marketing digital avanzado. Especialistas en SEO, SEM y Consultoría."
   locale="es"
   alternates={alternates}
+  schemas={[homeSchema]}
 >
 
     <!-- ═══ HERO (v6 line wrap fix + simplified) ═══════════════════════════ -->
