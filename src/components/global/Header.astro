@@ -52,14 +52,14 @@ const currentPath = Astro.url.pathname;
 
 ---
 
-<header class="fixed top-0 left-0 w-full z-50 bg-white border-b border-black/5 py-2 sm:py-3">
-  <div class="relative max-w-full px-4 sm:px-12 md:px-16 flex items-center justify-between md:grid md:grid-cols-3 h-12 md:h-14">
+<header class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-black/5 py-2 sm:py-3 leading-none">
+  <div class="relative w-full px-6 sm:px-12 md:px-24 lg:px-32 xl:px-44 flex items-center justify-between md:grid md:grid-cols-3 h-12 md:h-14">
     
     <!-- BRAND (Centered on Mobile, Left on Desktop) -->
-    <div class="flex items-center absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">
-      <a href={`${prefix}/`} class="flex items-center gap-2 group">
-        <div class="text-[2.5rem] font-heading font-black tracking-tighter leading-none transition-colors duration-200 group-hover:text-accent flex items-center">
-          <span>NOVA</span><span class="text-accent">.</span>
+    <div class="flex items-center absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 h-full">
+      <a href={`${prefix}/`} class="flex items-center gap-2 group h-full">
+        <div class="text-[3rem] md:text-[3.5rem] font-heading font-black tracking-tighter leading-none transition-colors duration-200 flex items-center -translate-y-1">
+          <span class="hover-animate-gradient pr-2">nova.</span>
         </div>
       </a>
     </div>
@@ -90,7 +90,7 @@ const currentPath = Astro.url.pathname;
 
     <!-- ACTIONS (Far Right) -->
     <div class="flex items-center justify-end gap-6 ml-auto md:ml-0">
-      <div class="hidden md:flex items-center gap-4">
+      <div class="hidden md:flex items-center gap-8 lg:gap-12">
         <LanguageSwitcher locale={locale} alternates={alternates} />
         <button class="contact-modal-trigger btn-mktg-v5 !py-3 !px-6 !text-[11px] font-black shadow-sm">{t.contactar}</button>
       </div>

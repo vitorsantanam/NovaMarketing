@@ -144,3 +144,35 @@ h1, h2, h3, h4 {
   background-color: var(--color-accent);
   transform: scale(1.05);
 }
+
+/* Animated Gradient for Headlines */
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.text-mktg-gradient {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #c084fc, #3b82f6);
+  background-size: 200% auto;
+  color: transparent !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: gradient-move 3s linear infinite;
+  display: inline-block;
+}
+
+/* Hover variant for logo */
+.hover-animate-gradient {
+  color: var(--color-primary);
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.group:hover .hover-animate-gradient {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #c084fc, #3b82f6);
+  background-size: 200% auto;
+  color: transparent !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: gradient-move 3s linear infinite;
+}
