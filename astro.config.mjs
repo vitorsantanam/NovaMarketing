@@ -21,6 +21,8 @@ export default defineConfig({
       serialize(item) {
         const mapping = [
           ['/', '/ca/'],
+          ['/blog/', '/ca/blog/'],
+          ['/casos-exito/', '/ca/casos-exit/'],
           ['/agencia-de-marketing-digital-en-barcelona/', '/ca/agencia-de-marketing-digital-a-barcelona/'],
           ['/agencia-de-marketing-digital-en-sabadell/', '/ca/agencia-de-marketing-digital-a-sabadell/'],
           ['/agencia-de-marketing-digital-en-sant-cugat/', '/ca/agencia-de-marketing-digital-a-sant-cugat/'],

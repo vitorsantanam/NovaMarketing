@@ -1,0 +1,36 @@
+# Nova Marketing - Robots.txt Optimized for SEO
+User-agent: *
+Allow: /
+
+# Resources
+Allow: /_astro/
+Allow: /img/
+Allow: /fonts/
+
+# Disallow sensitive/system paths
+Disallow: /admin/
+Disallow: /backend/
+Disallow: /strapi/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /search
+Disallow: *?search=
+Disallow: *?query=
+Disallow: *?_locale=
+
+# Crawler Specifics
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Prevent crawl of trash urls
+Disallow: /*?*
+Disallow: /cgi-bin/
+
+# Sitemaps
+Sitemap: https://novamarketing.es/sitemap-index.xml
