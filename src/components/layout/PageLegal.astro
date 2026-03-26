@@ -3,13 +3,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 interface Props {
   title: string;
+  h1?: string;
   description: string;
   lastUpdated?: string;
   locale?: 'es' | 'ca';
   alternates?: { lang: string; url: string }[];
 }
 
-const { title, description, lastUpdated, locale = 'es', alternates = [] } = Astro.props;
+const { title, h1, description, lastUpdated, locale = 'es', alternates = [] } = Astro.props;
+const displayH1 = h1 || title.split('|')[0].trim();
 ---
 
 <BaseLayout {title} {description} {locale} {alternates}>
@@ -21,7 +23,7 @@ const { title, description, lastUpdated, locale = 'es', alternates = [] } = Astr
     <div class="max-w-4xl mx-auto relative z-10 px-4 sm:px-6">
       <header class="mb-16 reveal">
         <h1 class="text-4xl sm:text-7xl font-black uppercase tracking-tighter text-zinc-900 leading-[0.85] mb-6">
-          <span class="block">{title}</span>
+          <span class="block">{displayH1}</span>
         </h1>
         {lastUpdated && (
           <div class="flex items-center gap-3">
