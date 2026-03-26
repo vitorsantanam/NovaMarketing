@@ -14,10 +14,6 @@ export default defineConfig({
           ca: 'ca-ES',
         },
       },
-      chunks: {
-        es: (item) => (!item.url.includes('/ca/') ? item : undefined),
-        ca: (item) => (item.url.includes('/ca/') ? item : undefined),
-      },
       serialize(item) {
         const mapping = [
           ['/', '/ca/'],
