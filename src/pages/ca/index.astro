@@ -5,9 +5,41 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
+import FaqHome from '../../components/sections/FaqHome.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/', '/', SITE_URL);
+
+const faqItems = [
+    {
+        question: "En què es diferencia Nova de altres agències per a pimes?",
+        answer: "Ens allunyem del model de \"agència impersonal\". A Nova oferim a cada pyme un tracte directe i humà (via WhatsApp) i una transparència total en els informes de la teva petita empresa, sense tecnicismes rars. No només busquem clics; apliquem tecnologia i IA perquè les petites i mitjanes empreses competeixin al més alt nivell, enfocant-nos sempre que la teva inversió es traduiixi en vendes reals i no només en visites."
+    },
+    {
+        question: "Per què hauria de contractar una agència per a pimes en lloc de que algú de la meva empresa porti el marketing?",
+        answer: "Delegar en una agència especialitzada permet que la teva pyme accedeixi a un equip expert i a eines professionals que, de forma interna, serien molt costoses. A Nova ens encarreguem que tu puguis centrar-te en gestionar el teu negoci mentre nosaltres apliquem estratègies que ja han funcionat en altres petites i mitjanes empreses, estalviant-te temps i errors costosos."
+    },
+    {
+        question: "Com sé si la meva empresa és \"massa petita\" per treballar amb vosaltres?",
+        answer: "A Nova Marketing ens especialitzem precisament en pimes i petites empreses. No creiem que la mida del negoci hagi de limitar la seva capacitat de creixement. Adaptem la nostra metodologia perquè qualsevol petita i mitjana empresa, sigui quina sigui el seu punt de partida, pugui competir en l'entorn digital amb garanties."
+    },
+    {
+        question: "Hauré de parlar amb un contestador o tindré contacte directe amb algú de l'agència?",
+        answer: "Sabem que per a l'amo d'una pyme la proximitat és vital. Per això, a nova apostem pel tracte humà. Tindràs contacte directe amb nosaltres, inclús per WhatsApp, perquè la comunicació sigui fluida. No som una plataforma automatizada, som persones ajudant a que altres pimes arribin als seus objectius."
+    },
+    {
+        question: "He de signar un contracte de permanència obligatori amb l'agència?",
+        answer: "Creiem en els resultats, no en els lligams. A Nova treballem perquè et quedis amb nosaltres perquè veus que la teva pyme creix, no perquè un paper t'obligui. Oferim flexibilitat perquè cada petita empresa se senti còmoda i segura amb la inversió que està realitzant en el seu futur digital."
+    },
+    {
+        question: "Què passa si el meu sector és molt específic? Podeu ayudar la meva pyme igualment?",
+        answer: "Encara que cada petita i mitjana empresa és un món, els principis del marketing eficaç són universals. La nostra metodologia es basa en analitzar a fons el teu nínxol i la teva competència abans de moure un sol dit. Hem treballat amb sectors molt diversos, ayudant pimes de tot tipus a trobar el seu lloc i destacar en el mercat."
+    },
+    {
+        question: "Quant temps n'haig de dedicar jo al marketing de la meva petita empresa?",
+        answer: "El teu temps és or. El nostre objectiu és que tu només hagis de validar les línies generals i atendre els nous clients que et aconseguim. Ens encarreguem de l'execució pesada perquè el marketing de la teva pyme funcioni de forma semiautomàtica sense que et robi hores de son o de gestió interna."
+    }
+];
 
 // Definicions de serveis en català
 const services = [
@@ -362,6 +394,12 @@ const homeSchema = {
             </div>
         </div>
     </section>
+
+    <!-- ═══ FAQ ════════════════════════════════════════════════════════════ -->
+    <FaqHome 
+        items={faqItems} 
+        title="Preguntes freqüents <br /> que ens fan altres pimes" 
+    />
 
 </BaseLayout>
 

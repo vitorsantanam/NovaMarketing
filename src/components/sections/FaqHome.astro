@@ -1,0 +1,101 @@
+---
+/** components/sections/FaqHome.astro — Premium Accordion FAQ */
+interface Props {
+  title?: string;
+  items: { question: string; answer: string }[];
+}
+
+const { 
+    title = 'Preguntas frecuentes', 
+    items = [] 
+} = Astro.props;
+
+// Schema FAQ format
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": items.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<section class="py-24 sm:py-32 bg-white relative overflow-hidden px-4 sm:px-6">
+    <!-- Subtle Background Element -->
+    <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+    <div class="max-w-8xl mx-auto relative z-10">
+        <div class="text-center mb-16 sm:mb-20 reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resolviendo dudas</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold mb-4 leading-[0.9] text-zinc-900" set:html={title} />
+        </div>
+
+        <div class="space-y-4 reveal" style="transition-delay: 100ms">
+            {items.map((item, i) => (
+                <div class="group border border-black/5 rounded-2xl bg-zinc-50/50 overflow-hidden hover:bg-white hover:border-accent/10 hover:shadow-[0_15px_40px_rgba(0,0,0,0.03)] transition-all duration-300">
+                    <button 
+                        class="faq-trigger w-full px-6 sm:px-8 py-6 flex items-center justify-between text-left gap-6 group/btn"
+                        aria-expanded="false"
+                        data-target={`faq-content-${i}`}
+                    >
+                        <span class="text-base sm:text-lg font-bold tracking-tight text-zinc-900 group-hover:text-accent transition-colors">
+                            {item.question}
+                        </span>
+                        <div class="relative w-6 h-6 shrink-0 transition-transform duration-500 transform group-aria-expanded:rotate-45">
+                            <div class="absolute top-1/2 left-0 w-full h-[2px] bg-accent/30 rounded-full group-hover:bg-accent transition-colors"></div>
+                            <div class="absolute top-0 left-1/2 h-full w-[2px] bg-accent/30 rounded-full group-hover:bg-accent transition-colors"></div>
+                        </div>
+                    </button>
+                    <div 
+                        id={`faq-content-${i}`}
+                        class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out opacity-0 transition-opacity"
+                    >
+                        <div class="overflow-hidden">
+                            <div class="px-6 sm:px-8 pb-8 pt-2 text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-[90%]">
+                                <Fragment set:html={item.answer} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    .faq-trigger[aria-expanded="true"] + .faq-content {
+        grid-template-rows: 1fr;
+        opacity: 1;
+    }
+</style>
+
+<script>
+    function setupFaq() {
+        const triggers = document.querySelectorAll('.faq-trigger');
+        triggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+                
+                // Optional: close other accordions
+                /*
+                triggers.forEach(t => {
+                    if (t !== trigger) t.setAttribute('aria-expanded', 'false');
+                });
+                */
+
+                trigger.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
+            });
+        });
+    }
+
+    // Init for Astro 
+    document.addEventListener('DOMContentLoaded', setupFaq);
+    document.addEventListener('astro:page-load', setupFaq);
+</script>

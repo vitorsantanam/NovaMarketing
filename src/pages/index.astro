@@ -5,9 +5,41 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { strapiClient } from '../lib/strapi';
 import { buildAlternates } from '../lib/i18n';
+import FaqHome from '../components/sections/FaqHome.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/', '/', SITE_URL);
+
+const faqItems = [
+    {
+        question: "¿En qué se diferencia Nova de otras agencias para pymes?",
+        answer: "Nos alejamos del modelo de \"agencia impersonal\". En Nova ofrecemos a cada pyme un trato directo y humano (vía WhatsApp) y una transparencia total en los informes de tu pequeña empresa, sin tecnicismos raros. No solo buscamos clics; aplicamos tecnología e IA para que las pequeñas y medianas empresas compitan al más alto nivel, enfocándonos siempre en que tu inversión se traduzca en ventas reales y no solo en visitas."
+    },
+    {
+        question: "¿Por qué debería contratar a una agencia para pymes en lugar de que alguien de mi empresa lleve el marketing?",
+        answer: "Delegar en una agencia especializada permite que tu pyme acceda a un equipo experto y a herramientas profesionales que, de forma interna, serían muy costosas. En Nova nos encargamos de que tú puedas centrarte en gestionar tu negocio mientras nosotros aplicamos estrategias que ya han funcionado en otras pequeñas y medianas empresas, ahorrándote tiempo y errores costosos."
+    },
+    {
+        question: "¿Cómo sé si mi empresa es \"demasiado pequeña\" para trabajar con vosotros?",
+        answer: "En Nova Marketing nos especializamos precisamente en pymes y pequeñas empresas. No creemos que el tamaño del negocio deba limitar su capacidad de crecimiento. Adaptamos nuestra metodología para que cualquier pequeña y mediana empresa, sea cual sea su punto de partida, pueda competir en el entorno digital con garantías."
+    },
+    {
+        question: "¿Tendré que hablar con un contestador o tendré contacto directo con alguien de la agencia?",
+        answer: "Sabemos que para el dueño de una pyme la cercanía es vital. Por eso, en nova apostamos por el trato humano. Tendrás contacto directo con nosotros, incluso por WhatsApp, para que la comunicación sea fluida. No somos una plataforma automatizada, somos personas ayudando a que otras pymes alcancen sus objetivos."
+    },
+    {
+        question: "¿Tengo que firmar un contrato de permanencia obligatorio con la agencia?",
+        answer: "Creemos en los resultados, no en las ataduras. En Nova trabajamos para que te quedes con nosotros porque ves que tu pyme crece, no porque un papel te obligue. Ofrecemos flexibilidad para que cada pequeña empresa se sienta cómoda y segura con la inversión que está realizando en su futuro digital."
+    },
+    {
+        question: "¿Qué pasa si mi sector es muy específico? ¿Podéis ayudar a mi pyme igualmente?",
+        answer: "Aunque cada pequeña y mediana empresa es un mundo, los principios del marketing eficaz son universales. Nuestra metodología se basa en analizar a fondo tu nicho y tu competencia antes de mover un solo dedo. Hemos trabajado con sectores muy diversos, ayudando a pymes de todo tipo a encontrar su hueco y destacar en el mercado."
+    },
+    {
+        question: "¿Cuánto tiempo tengo que dedicarle yo al marketing de mi pequeña empresa?",
+        answer: "Tu tiempo es oro. Nuestro objetivo es que tú solo tengas que validar las líneas generales y atender los nuevos clientes que te consigamos. Nos encargamos de la ejecución pesada para que el marketing de tu pyme funcione de forma semiautomática sin que te robe horas de sueño o de gestión interna."
+    }
+];
 
 // Defined 4 standard service cards for SMEs
 const services = [
@@ -376,6 +408,12 @@ const homeSchema = {
             </div>
         </div>
     </section>
+
+    <!-- ═══ FAQ ════════════════════════════════════════════════════════════ -->
+    <FaqHome 
+        items={faqItems} 
+        title="Preguntas frecuentes <br /> que nos hacen otras pymes" 
+    />
 
 </BaseLayout>
 
