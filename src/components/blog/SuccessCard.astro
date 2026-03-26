@@ -9,7 +9,7 @@ interface Props {
 
 const { caseStudy, locale } = Astro.props;
 const prefix = locale === 'ca' ? '/ca' : '';
-const caseUrl = `${prefix}/casos-exito/${caseStudy.slug}/`;
+const caseUrl = locale === 'ca' ? `/ca/casos-exit/${caseStudy.slug}/` : `/casos-exito/${caseStudy.slug}/`;
 const imageUrl = getStrapiImageUrl(caseStudy.featuredImage) || '/og-default.jpg';
 const clientLogoUrl = getStrapiImageUrl(caseStudy.clientLogo);
 const category = caseStudy.category?.name || (locale === 'ca' ? 'Cas d\'èxit' : 'Caso de éxito');

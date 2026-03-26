@@ -122,7 +122,7 @@ const currentPath = Astro.url.pathname;
      </details>
 
      <a href={`${prefix}/blog/`} class="text-[12px] uppercase font-bold tracking-wider text-zinc-700"> {t.blog} </a>
-     <a href={`${prefix}/casos-exito/`} class="text-[12px] uppercase font-bold tracking-wider text-zinc-700"> {t.casos} </a>
+     <a href={locale === 'ca' ? "/ca/casos-exit/" : "/casos-exito/"} class="text-[12px] uppercase font-bold tracking-wider text-zinc-700"> {t.casos} </a>
 
      
      <div class="mt-1 pt-3 border-t border-black/5 flex justify-center">
