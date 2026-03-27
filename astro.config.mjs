@@ -1,6 +1,9 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import { rename, unlink } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
 // https://astro.build/config - Refreshing routes
 export default defineConfig({
@@ -77,4 +80,27 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  hooks: {
+    'astro:build:done': async ({ dir }) => {
+      try {
+        const sitemapIndex = new URL('sitemap-index.xml', dir);
+        const sitemap0 = new URL('sitemap-0.xml', dir);
+        const sitemapFinal = new URL('sitemap.xml', dir);
+
+        const sitemapIndexPath = fileURLToPath(sitemapIndex);
+        const sitemap0Path = fileURLToPath(sitemap0);
+        const sitemapFinalPath = fileURLToPath(sitemapFinal);
+
+        // Rename sitemap-0.xml to sitemap.xml
+        await rename(sitemap0Path, sitemapFinalPath);
+        
+        // Remove sitemap-index.xml if it exists
+        await unlink(sitemapIndexPath).catch(() => {});
+        
+        console.log('✅ Sitemap unificado: sitemap.xml creado correctamente.');
+      } catch (e) {
+        console.error('❌ Error unificando sitemap:', e);
+      }
+    }
+  }
 });
