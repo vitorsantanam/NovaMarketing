@@ -12,4 +12,7 @@ Redirect 301 /ca/casos-exito https://novamarketing.es/ca/casos-exit/
 # Ensure HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+ 
++# Sitemap Redirect (from sitemap.xml to sitemap-index.xml)
++RewriteRule ^sitemap\.xml$ /sitemap-index.xml [L,R=301]
 
