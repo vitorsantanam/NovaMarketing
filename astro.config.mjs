@@ -18,6 +18,18 @@ export default defineConfig({
         es: (item) => (!item.url.includes('/ca/') ? item : undefined),
         ca: (item) => (item.url.includes('/ca/') ? item : undefined),
       },
+      xslURL: '/sitemap.xsl',
+      filter: (page) => {
+        const excluded = [
+          '/ca/avis-legal/',
+          '/ca/privacitat/',
+          '/ca/cookies/',
+          '/ca/termes-i-condicions/',
+        ];
+        // Normalizamos el path quitando el dominio
+        const path = new URL(page).pathname.replace(/\/+$/, '') + '/';
+        return !excluded.includes(path);
+      },
       serialize(item) {
         if (!item?.url) return item;
 
@@ -42,6 +54,11 @@ export default defineConfig({
             ['/agencia-seo-para-pymes/', '/ca/agencia-seo-per-pimes/'],
             ['/consultoria-marketing-para-pymes/', '/ca/consultoria-marketing-per-pimes/'],
             ['/diseno-web-para-pymes/', '/ca/disseny-web-per-pimes/'],
+            // Legal pages
+            ['/aviso-legal/', '/ca/avis-legal/'],
+            ['/privacidad/', '/ca/privacitat/'],
+            ['/cookies/', '/ca/cookies/'],
+            ['/terminos-y-condiciones/', '/ca/termes-i-condicions/'],
           ];
 
           const url = new URL(item.url);
