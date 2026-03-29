@@ -3,136 +3,58 @@
                 xmlns:html="http://www.w3.org/TR/REC-html40"
                 xmlns:sitemap="http://www.sitemaps.org/schemas/sitemap/0.9"
                 xmlns:xhtml="http://www.w3.org/1999/xhtml"
-                xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
 	<xsl:template match="/">
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>Sitemap XML - Nova Marketing</title>
-				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 				<style type="text/css">
-					body {
-						font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-						color: #333;
-						margin: 0;
-						padding: 40px;
-						background-color: #f8fafc;
-					}
-					.container {
-						max-width: 1000px;
-						margin: 0 auto;
-						background: #fff;
-						padding: 40px;
-						border-radius: 24px;
-						box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-					}
-					h1 {
-						color: #1a202c;
-						font-size: 28px;
-						font-weight: 800;
-						margin-bottom: 24px;
-						letter-spacing: -0.025em;
-					}
-					p {
-						font-size: 14px;
-						color: #64748b;
-						margin-bottom: 32px;
-					}
-					table {
-						width: 100%;
-						border-collapse: collapse;
-						margin-top: 20px;
-					}
-					th {
-						text-align: left;
-						padding: 12px 16px;
-						background: #f1f5f9;
-						color: #475569;
-						font-size: 12px;
-						font-weight: 700;
-						text-transform: uppercase;
-						letter-spacing: 0.05em;
-						border-bottom: 2px solid #e2e8f0;
-					}
-					td {
-						padding: 16px;
-						border-bottom: 1px solid #f1f5f9;
-						font-size: 14px;
-					}
-					tr:hover td {
-						background: #f8fafc;
-					}
-					a {
-						color: #3b82f6;
-						text-decoration: none;
-						font-weight: 500;
-					}
-					a:hover {
-						text-decoration: underline;
-					}
-					.priority-high { color: #059669; font-weight: 700; }
-					.priority-mid { color: #d97706; }
-					.priority-low { color: #64748b; }
+					body { font-family: sans-serif; padding: 40px; background: #f8fafc; }
+					.container { max-width: 1000px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+					h1 { margin-top: 0; color: #1e293b; }
+					table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+					th { text-align: left; padding: 15px; background: #f1f5f9; color: #475569; font-size: 12px; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; }
+					td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 13px; vertical-align: top; }
+					.lang-link { display: block; margin-bottom: 2px; font-size: 11px; }
+					.lang-code { font-weight: bold; color: #64748b; margin-right: 5px; }
 				</style>
 			</head>
 			<body>
 				<div class="container">
 					<h1>Sitemap XML</h1>
-					<p>Este es el sitemap XML de <strong>Nova Marketing</strong>, generado automáticamente para motores de búsqueda como Google o Bing. Contiene todas las páginas públicas del sitio para asegurar una indexación óptima.</p>
-					
+					<p>Nova Marketing - Mapa del sitio web.</p>
 					<table>
 						<thead>
 							<tr>
-								<th>URL</th>
-								<th>Traducciones (Hreflang)</th>
-								<th>Última Modificación</th>
+								<th width="50%">URL</th>
+								<th width="30%">TRADUCCIONES (HREFLANG)</th>
+								<th width="20%">ÚLTIMA MODIFICACIÓN</th>
 							</tr>
 						</thead>
 						<tbody>
-							<!-- Si es un SITEMAP INDEX -->
+							<!-- ÍNDICE -->
 							<xsl:for-each select="sitemap:sitemapindex/sitemap:sitemap">
 								<tr>
-									<td>
-										<xsl:variable name="itemURL">
-											<xsl:value-of select="sitemap:loc"/>
-										</xsl:variable>
-										<a href="{$itemURL}">
-											<xsl:value-of select="sitemap:loc"/>
-										</a>
-									</td>
-									<td style="color: #cbd5e1;">-</td>
-									<td>
-										<xsl:value-of select="concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)))"/>
-									</td>
+									<td><a href="{sitemap:loc}"><xsl:value-of select="sitemap:loc"/></a></td>
+									<td>-</td>
+									<td><xsl:value-of select="sitemap:lastmod"/></td>
 								</tr>
 							</xsl:for-each>
-							
-							<!-- Si es un URL SET (Sitemap estándar) -->
+							<!-- URLS -->
 							<xsl:for-each select="sitemap:urlset/sitemap:url">
 								<tr>
+									<td><a href="{sitemap:loc}"><xsl:value-of select="sitemap:loc"/></a></td>
 									<td>
-										<xsl:variable name="itemURL">
-											<xsl:value-of select="sitemap:loc"/>
-										</xsl:variable>
-										<a href="{$itemURL}">
-											<xsl:value-of select="sitemap:loc"/>
-										</a>
-									</td>
-									<td style="font-size: 11px; line-height: 1.4;">
 										<xsl:for-each select="xhtml:link">
-											<div style="margin-bottom: 2px;">
-												<span style="font-weight: 700; color: #64748b; margin-right: 4px;"><xsl:value-of select="@hreflang"/>:</span>
-												<span style="color: #94a3b8;"><xsl:value-of select="@href"/></span>
+											<div class="lang-link">
+												<span class="lang-code"><xsl:value-of select="@hreflang"/>:</span>
+												<xsl:value-of select="@href"/>
 											</div>
 										</xsl:for-each>
-										<xsl:if test="not(xhtml:link)">
-											<span style="color: #cbd5e1;">-</span>
-										</xsl:if>
+										<xsl:if test="not(xhtml:link)">-</xsl:if>
 									</td>
-									<td>
-										<xsl:value-of select="concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)))"/>
-									</td>
+									<td><xsl:value-of select="sitemap:lastmod"/></td>
 								</tr>
 							</xsl:for-each>
 						</tbody>
