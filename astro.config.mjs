@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import fs from 'node:fs';
 import path from 'node:path';
+import { execSync } from 'node:child_process';
 
 // https://astro.build/config - Refreshing routes
 export default defineConfig({
@@ -95,7 +96,18 @@ export default defineConfig({
 
             const fullPath = path.join(projectRoot, relativePath);
             if (fs.existsSync(fullPath)) {
-              item.lastmod = fs.statSync(fullPath).mtime.toISOString();
+              // Intentar obtener la fecha del último commit de Git (más preciso que mtime en entornos CI)
+              try {
+                const gitDate = execSync(`git log -1 --format=%cI "${fullPath}"`, { encoding: 'utf-8' }).trim();
+                if (gitDate) {
+                  item.lastmod = gitDate;
+                } else {
+                  item.lastmod = fs.statSync(fullPath).mtime.toISOString();
+                }
+              } catch (gitError) {
+                // Si falla Git, usamos mtime del sistema de archivos
+                item.lastmod = fs.statSync(fullPath).mtime.toISOString();
+              }
             } else {
               // Fallback a la fecha actual si es una página dinámica o no encontrada
               item.lastmod = new Date().toISOString();
