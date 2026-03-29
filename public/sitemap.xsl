@@ -85,12 +85,6 @@
 						<thead>
 							<tr>
 								<th>URL</th>
-								<xsl:if test="sitemap:urlset/sitemap:url/sitemap:priority">
-									<th>Prioridad</th>
-								</xsl:if>
-								<xsl:if test="sitemap:urlset/sitemap:url/sitemap:changefreq">
-									<th>Frecuencia</th>
-								</xsl:if>
 								<th>Traducciones (Hreflang)</th>
 								<th>Última Modificación</th>
 							</tr>
@@ -107,9 +101,7 @@
 											<xsl:value-of select="sitemap:loc"/>
 										</a>
 									</td>
-									<td>-</td>
-									<td>-</td>
-									<td>-</td>
+									<td style="color: #cbd5e1;">-</td>
 									<td>
 										<xsl:value-of select="concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)))"/>
 									</td>
@@ -127,21 +119,17 @@
 											<xsl:value-of select="sitemap:loc"/>
 										</a>
 									</td>
-									<xsl:if test="sitemap:priority">
-										<td>
-											<xsl:variable name="priority" select="sitemap:priority"/>
-											<span class="priority-mid">
-												<xsl:if test="$priority &gt; 0.7"><xsl:attribute name="class">priority-high</xsl:attribute></xsl:if>
-												<xsl:if test="$priority &lt; 0.5"><xsl:attribute name="class">priority-low</xsl:attribute></xsl:if>
-												<xsl:value-of select="sitemap:priority"/>
-											</span>
-										</td>
-									</xsl:if>
-									<xsl:if test="sitemap:changefreq">
-										<td>
-											<xsl:value-of select="sitemap:changefreq"/>
-										</td>
-									</xsl:if>
+									<td style="font-size: 11px; line-height: 1.4;">
+										<xsl:for-each select="xhtml:link">
+											<div style="margin-bottom: 2px;">
+												<span style="font-weight: 700; color: #64748b; margin-right: 4px;"><xsl:value-of select="@hreflang"/>:</span>
+												<span style="color: #94a3b8;"><xsl:value-of select="@href"/></span>
+											</div>
+										</xsl:for-each>
+										<xsl:if test="not(xhtml:link)">
+											<span style="color: #cbd5e1;">-</span>
+										</xsl:if>
+									</td>
 									<td>
 										<xsl:value-of select="concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)))"/>
 									</td>
