@@ -76,11 +76,6 @@ export default defineConfig({
               { lang: 'x-default', url: esUrl }
             ];
           }
-
-          // Asegurar lastmod
-          if (!item.lastmod) {
-            item.lastmod = new Date().toISOString();
-          }
         } catch (e) {
           console.warn(`[Sitemap] Skipping invalid URL: ${item.url}`);
         }
