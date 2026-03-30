@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \":*)",
+      "Bash(node -e \"const pkg = require\\(''./package.json''\\); console.log\\(''Astro:'', pkg.dependencies?.astro || pkg.devDependencies?.astro\\);\")",
+      "Bash(npm run:*)",
+      "Bash(taskkill /F /IM node.exe)",
+      "Bash(cmd /c \"taskkill /F /IM node.exe\")"
+    ]
+  }
+}
