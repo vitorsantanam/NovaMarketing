@@ -6,5 +6,10 @@ const config = ({ env }) => ({
     app: {
         keys: env.array('APP_KEYS'),
     },
+    transfer: {
+        remote: {
+            enabled: true,
+        },
+    },
 });
 exports.default = config;
