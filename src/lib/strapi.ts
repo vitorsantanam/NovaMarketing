@@ -4,7 +4,7 @@ const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';
 // Mapeo de locales internos → locales reales en Strapi
 // (es-ES funciona, pero CA en Strapi es 'ca', no 'ca-ES')
 const STRAPI_LOCALE: Record<Locale, string> = {
-  es: 'es-ES',
+  es: 'es',
   ca: 'ca',
 };
 const STRAPI_TOKEN = import.meta.env.STRAPI_TOKEN || '';
