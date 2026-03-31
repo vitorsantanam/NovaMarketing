@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { buildAlternates } from '../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/gracias/', '/ca/gracies/', SITE_URL);
+---
+
+<BaseLayout
+  title="¡Gracias por contactarnos! | Nova Marketing"
+  description="Hemos recibido tu consulta. En breve nos pondremos en contacto contigo."
+  locale="es"
+  alternates={alternates}
+>
+  <section class="min-h-[80vh] flex items-center justify-center px-6 py-24 bg-white relative overflow-hidden">
+    <!-- Background grid -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+    <!-- Glow -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
+
+    <div class="relative z-10 max-w-2xl mx-auto text-center">
+      <!-- Icon -->
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-accent/10 rounded-full mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-accent" style="color:#f97316"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+
+      <div class="inline-flex items-center gap-2 bg-accent/5 px-3 py-1.5 border border-accent/10 rounded-full text-accent text-[9px] font-black uppercase tracking-[0.3em] mb-6">
+        <span class="w-1.5 h-1.5 bg-accent rounded-full"></span>
+        MENSAJE RECIBIDO
+      </div>
+
+      <h1 class="text-5xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6 text-zinc-900">
+        ¡GRACIAS<br/>POR<br/>CONTACTAR!
+      </h1>
+
+      <p class="text-zinc-500 font-light text-lg leading-relaxed mb-10 max-w-md mx-auto">
+        Hemos recibido tu consulta. Uno de nuestros especialistas se pondrá en contacto contigo en menos de <strong class="text-zinc-900 font-bold">24 horas</strong>.
+      </p>
+
+      <p class="text-zinc-400 text-sm mb-10">
+        También te hemos enviado un email de confirmación.
+      </p>
+
+      <a href="/" class="inline-flex items-center gap-3 bg-zinc-900 text-white font-black uppercase tracking-widest text-[11px] px-10 py-5 rounded-full hover:bg-accent transition-colors duration-300">
+        VOLVER AL INICIO <span class="text-base">→</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

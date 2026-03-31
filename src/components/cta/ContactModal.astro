@@ -149,14 +149,34 @@ const t = {
         }
     });
 
-    document.addEventListener('submit', (e) => {
+    document.addEventListener('submit', async (e) => {
          const target = e.target as HTMLFormElement;
          if (target && target.id === 'desktop-modal-form') {
               e.preventDefault();
-              const btn = target.querySelector('button');
+              const btn = target.querySelector('button') as HTMLButtonElement;
               if (btn) {
-                  btn.innerHTML = '¡SOLICITUD ENVIADA!';
-                  btn.style.background = '#000000';
+                  btn.innerHTML = 'ENVIANDO...';
+                  btn.disabled = true;
+              }
+              const data = Object.fromEntries(new FormData(target));
+              try {
+                  const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(data),
+                  });
+                  if (res.ok) {
+                      const isCA = window.location.pathname.startsWith('/ca');
+                      window.location.href = isCA ? '/ca/gracies/' : '/gracias/';
+                  } else {
+                      throw new Error('Error');
+                  }
+              } catch {
+                  if (btn) {
+                      btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO';
+                      btn.disabled = false;
+                      btn.style.background = '#ef4444';
+                  }
               }
          }
     });

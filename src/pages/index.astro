@@ -418,12 +418,23 @@ const homeSchema = {
 </BaseLayout>
 
 <script>
-    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const btn = (e.target as HTMLFormElement).querySelector('button');
-        if (btn) {
-            btn.innerHTML = '¡ENVIADO CORRECTAMENTE!';
-            btn.style.background = '#000000';
+        const form = e.target as HTMLFormElement;
+        const btn = form.querySelector('button') as HTMLButtonElement;
+        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/gracias/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
         }
     });
 </script>

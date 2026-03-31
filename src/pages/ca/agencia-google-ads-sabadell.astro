@@ -579,14 +579,24 @@ const alternates = buildAlternates('/agencia-google-ads-sabadell', '/ca/agencia-
 
 <script>
     if (document.getElementById('contact-form')) {
-        document.getElementById('contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            if (btn) {
-                btn.innerHTML = 'SOL·LICITUD REBUDA!';
-                btn.style.background = '#000000';
-            }
-        });
-    }
+        document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href =  + redirect + ;
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML =  + error_msg + ; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
 </script>
   
