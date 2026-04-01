@@ -193,21 +193,5 @@ const coverUrl = getStrapiImageUrl(post.featuredImage) || '/og-default.jpg';
         to { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
 
-    /* Estilos globales para el blog */
-    .blog-content :global(h2) {
-        font-size: 2.5rem;
-        font-weight: 950;
-        margin-top: 5rem;
-        margin-bottom: 2rem;
-        color: black;
-        tracking-tighter: -0.05em;
-        text-transform: uppercase;
-    }
-    .blog-content :global(p) {
-        margin-bottom: 2rem;
-        font-size: 1.25rem;
-        line-height: 2.1;
-        font-weight: 300;
-        color: #3f3f46;
-    }
+    /* Los estilos del blog los gestiona StrapiBlocks.astro */
 </style>

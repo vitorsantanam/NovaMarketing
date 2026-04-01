@@ -1,66 +1,145 @@
 ---
 /**
  * StrapiBlocks.astro
- * Renderer para el editor visual de Strapi v5 (tipo "blocks").
- * Convierte el JSON de bloques a HTML.
+ * Renderer visual para el editor de bloques de Strapi v5.
+ *
+ * CLASES ESPECIALES (usar en Strapi con blockquote):
+ * Empieza el texto del blockquote con uno de estos prefijos:
+ *
+ *  [dato]      → Caja verde "Dato clave" — para estadísticas o hechos importantes
+ *  [atencion]  → Caja naranja "Atención" — para advertencias o puntos críticos
+ *  [resultado] → Caja negra "Resultado" — para mostrar logros o métricas
+ *  [tip]       → Caja azul "Consejo" — para recomendaciones o buenas prácticas
+ *  [cita]      → Pullquote grande tipográfico — para citas destacadas
+ *  (sin prefijo) → Blockquote estándar con barra lateral
+ *
+ * Para código/terminal: usa el bloque "Code" nativo del editor de Strapi.
+ * Para tablas: usa el bloque "Table" si está disponible.
  */
+
 interface Props {
   blocks: any[];
+  class?: string;
 }
 
-const { blocks } = Astro.props;
+const { blocks, class: className = '' } = Astro.props;
 
 function renderInline(children: any[]): string {
   if (!children) return '';
   return children.map((child: any) => {
     if (child.type === 'link') {
-      return `<a href="${child.url}" class="text-accent underline">${renderInline(child.children)}</a>`;
+      return `<a href="${child.url}" class="sb-link">${renderInline(child.children)}</a>`;
     }
     let text = child.text ?? '';
-    // Escape HTML entities
     text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     if (child.bold) text = `<strong>${text}</strong>`;
     if (child.italic) text = `<em>${text}</em>`;
     if (child.underline) text = `<u>${text}</u>`;
     if (child.strikethrough) text = `<s>${text}</s>`;
-    if (child.code) text = `<code class="bg-zinc-100 px-1 rounded text-sm font-mono">${text}</code>`;
+    if (child.code) text = `<code class="sb-inline-code">${text}</code>`;
     return text;
   }).join('');
 }
 
+function renderListItems(items: any[], format: string): string {
+  return items.map((item: any) => {
+    if (item.type === 'list-item') {
+      const hasNested = item.children?.some((c: any) => c.type === 'list');
+      const inline = item.children?.filter((c: any) => c.type !== 'list') ?? [];
+      const nested = item.children?.find((c: any) => c.type === 'list');
+      const nestedTag = nested?.format === 'ordered' ? 'ol' : 'ul';
+      const nestedHtml = nested
+        ? `<${nestedTag} class="sb-list-nested">${renderListItems(nested.children, nested.format)}</${nestedTag}>`
+        : '';
+      return `<li>${renderInline(inline)}${nestedHtml}</li>`;
+    }
+    return `<li>${renderInline(item.children ?? [])}</li>`;
+  }).join('');
+}
+
+const CALLOUT_MAP: Record<string, { label: string; cls: string }> = {
+  '[dato]':      { label: 'Dato clave',  cls: 'sb-callout sb-callout--dato' },
+  '[atencion]':  { label: 'Atención',    cls: 'sb-callout sb-callout--atencion' },
+  '[resultado]': { label: 'Resultado',   cls: 'sb-callout sb-callout--resultado' },
+  '[tip]':       { label: 'Consejo',     cls: 'sb-callout sb-callout--tip' },
+  '[cita]':      { label: '',            cls: 'sb-pullquote' },
+};
+
 function renderBlock(block: any): string {
   switch (block.type) {
-    case 'paragraph':
-      return `<p>${renderInline(block.children)}</p>`;
+
+    case 'paragraph': {
+      const text = renderInline(block.children);
+      if (!text.trim()) return '';
+      return `<p class="sb-p">${text}</p>`;
+    }
 
     case 'heading': {
-      const tag = `h${block.level}`;
-      return `<${tag}>${renderInline(block.children)}</${tag}>`;
+      const text = renderInline(block.children);
+      return `<h${block.level} class="sb-h${block.level}">${text}</h${block.level}>`;
     }
 
     case 'list': {
       const tag = block.format === 'ordered' ? 'ol' : 'ul';
-      const items = block.children.map((item: any) =>
-        `<li>${renderInline(item.children)}</li>`
-      ).join('');
-      return `<${tag}>${items}</${tag}>`;
+      const cls = block.format === 'ordered' ? 'sb-ol' : 'sb-ul';
+      return `<${tag} class="${cls}">${renderListItems(block.children, block.format)}</${tag}>`;
     }
 
     case 'image': {
       const img = block.image;
       const url = img?.url ?? '';
       const alt = img?.alternativeText ?? '';
-      const caption = block.children?.[0]?.text;
-      const figcaption = caption ? `<figcaption class="text-center text-sm text-zinc-400 mt-3">${caption}</figcaption>` : '';
-      return `<figure><img src="${url}" alt="${alt}" loading="lazy" />${figcaption}</figure>`;
+      const caption = block.children?.find((c: any) => c.text?.trim())?.text;
+      const figcaption = caption
+        ? `<figcaption class="sb-figcaption">${caption.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</figcaption>`
+        : '';
+      return `<figure class="sb-figure"><img src="${url}" alt="${alt}" loading="lazy" class="sb-img" />${figcaption}</figure>`;
     }
 
-    case 'quote':
-      return `<blockquote>${renderInline(block.children)}</blockquote>`;
+    case 'quote': {
+      const rawText = block.children?.[0]?.text ?? '';
+      for (const [prefix, { label, cls }] of Object.entries(CALLOUT_MAP)) {
+        if (rawText.trim().startsWith(prefix)) {
+          const content = renderInline(
+            [{ ...block.children[0], text: block.children[0].text.replace(prefix, '').trimStart() },
+             ...block.children.slice(1)]
+          );
+          if (cls === 'sb-pullquote') {
+            return `<blockquote class="sb-pullquote">${content}</blockquote>`;
+          }
+          return `<div class="${cls}">
+            ${label ? `<span class="sb-callout__label">${label}</span>` : ''}
+            <p>${content}</p>
+          </div>`;
+        }
+      }
+      // Blockquote estándar
+      return `<blockquote class="sb-blockquote">${renderInline(block.children)}</blockquote>`;
+    }
 
     case 'code': {
-      const code = block.children.map((c: any) => c.text ?? '').join('');
-      return `<pre><code>${code.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</code></pre>`;
+      const code = block.children.map((c: any) => c.text ?? '').join('')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const lang = block.language ?? '';
+      return `<div class="sb-code-block">
+        ${lang ? `<span class="sb-code-lang">${lang}</span>` : ''}
+        <pre><code>${code}</code></pre>
+      </div>`;
+    }
+
+    case 'table': {
+      const rows = block.children ?? [];
+      let thead = '';
+      let tbody = '';
+      rows.forEach((row: any, i: number) => {
+        const cells = (row.children ?? []).map((cell: any) => {
+          const tag = (i === 0 || cell.header) ? 'th' : 'td';
+          return `<${tag} class="sb-td">${renderInline(cell.children ?? [])}</${tag}>`;
+        }).join('');
+        if (i === 0) thead = `<thead><tr>${cells}</tr></thead>`;
+        else tbody += `<tr>${cells}</tr>`;
+      });
+      return `<div class="sb-table-wrap"><table class="sb-table">${thead}<tbody>${tbody}</tbody></table></div>`;
     }
 
     default:
@@ -71,4 +150,387 @@ function renderBlock(block: any): string {
 const html = blocks?.map(renderBlock).join('\n') ?? '';
 ---
 
-<div set:html={html} />
+<div class={`sb-content ${className}`} set:html={html} />
+
+<style>
+/* ================================================================
+   StrapiBlocks — Sistema de Estilos de Contenido
+   Clases disponibles explicadas en el frontmatter del componente
+   ================================================================ */
+
+/* ── Contenedor ── */
+.sb-content {
+  font-family: 'Inter', sans-serif;
+  color: #3f3f46;
+  font-size: 1.125rem;
+  line-height: 1.85;
+  font-weight: 300;
+}
+
+/* ── Párrafos ── */
+.sb-content :global(.sb-p) {
+  margin: 0 0 1.75rem 0;
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: #52525b;
+  font-weight: 300;
+}
+
+/* ── Headings ── */
+.sb-content :global(.sb-h2) {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: #09090b;
+  margin: 5rem 0 1.75rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f4f4f5;
+}
+
+.sb-content :global(.sb-h3) {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: #09090b;
+  margin: 3.5rem 0 1.25rem 0;
+}
+
+.sb-content :global(.sb-h4) {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #09090b;
+  margin: 2.5rem 0 1rem 0;
+}
+
+/* ── Listas ── */
+.sb-content :global(.sb-ul) {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sb-content :global(.sb-ul li) {
+  padding-left: 1.75rem;
+  position: relative;
+  font-size: 1.0625rem;
+  color: #52525b;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.sb-content :global(.sb-ul li::before) {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: #3b82f6;
+  font-weight: 900;
+  font-size: 0.875rem;
+  top: 0.2em;
+}
+
+.sb-content :global(.sb-ol) {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem 0;
+  counter-reset: sb-counter;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sb-content :global(.sb-ol li) {
+  padding-left: 3rem;
+  position: relative;
+  font-size: 1.0625rem;
+  color: #52525b;
+  font-weight: 300;
+  line-height: 1.7;
+  counter-increment: sb-counter;
+}
+
+.sb-content :global(.sb-ol li::before) {
+  content: counter(sb-counter, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.75rem;
+  color: #3b82f6;
+  letter-spacing: 0.05em;
+  line-height: 1.9;
+}
+
+.sb-content :global(.sb-list-nested) {
+  margin-top: 0.75rem;
+  padding-left: 1rem;
+}
+
+/* ── Links ── */
+.sb-content :global(.sb-link) {
+  color: #3b82f6;
+  text-decoration: underline;
+  text-decoration-color: #3b82f620;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s;
+  font-weight: 500;
+}
+.sb-content :global(.sb-link:hover) {
+  text-decoration-color: #3b82f6;
+}
+
+/* ── Bold / Italic ── */
+.sb-content :global(strong) {
+  color: #09090b;
+  font-weight: 700;
+}
+.sb-content :global(em) {
+  font-style: italic;
+  color: #3f3f46;
+}
+
+/* ── Inline Code ── */
+.sb-content :global(.sb-inline-code) {
+  font-family: 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+  font-size: 0.875em;
+  background: #f4f4f5;
+  color: #09090b;
+  padding: 0.15em 0.5em;
+  border-radius: 4px;
+  border: 1px solid #e4e4e7;
+}
+
+/* ── Code Block (Terminal) ── */
+.sb-content :global(.sb-code-block) {
+  position: relative;
+  background: #09090b;
+  border-radius: 12px;
+  margin: 2.5rem 0;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -10px rgba(0,0,0,0.3);
+}
+
+.sb-content :global(.sb-code-lang) {
+  display: inline-block;
+  background: #27272a;
+  color: #71717a;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  border-bottom: 1px solid #27272a;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sb-content :global(.sb-code-block pre) {
+  margin: 0;
+  padding: 1.75rem;
+  overflow-x: auto;
+}
+
+.sb-content :global(.sb-code-block code) {
+  font-family: 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: #e4e4e7;
+}
+
+/* ── Imágenes ── */
+.sb-content :global(.sb-figure) {
+  margin: 3.5rem 0;
+}
+
+.sb-content :global(.sb-img) {
+  width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 30px 80px -15px rgba(0,0,0,0.15);
+  display: block;
+}
+
+.sb-content :global(.sb-figcaption) {
+  text-align: center;
+  font-size: 0.8125rem;
+  color: #a1a1aa;
+  margin-top: 0.875rem;
+  font-style: italic;
+}
+
+/* ── Blockquote estándar ── */
+.sb-content :global(.sb-blockquote) {
+  margin: 2.5rem 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid #3b82f6;
+  background: #eff6ff;
+  border-radius: 0 8px 8px 0;
+  color: #1e3a5f;
+  font-style: italic;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+/* ── Pullquote (cita tipográfica) ── */
+.sb-content :global(.sb-pullquote) {
+  margin: 3.5rem 0;
+  padding: 2.5rem 0;
+  border-top: 2px solid #09090b;
+  border-bottom: 2px solid #09090b;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.375rem, 2.5vw, 2rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #09090b;
+  text-transform: uppercase;
+  text-align: center;
+  font-style: normal;
+}
+
+/* ── Callout base ── */
+.sb-content :global(.sb-callout) {
+  margin: 2.5rem 0;
+  padding: 1.5rem 1.75rem;
+  border-radius: 10px;
+  position: relative;
+}
+
+.sb-content :global(.sb-callout p) {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.sb-content :global(.sb-callout__label) {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.625rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+}
+
+/* [dato] — verde */
+.sb-content :global(.sb-callout--dato) {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #22c55e;
+}
+.sb-content :global(.sb-callout--dato .sb-callout__label) {
+  background: #dcfce7;
+  color: #15803d;
+}
+.sb-content :global(.sb-callout--dato p) {
+  color: #166534;
+}
+
+/* [atencion] — naranja */
+.sb-content :global(.sb-callout--atencion) {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-left: 4px solid #f97316;
+}
+.sb-content :global(.sb-callout--atencion .sb-callout__label) {
+  background: #ffedd5;
+  color: #c2410c;
+}
+.sb-content :global(.sb-callout--atencion p) {
+  color: #7c2d12;
+}
+
+/* [resultado] — negro */
+.sb-content :global(.sb-callout--resultado) {
+  background: #09090b;
+  border: 1px solid #27272a;
+  border-left: 4px solid #3b82f6;
+}
+.sb-content :global(.sb-callout--resultado .sb-callout__label) {
+  background: #3b82f6;
+  color: #fff;
+}
+.sb-content :global(.sb-callout--resultado p) {
+  color: #e4e4e7;
+  font-size: 0.9375rem;
+}
+
+/* [tip] — azul */
+.sb-content :global(.sb-callout--tip) {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid #3b82f6;
+}
+.sb-content :global(.sb-callout--tip .sb-callout__label) {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.sb-content :global(.sb-callout--tip p) {
+  color: #1e3a5f;
+}
+
+/* ── Tabla ── */
+.sb-content :global(.sb-table-wrap) {
+  overflow-x: auto;
+  margin: 2.5rem 0;
+  border-radius: 10px;
+  border: 1px solid #e4e4e7;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.sb-content :global(.sb-table) {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.sb-content :global(.sb-table thead) {
+  background: #09090b;
+}
+
+.sb-content :global(.sb-table thead .sb-td) {
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 1rem 1.25rem;
+  text-align: left;
+}
+
+.sb-content :global(.sb-table tbody tr) {
+  border-bottom: 1px solid #f4f4f5;
+  transition: background 0.15s;
+}
+
+.sb-content :global(.sb-table tbody tr:last-child) {
+  border-bottom: none;
+}
+
+.sb-content :global(.sb-table tbody tr:hover) {
+  background: #fafafa;
+}
+
+.sb-content :global(.sb-table tbody .sb-td) {
+  padding: 0.875rem 1.25rem;
+  color: #3f3f46;
+  vertical-align: top;
+  line-height: 1.6;
+}
+</style>
