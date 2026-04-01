@@ -335,10 +335,10 @@ const benefits = [
                 body: JSON.stringify(data),
             });
             if (res.ok) {
-                window.location.href =  + redirect + ;
+                window.location.href = '/ca/gracies/';
             } else { throw new Error(); }
         } catch {
-            if (btn) { btn.innerHTML =  + error_msg + ; btn.disabled = false; btn.style.background = '#ef4444'; }
+            if (btn) { btn.innerHTML = 'ERROR — TORNA-HO A INTENTAR'; btn.disabled = false; btn.style.background = '#ef4444'; }
         }
     });
 function initTimeline() {
