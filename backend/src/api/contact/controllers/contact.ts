@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 
 export default {
   async send(ctx: Context) {
-    const { name, email, url, phone, msg } = ctx.request.body as any;
+    const { name, email, url, phone, msg, source } = ctx.request.body as any;
 
     if (!name || !email) {
       ctx.status = 400;
@@ -58,6 +58,13 @@ export default {
 </body>
 </html>`;
 
+    const now = new Date().toLocaleString('es-ES', {
+      timeZone: 'Europe/Madrid',
+      day: '2-digit', month: '2-digit', year: 'numeric',
+      hour: '2-digit', minute: '2-digit',
+    });
+    const pageSource = source || ctx.request.headers['referer'] || '—';
+
     const internalBody = `
       <h2 style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:-0.02em;color:#09090b;margin:0 0 24px 0;">
         Nueva consulta de contacto
@@ -67,7 +74,9 @@ export default {
         <tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Email</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${email}</td></tr>
         ${url ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Web</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${url}</td></tr>` : ''}
         ${phone ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Teléfono</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${phone}</td></tr>` : ''}
-        ${msg ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;vertical-align:top;">Mensaje</td><td style="padding:10px 0;color:#3f3f46;line-height:1.6;">${msg}</td></tr>` : ''}
+        ${msg ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;vertical-align:top;">Mensaje</td><td style="padding:10px 0;color:#3f3f46;line-height:1.6;border-bottom:1px solid #f4f4f5;">${msg}</td></tr>` : ''}
+        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Página</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${pageSource}</td></tr>
+        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;">Fecha</td><td style="padding:10px 0;color:#3f3f46;">${now}</td></tr>
       </table>
     `;
 
@@ -85,7 +94,7 @@ export default {
           <p style="font-family:'Inter',Arial,sans-serif;font-size:15px;color:#3f3f46;line-height:1.6;margin:0;">${msg}</p>
         </td></tr>
       </table>` : ''}
-      <a href="https://novamarketing.es" style="display:inline-block;background:#f97316;color:#ffffff;font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;padding:16px 32px;text-decoration:none;border-radius:4px;">
+      <a href="https://novamarketing.es" style="display:inline-block;background:#09090b;color:#ffffff;font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;padding:16px 32px;text-decoration:none;border-radius:4px;">
         VISITAR LA WEB →
       </a>
     `;

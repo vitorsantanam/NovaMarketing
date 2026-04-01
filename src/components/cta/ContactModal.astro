@@ -158,7 +158,7 @@ const t = {
                   btn.innerHTML = 'ENVIANDO...';
                   btn.disabled = true;
               }
-              const data = Object.fromEntries(new FormData(target));
+              const data = { ...Object.fromEntries(new FormData(target)), source: window.location.href };
               try {
                   const res = await fetch('https://cms.novamarketing.es/api/contact', {
                       method: 'POST',
