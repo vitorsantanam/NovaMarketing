@@ -105,6 +105,7 @@ export interface BlogPost {
   publishedDate?: string;
   updatedAt?: string;
   content?: any[];
+  content_html?: string;
   seo?: SeoFields;
   category?: BlogCategory;
   publishedAt?: string;
@@ -127,6 +128,7 @@ export interface CaseStudy {
   cover_image?: StrapiImage;
   categories?: CaseStudyCategory[];
   content?: any[];
+  content_html?: string;
   isPublic: boolean;
   publishedAt?: string;
   localizations?: { slug: string; locale: string }[];

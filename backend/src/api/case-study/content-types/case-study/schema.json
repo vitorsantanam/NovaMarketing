@@ -78,6 +78,15 @@
         }
       }
     },
+    "content_html": {
+      "type": "richtext",
+      "required": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "slug": {
       "type": "uid",
       "targetField": "title",

@@ -124,9 +124,11 @@ const coverUrl = getStrapiImageUrl(post.featuredImage) || '/og-default.jpg';
         )}
 
         <div class="blog-content">
-            {post.content?.length > 0
-                ? <StrapiBlocks blocks={post.content} />
-                : <p class="text-zinc-500 italic">Contenido no disponible.</p>
+            {post.content_html
+                ? <div class="sb-content" set:html={post.content_html} />
+                : post.content?.length > 0
+                    ? <StrapiBlocks blocks={post.content} />
+                    : <p class="text-zinc-500 italic">Contenido no disponible.</p>
             }
         </div>
 
