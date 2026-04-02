@@ -69,24 +69,6 @@
       "target": "api::category.category",
       "inversedBy": "case_studies"
     },
-    "content": {
-      "type": "blocks",
-      "required": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "content_html": {
-      "type": "richtext",
-      "required": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
     "slug": {
       "type": "uid",
       "targetField": "title",

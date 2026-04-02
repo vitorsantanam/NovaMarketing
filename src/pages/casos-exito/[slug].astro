@@ -4,7 +4,6 @@ import PageHeader from '../../components/blog/PageHeader.astro';
 import SuccessCard from '../../components/blog/SuccessCard.astro';
 import CategoryTabs from '../../components/blog/CategoryTabs.astro';
 import { strapiClient, getStrapiImageUrl } from '../../lib/strapi';
-import StrapiBlocks from '../../components/blocks/StrapiBlocks.astro';
 import PageBlocks from '../../components/blocks/PageBlocks.astro';
 import { buildAlternates } from '../../lib/i18n';
 
@@ -148,18 +147,8 @@ const publishedDate = (pageType === 'case-study' && caseStudy.publishedAt) ? new
     <div class="max-w-4xl mx-auto">
       <div class="prose prose-zinc prose-2xl max-w-none">
         
-        {caseStudy.content_html ? (
-            <div class="richedit-content sb-content" set:html={caseStudy.content_html} />
-        ) : caseStudy.content?.length > 0 ? (
-            <div class="richedit-content">
-                <StrapiBlocks blocks={caseStudy.content} />
-            </div>
-        ) : null}
-
         {caseStudy.page_blocks?.length > 0 && (
-          <div class="mt-8">
-            <PageBlocks blocks={caseStudy.page_blocks} />
-          </div>
+          <PageBlocks blocks={caseStudy.page_blocks} />
         )}
 
         <!-- Final CTA: Spectacular Premium Design -->
