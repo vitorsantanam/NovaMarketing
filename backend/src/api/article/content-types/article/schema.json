@@ -18,63 +18,36 @@
     "title": {
       "type": "string",
       "required": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
+      "pluginOptions": { "i18n": { "localized": true } }
     },
     "slug": {
       "type": "string",
       "required": true,
       "unique": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "content": {
-      "type": "blocks",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "content_html": {
-      "type": "richtext",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
+      "pluginOptions": { "i18n": { "localized": true } }
     },
     "cover_image": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
+      "allowedTypes": ["images"],
+      "pluginOptions": { "i18n": { "localized": true } }
     },
     "author": {
       "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "inversedBy": "articles"
     },
     "page_blocks": {
       "type": "dynamiczone",
       "components": [
         "blocks.rich-text",
+        "blocks.html",
         "blocks.image",
         "blocks.callout",
         "blocks.metrics-row",
@@ -89,11 +62,7 @@
         "blocks.comparison",
         "blocks.big-stat"
       ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
+      "pluginOptions": { "i18n": { "localized": true } }
     }
   }
 }

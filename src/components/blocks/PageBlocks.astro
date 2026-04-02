@@ -4,6 +4,7 @@
  *
  * MÓDULOS DISPONIBLES EN STRAPI:
  * - blocks.rich-text     → Editor de bloques visual
+ * - blocks.html          → HTML / Markdown personalizado
  * - blocks.image         → Imagen (normal/wide/full, caption opcional)
  * - blocks.callout       → Caja destacada (dato/atencion/resultado/tip)
  * - blocks.metrics-row   → Fila de KPIs numéricos
@@ -46,6 +47,11 @@ function embedUrl(url: string): string {
 <div class="pb-space">
 {blocks?.map((block) => (
   <>
+    {/* ── HTML personalizado ── */}
+    {block.__component === 'blocks.html' && block.content && (
+      <div class="pb-html sb-content" set:html={block.content} />
+    )}
+
     {/* ── Rich Text ── */}
     {block.__component === 'blocks.rich-text' && block.content?.length > 0 && (
       <div class="pb-rich-text">

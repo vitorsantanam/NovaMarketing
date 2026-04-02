@@ -104,11 +104,10 @@ export interface BlogPost {
   featuredImage?: StrapiImage;
   publishedDate?: string;
   updatedAt?: string;
-  content?: any[];
-  content_html?: string;
   page_blocks?: any[];
   seo?: SeoFields;
   category?: BlogCategory;
+  categories?: CaseStudyCategory[];
   publishedAt?: string;
 }
 
@@ -128,8 +127,6 @@ export interface CaseStudy {
   metadescription?: string;
   cover_image?: StrapiImage;
   categories?: CaseStudyCategory[];
-  content?: any[];
-  content_html?: string;
   page_blocks?: any[];
   isPublic: boolean;
   publishedAt?: string;

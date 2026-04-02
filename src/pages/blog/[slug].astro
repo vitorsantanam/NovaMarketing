@@ -4,7 +4,6 @@
  * Artículo individual del blog con diseño Cinematic Hero
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import StrapiBlocks from '../../components/blocks/StrapiBlocks.astro';
 import PageBlocks from '../../components/blocks/PageBlocks.astro';
 import { strapiClient } from '../../lib/strapi';
 import { buildAlternates } from '../../lib/i18n';
@@ -124,20 +123,10 @@ const coverUrl = getStrapiImageUrl(post.featuredImage) || '/og-default.jpg';
             </p>
         )}
 
-        <div class="blog-content">
-            {post.content_html
-                ? <div class="sb-content" set:html={post.content_html} />
-                : post.content?.length > 0
-                    ? <StrapiBlocks blocks={post.content} />
-                    : <p class="text-zinc-500 italic">Contenido no disponible.</p>
-            }
-        </div>
-
-        {post.page_blocks?.length > 0 && (
-          <div class="mt-8">
-            <PageBlocks blocks={post.page_blocks} />
-          </div>
-        )}
+        {post.page_blocks?.length > 0
+          ? <PageBlocks blocks={post.page_blocks} />
+          : <p class="text-zinc-500 italic">Contenido no disponible.</p>
+        }
 
         <!-- Bio del Autor -->
         {author && (

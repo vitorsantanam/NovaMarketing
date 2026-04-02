@@ -36,6 +36,12 @@
       "relation": "manyToMany",
       "target": "api::case-study.case-study",
       "mappedBy": "categories"
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::article.article",
+      "mappedBy": "categories"
     }
   }
 }
