@@ -5,6 +5,7 @@ import SuccessCard from '../../components/blog/SuccessCard.astro';
 import CategoryTabs from '../../components/blog/CategoryTabs.astro';
 import { strapiClient, getStrapiImageUrl } from '../../lib/strapi';
 import PageBlocks from '../../components/blocks/PageBlocks.astro';
+import AuthorCard from '../../components/blog/AuthorCard.astro';
 import { buildAlternates } from '../../lib/i18n';
 
 export async function getStaticPaths() {
@@ -150,6 +151,8 @@ const publishedDate = (pageType === 'case-study' && caseStudy.publishedAt) ? new
         {caseStudy.page_blocks?.length > 0 && (
           <PageBlocks blocks={caseStudy.page_blocks} />
         )}
+
+        {caseStudy.author && <AuthorCard author={caseStudy.author} />}
 
         <!-- Final CTA: Spectacular Premium Design -->
         <div class="reveal mt-32 relative group overflow-hidden p-8 sm:p-14 rounded-[3rem] bg-zinc-950 border border-white/10 transition-all duration-700 hover:border-accent/40 hover:shadow-[0_0_80px_-20px_rgba(59,130,246,0.3)] max-w-5xl mx-auto">
