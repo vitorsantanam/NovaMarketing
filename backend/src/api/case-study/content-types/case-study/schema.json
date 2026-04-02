@@ -106,6 +106,30 @@
           "localized": true
         }
       }
+    },
+    "page_blocks": {
+      "type": "dynamiczone",
+      "components": [
+        "blocks.rich-text",
+        "blocks.image",
+        "blocks.callout",
+        "blocks.metrics-row",
+        "blocks.quote",
+        "blocks.cta",
+        "blocks.two-columns",
+        "blocks.image-text",
+        "blocks.video",
+        "blocks.divider",
+        "blocks.gallery",
+        "blocks.timeline",
+        "blocks.comparison",
+        "blocks.big-stat"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

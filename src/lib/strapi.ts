@@ -106,6 +106,7 @@ export interface BlogPost {
   updatedAt?: string;
   content?: any[];
   content_html?: string;
+  page_blocks?: any[];
   seo?: SeoFields;
   category?: BlogCategory;
   publishedAt?: string;
@@ -129,6 +130,7 @@ export interface CaseStudy {
   categories?: CaseStudyCategory[];
   content?: any[];
   content_html?: string;
+  page_blocks?: any[];
   isPublic: boolean;
   publishedAt?: string;
   localizations?: { slug: string; locale: string }[];
@@ -239,7 +241,7 @@ export const strapiClient = {
   },
 
   getCaseStudy: (slug: string, locale: Locale = 'es'): Promise<StrapiResponse<CaseStudy[]>> =>
-    strapiRequest(`/api/case-studies?filters[slug][$eq]=${slug}&populate=*&locale=${STRAPI_LOCALE[locale]}`),
+    strapiRequest(`/api/case-studies?filters[slug][$eq]=${slug}&populate=deep&locale=${STRAPI_LOCALE[locale]}`),
 
   getCaseStudyCategories: (locale: Locale = 'es'): Promise<StrapiResponse<CaseStudyCategory[]>> =>
     strapiRequest(`/api/categories?locale=${STRAPI_LOCALE[locale]}&sort=name:asc`),

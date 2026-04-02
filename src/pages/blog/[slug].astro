@@ -5,6 +5,7 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import StrapiBlocks from '../../components/blocks/StrapiBlocks.astro';
+import PageBlocks from '../../components/blocks/PageBlocks.astro';
 import { strapiClient } from '../../lib/strapi';
 import { buildAlternates } from '../../lib/i18n';
 import { articleSchema } from '../../lib/schema';
@@ -131,6 +132,12 @@ const coverUrl = getStrapiImageUrl(post.featuredImage) || '/og-default.jpg';
                     : <p class="text-zinc-500 italic">Contenido no disponible.</p>
             }
         </div>
+
+        {post.page_blocks?.length > 0 && (
+          <div class="mt-8">
+            <PageBlocks blocks={post.page_blocks} />
+          </div>
+        )}
 
         <!-- Bio del Autor -->
         {author && (

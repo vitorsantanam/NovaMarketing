@@ -5,6 +5,7 @@ import SuccessCard from '../../../components/blog/SuccessCard.astro';
 import CategoryTabs from '../../../components/blog/CategoryTabs.astro';
 import { strapiClient, getStrapiImageUrl } from '../../../lib/strapi';
 import StrapiBlocks from '../../../components/blocks/StrapiBlocks.astro';
+import PageBlocks from '../../../components/blocks/PageBlocks.astro';
 import { buildAlternates } from '../../../lib/i18n';
 
 export async function getStaticPaths() {
@@ -58,8 +59,8 @@ let cases = [];
 let allCategories = [];
 
 if (pageType === 'case-study') {
-    // Use data already fetched in getStaticPaths (no need to re-fetch)
-    caseStudy = initialData;
+    const detailRes = await strapiClient.getCaseStudy(initialData.slug, 'ca');
+    caseStudy = detailRes.data[0]?.attributes ?? detailRes.data[0] ?? initialData;
 } else {
     // Category page: use category metadata from props, fetch its cases
     categoryData = initialData;
@@ -151,6 +152,12 @@ const publishedDate = (pageType === 'case-study' && caseStudy.publishedAt) ? new
                     <StrapiBlocks blocks={caseStudy.content} />
                 </div>
             ) : null}
+
+            {caseStudy.page_blocks?.length > 0 && (
+              <div class="mt-8">
+                <PageBlocks blocks={caseStudy.page_blocks} />
+              </div>
+            )}
 
             <!-- Final CTA: Spectacular Premium Design -->
             <div class="reveal mt-32 relative group overflow-hidden p-8 sm:p-14 rounded-[3rem] bg-zinc-950 border border-white/10 transition-all duration-700 hover:border-accent/40 hover:shadow-[0_0_80px_-20px_rgba(59,130,246,0.3)] max-w-5xl mx-auto text-center">

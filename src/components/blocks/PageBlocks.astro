@@ -1,0 +1,730 @@
+---
+/**
+ * PageBlocks.astro — Renderer de módulos de contenido
+ *
+ * MÓDULOS DISPONIBLES EN STRAPI:
+ * - blocks.rich-text     → Editor de bloques visual
+ * - blocks.image         → Imagen (normal/wide/full, caption opcional)
+ * - blocks.callout       → Caja destacada (dato/atencion/resultado/tip)
+ * - blocks.metrics-row   → Fila de KPIs numéricos
+ * - blocks.quote         → Cita tipográfica con autor
+ * - blocks.cta           → Sección CTA con botón
+ * - blocks.two-columns   → Dos columnas de texto
+ * - blocks.image-text    → Imagen + texto (imagen izq/der)
+ * - blocks.video         → Embed YouTube/Vimeo
+ * - blocks.divider       → Separador visual
+ * - blocks.gallery       → Galería de imágenes en grid
+ * - blocks.timeline      → Proceso paso a paso
+ * - blocks.comparison    → Comparativa Antes/Después
+ * - blocks.big-stat      → KPI / Estadística grande
+ */
+import StrapiBlocks from './StrapiBlocks.astro';
+
+interface Props {
+  blocks: any[];
+}
+const { blocks } = Astro.props;
+
+function imgUrl(img: any): string {
+  if (!img) return '';
+  if (img.url?.startsWith('http')) return img.url;
+  return img.url ?? '';
+}
+
+function embedUrl(url: string): string {
+  if (!url) return '';
+  // YouTube
+  const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+  // Vimeo
+  const vi = url.match(/vimeo\.com\/(\d+)/);
+  if (vi) return `https://player.vimeo.com/video/${vi[1]}`;
+  return url;
+}
+---
+
+<div class="pb-space">
+{blocks?.map((block) => (
+  <>
+    {/* ── Rich Text ── */}
+    {block.__component === 'blocks.rich-text' && block.content?.length > 0 && (
+      <div class="pb-rich-text">
+        <StrapiBlocks blocks={block.content} />
+      </div>
+    )}
+
+    {/* ── Image ── */}
+    {block.__component === 'blocks.image' && block.image && (
+      <figure class={`pb-image pb-image--${block.size ?? 'normal'}`}>
+        <img src={imgUrl(block.image)} alt={block.image.alternativeText ?? ''} loading="lazy" class="pb-img" />
+        {block.caption && <figcaption class="pb-figcaption">{block.caption}</figcaption>}
+      </figure>
+    )}
+
+    {/* ── Callout ── */}
+    {block.__component === 'blocks.callout' && (
+      <div class={`pb-callout pb-callout--${block.type ?? 'dato'}`}>
+        <span class="pb-callout__label">{
+          block.type === 'dato' ? 'Dato clave' :
+          block.type === 'atencion' ? 'Atención' :
+          block.type === 'resultado' ? 'Resultado' :
+          'Consejo'
+        }</span>
+        {block.title && <p class="pb-callout__title">{block.title}</p>}
+        <p class="pb-callout__body">{block.content}</p>
+      </div>
+    )}
+
+    {/* ── Metrics Row ── */}
+    {block.__component === 'blocks.metrics-row' && block.items?.length > 0 && (
+      <div class="pb-metrics">
+        {block.title && <p class="pb-metrics__label">{block.title}</p>}
+        <div class={`pb-metrics__grid pb-metrics__grid--${block.items.length <= 2 ? '2' : block.items.length === 3 ? '3' : '4'}`}>
+          {block.items.map((item: any) => (
+            <div class="pb-metric">
+              <span class="pb-metric__value">{item.value}</span>
+              <span class="pb-metric__label">{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {/* ── Quote ── */}
+    {block.__component === 'blocks.quote' && (
+      <blockquote class="pb-quote">
+        <p class="pb-quote__text">"{block.quote}"</p>
+        {(block.author || block.role) && (
+          <footer class="pb-quote__footer">
+            {block.author && <span class="pb-quote__author">{block.author}</span>}
+            {block.role && <span class="pb-quote__role">{block.role}</span>}
+          </footer>
+        )}
+      </blockquote>
+    )}
+
+    {/* ── CTA ── */}
+    {block.__component === 'blocks.cta' && (
+      <div class={`pb-cta pb-cta--${block.style ?? 'dark'}`}>
+        {block.headline && <h3 class="pb-cta__headline" set:html={block.headline} />}
+        {block.description && <p class="pb-cta__desc">{block.description}</p>}
+        {block.open_modal !== false
+          ? <button class="pb-cta__btn contact-modal-trigger">{block.button_text ?? 'Contactar'}</button>
+          : block.button_url && <a href={block.button_url} class="pb-cta__btn">{block.button_text ?? 'Contactar'}</a>
+        }
+      </div>
+    )}
+
+    {/* ── Two Columns ── */}
+    {block.__component === 'blocks.two-columns' && (
+      <div class="pb-two-cols">
+        <div class="pb-two-cols__col sb-content" set:html={block.left ?? ''} />
+        <div class="pb-two-cols__col sb-content" set:html={block.right ?? ''} />
+      </div>
+    )}
+
+    {/* ── Image + Text ── */}
+    {block.__component === 'blocks.image-text' && block.image && (
+      <div class={`pb-imgtext pb-imgtext--${block.image_side ?? 'right'}`}>
+        <figure class="pb-imgtext__figure">
+          <img src={imgUrl(block.image)} alt={block.image.alternativeText ?? ''} loading="lazy" class="pb-img" />
+        </figure>
+        <div class="pb-imgtext__body sb-content">
+          {block.title && <h3 class="pb-imgtext__title">{block.title}</h3>}
+          {block.content && <div set:html={block.content} />}
+        </div>
+      </div>
+    )}
+
+    {/* ── Video ── */}
+    {block.__component === 'blocks.video' && block.url && (
+      <figure class="pb-video">
+        <div class="pb-video__wrap">
+          <iframe
+            src={embedUrl(block.url)}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+            class="pb-video__iframe"
+          />
+        </div>
+        {block.caption && <figcaption class="pb-figcaption">{block.caption}</figcaption>}
+      </figure>
+    )}
+
+    {/* ── Divider ── */}
+    {block.__component === 'blocks.divider' && (
+      <div class={`pb-divider pb-divider--${block.style ?? 'line'}`}>
+        {block.style === 'dots' && <span>· · ·</span>}
+      </div>
+    )}
+
+    {/* ── Gallery ── */}
+    {block.__component === 'blocks.gallery' && block.images?.length > 0 && (
+      <figure class="pb-gallery">
+        <div class={`pb-gallery__grid pb-gallery__grid--${block.columns ?? '3'}`}>
+          {block.images.map((img: any) => (
+            <div class="pb-gallery__item">
+              <img src={imgUrl(img)} alt={img.alternativeText ?? ''} loading="lazy" class="pb-gallery__img" />
+            </div>
+          ))}
+        </div>
+        {block.caption && <figcaption class="pb-figcaption">{block.caption}</figcaption>}
+      </figure>
+    )}
+
+    {/* ── Timeline ── */}
+    {block.__component === 'blocks.timeline' && block.steps?.length > 0 && (
+      <div class="pb-timeline">
+        {block.title && <p class="pb-timeline__label">{block.title}</p>}
+        <ol class="pb-timeline__list">
+          {block.steps.map((step: any, i: number) => (
+            <li class="pb-timeline__item">
+              <span class="pb-timeline__num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="pb-timeline__body">
+                {step.title && <h4 class="pb-timeline__title">{step.title}</h4>}
+                {step.desc && <p class="pb-timeline__desc">{step.desc}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    )}
+
+    {/* ── Comparison ── */}
+    {block.__component === 'blocks.comparison' && (
+      <div class="pb-comparison">
+        <div class="pb-comparison__panel pb-comparison__panel--before">
+          <span class="pb-comparison__label">{block.before_label ?? 'Antes'}</span>
+          <p class="pb-comparison__content">{block.before_content}</p>
+        </div>
+        <div class="pb-comparison__panel pb-comparison__panel--after">
+          <span class="pb-comparison__label">{block.after_label ?? 'Después'}</span>
+          <p class="pb-comparison__content">{block.after_content}</p>
+        </div>
+      </div>
+    )}
+
+    {/* ── Big Stat ── */}
+    {block.__component === 'blocks.big-stat' && (
+      <div class={`pb-bigstat pb-bigstat--${block.color ?? 'black'}`}>
+        <span class="pb-bigstat__value">{block.value}</span>
+        <span class="pb-bigstat__label">{block.label}</span>
+        {block.description && <p class="pb-bigstat__desc">{block.description}</p>}
+      </div>
+    )}
+  </>
+))}
+</div>
+
+<style>
+/* ================================================================
+   PageBlocks — Módulos de contenido editorial
+   ================================================================ */
+
+.pb-space > * + * {
+  margin-top: 3rem;
+}
+
+/* ── Rich Text ── */
+.pb-rich-text {
+  /* heredado de StrapiBlocks */
+}
+
+/* ── Image ── */
+.pb-image {
+  margin: 3rem 0;
+}
+.pb-image--normal { max-width: 56rem; margin-left: auto; margin-right: auto; }
+.pb-image--wide   { max-width: 72rem; margin-left: auto; margin-right: auto; }
+.pb-image--full   { width: 100%; }
+
+.pb-img {
+  width: 100%;
+  display: block;
+  border-radius: 1rem;
+  box-shadow: 0 30px 80px -15px rgba(0,0,0,0.15);
+}
+.pb-image--full .pb-img {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.pb-figcaption {
+  text-align: center;
+  font-size: 0.8125rem;
+  color: #a1a1aa;
+  margin-top: 0.875rem;
+  font-style: italic;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Callout ── */
+.pb-callout {
+  padding: 1.5rem 1.75rem;
+  border-radius: 10px;
+  max-width: 56rem;
+  margin: 2.5rem auto;
+}
+.pb-callout__label {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+  margin-bottom: 0.625rem;
+}
+.pb-callout__title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  margin: 0.375rem 0 0.25rem 0;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+.pb-callout__body {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+/* dato — verde */
+.pb-callout--dato { background:#f0fdf4; border:1px solid #bbf7d0; border-left:4px solid #22c55e; }
+.pb-callout--dato .pb-callout__label { background:#dcfce7; color:#15803d; }
+.pb-callout--dato .pb-callout__title { color:#166534; }
+.pb-callout--dato .pb-callout__body  { color:#166534; }
+
+/* atencion — naranja */
+.pb-callout--atencion { background:#fff7ed; border:1px solid #fed7aa; border-left:4px solid #f97316; }
+.pb-callout--atencion .pb-callout__label { background:#ffedd5; color:#c2410c; }
+.pb-callout--atencion .pb-callout__title { color:#7c2d12; }
+.pb-callout--atencion .pb-callout__body  { color:#7c2d12; }
+
+/* resultado — negro */
+.pb-callout--resultado { background:#09090b; border:1px solid #27272a; border-left:4px solid #3b82f6; }
+.pb-callout--resultado .pb-callout__label { background:#3b82f6; color:#fff; }
+.pb-callout--resultado .pb-callout__title { color:#fff; }
+.pb-callout--resultado .pb-callout__body  { color:#e4e4e7; }
+
+/* tip — azul */
+.pb-callout--tip { background:#eff6ff; border:1px solid #bfdbfe; border-left:4px solid #3b82f6; }
+.pb-callout--tip .pb-callout__label { background:#dbeafe; color:#1d4ed8; }
+.pb-callout--tip .pb-callout__title { color:#1e3a5f; }
+.pb-callout--tip .pb-callout__body  { color:#1e3a5f; }
+
+/* ── Metrics Row ── */
+.pb-metrics {
+  padding: 3rem 2.5rem;
+  background: #09090b;
+  border-radius: 1.5rem;
+  margin: 3rem 0;
+}
+.pb-metrics__label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #71717a;
+  margin: 0 0 2rem 0;
+}
+.pb-metrics__grid {
+  display: grid;
+  gap: 2rem;
+}
+.pb-metrics__grid--2 { grid-template-columns: repeat(2, 1fr); }
+.pb-metrics__grid--3 { grid-template-columns: repeat(3, 1fr); }
+.pb-metrics__grid--4 { grid-template-columns: repeat(2, 1fr); }
+
+@media (min-width: 768px) {
+  .pb-metrics__grid--4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+.pb-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 1.5rem;
+  border: 1px solid #27272a;
+  border-radius: 0.75rem;
+  transition: border-color 0.2s;
+}
+.pb-metric:hover { border-color: #3b82f6; }
+
+.pb-metric__value {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #fff;
+}
+.pb-metric__label {
+  font-size: 0.8125rem;
+  color: #71717a;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Quote ── */
+.pb-quote {
+  margin: 4rem 0;
+  padding: 2.5rem 0;
+  border-top: 2px solid #09090b;
+  border-bottom: 2px solid #09090b;
+  text-align: center;
+}
+.pb-quote__text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.375rem, 3vw, 2.25rem);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: #09090b;
+  text-transform: uppercase;
+  margin: 0 0 1.5rem 0;
+}
+.pb-quote__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+.pb-quote__author {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #09090b;
+}
+.pb-quote__role {
+  font-size: 0.8125rem;
+  color: #71717a;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── CTA ── */
+.pb-cta {
+  padding: 3.5rem;
+  border-radius: 2rem;
+  margin: 3rem 0;
+  text-align: center;
+}
+.pb-cta--dark    { background: #09090b; border: 1px solid #27272a; }
+.pb-cta--light   { background: #f4f4f5; border: 1px solid #e4e4e7; }
+.pb-cta--accent  { background: #3b82f6; }
+
+.pb-cta__headline {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.375rem, 3vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 1rem 0;
+}
+.pb-cta--dark  .pb-cta__headline { color: #fff; }
+.pb-cta--light .pb-cta__headline { color: #09090b; }
+.pb-cta--accent .pb-cta__headline { color: #fff; }
+
+.pb-cta__desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 2rem 0;
+  font-family: 'Inter', sans-serif;
+}
+.pb-cta--dark  .pb-cta__desc { color: #71717a; }
+.pb-cta--light .pb-cta__desc { color: #52525b; }
+.pb-cta--accent .pb-cta__desc { color: rgba(255,255,255,0.8); }
+
+.pb-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 1.125rem 2.5rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.pb-cta--dark .pb-cta__btn    { background: #fff; color: #09090b; }
+.pb-cta--dark .pb-cta__btn:hover { background: #3b82f6; color: #fff; }
+.pb-cta--light .pb-cta__btn   { background: #09090b; color: #fff; }
+.pb-cta--light .pb-cta__btn:hover { background: #3b82f6; color: #fff; }
+.pb-cta--accent .pb-cta__btn  { background: #09090b; color: #fff; }
+.pb-cta--accent .pb-cta__btn:hover { background: #fff; color: #09090b; }
+
+/* ── Two Columns ── */
+.pb-two-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin: 2rem 0;
+}
+@media (min-width: 768px) {
+  .pb-two-cols { grid-template-columns: 1fr 1fr; }
+}
+.pb-two-cols__col {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #52525b;
+}
+
+/* ── Image + Text ── */
+.pb-imgtext {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  margin: 3rem 0;
+}
+@media (min-width: 768px) {
+  .pb-imgtext { grid-template-columns: 1fr 1fr; }
+  .pb-imgtext--left .pb-imgtext__figure { order: -1; }
+  .pb-imgtext--right .pb-imgtext__figure { order: 1; }
+}
+.pb-imgtext__figure { margin: 0; }
+.pb-imgtext__body { display: flex; flex-direction: column; gap: 1rem; }
+.pb-imgtext__title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: #09090b;
+  margin: 0;
+}
+
+/* ── Video ── */
+.pb-video { margin: 3rem 0; }
+.pb-video__wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -10px rgba(0,0,0,0.2);
+}
+.pb-video__iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+/* ── Divider ── */
+.pb-divider {
+  margin: 3rem 0;
+  text-align: center;
+}
+.pb-divider--line {
+  border: none;
+  border-top: 1px solid #e4e4e7;
+}
+.pb-divider--gradient {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #3b82f6, transparent);
+  border: none;
+}
+.pb-divider--dots {
+  color: #a1a1aa;
+  font-size: 1.5rem;
+  letter-spacing: 0.5em;
+  line-height: 1;
+}
+.pb-divider--space {
+  padding: 2rem 0;
+}
+
+/* ── Gallery ── */
+.pb-gallery { margin: 3rem 0; }
+.pb-gallery__grid {
+  display: grid;
+  gap: 0.75rem;
+}
+.pb-gallery__grid--2 { grid-template-columns: repeat(2, 1fr); }
+.pb-gallery__grid--3 { grid-template-columns: repeat(2, 1fr); }
+.pb-gallery__grid--4 { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 640px) {
+  .pb-gallery__grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .pb-gallery__grid--4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+.pb-gallery__item {
+  overflow: hidden;
+  border-radius: 0.625rem;
+  aspect-ratio: 4/3;
+}
+.pb-gallery__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.pb-gallery__item:hover .pb-gallery__img { transform: scale(1.05); }
+
+/* ── Timeline ── */
+.pb-timeline { margin: 3rem 0; }
+.pb-timeline__label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #71717a;
+  margin: 0 0 2rem 0;
+}
+.pb-timeline__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.pb-timeline__item {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 1.5rem;
+  position: relative;
+  padding-bottom: 2.5rem;
+}
+.pb-timeline__item:last-child { padding-bottom: 0; }
+.pb-timeline__item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 1.625rem;
+  top: 2.5rem;
+  bottom: 0;
+  width: 1px;
+  background: #e4e4e7;
+}
+.pb-timeline__num {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: #09090b;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 1;
+  position: relative;
+}
+.pb-timeline__body { padding-top: 0.625rem; }
+.pb-timeline__title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.0625rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: #09090b;
+  margin: 0 0 0.375rem 0;
+}
+.pb-timeline__desc {
+  font-size: 0.9375rem;
+  color: #71717a;
+  line-height: 1.65;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Comparison ── */
+.pb-comparison {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 3rem 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.12);
+}
+@media (min-width: 640px) {
+  .pb-comparison { grid-template-columns: 1fr 1fr; }
+}
+.pb-comparison__panel {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pb-comparison__panel--before { background: #f4f4f5; border-right: 1px solid #e4e4e7; }
+.pb-comparison__panel--after  { background: #09090b; }
+
+.pb-comparison__label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+.pb-comparison__panel--before .pb-comparison__label { background: #e4e4e7; color: #52525b; }
+.pb-comparison__panel--after  .pb-comparison__label { background: #3b82f6; color: #fff; }
+
+.pb-comparison__content {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+.pb-comparison__panel--before .pb-comparison__content { color: #52525b; }
+.pb-comparison__panel--after  .pb-comparison__content { color: #a1a1aa; }
+
+/* ── Big Stat ── */
+.pb-bigstat {
+  padding: 3rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 3rem 0;
+}
+.pb-bigstat--black { background: #09090b; }
+.pb-bigstat--blue  { background: #3b82f6; }
+.pb-bigstat--green { background: #16a34a; }
+
+.pb-bigstat__value {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(4rem, 10vw, 7rem);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: #fff;
+}
+.pb-bigstat__label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.5);
+}
+.pb-bigstat__desc {
+  font-size: 0.9375rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+  margin: 0.5rem 0 0 0;
+  max-width: 30rem;
+  font-family: 'Inter', sans-serif;
+}
+</style>
