@@ -41,7 +41,7 @@ function formatDate(dateStr?: string) {
   return new Date(dateStr).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-const coverUrl = getStrapiImageUrl(post.featuredImage) || '/og-default.jpg';
+const coverUrl = getStrapiImageUrl(post.featuredImage ?? (post as any).cover_image) || '/og-default.jpg';
 ---
 
 <BaseLayout
@@ -77,7 +77,7 @@ const coverUrl = getStrapiImageUrl(post.featuredImage) || '/og-default.jpg';
           </span>
         )}
         <span class="text-white/60 text-[10px] font-black tracking-widest uppercase">
-            {post.publishedDate && formatDate(post.publishedDate).toUpperCase()}
+            {(post.publishedDate || post.publishedAt) && formatDate(post.publishedDate || post.publishedAt).toUpperCase()}
         </span>
       </div>
       

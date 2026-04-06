@@ -10,8 +10,8 @@ interface Props {
 const { post, locale } = Astro.props;
 const prefix = locale === 'ca' ? '/ca' : '';
 const blogUrl = `${prefix}/blog/${post.slug}/`;
-const imageUrl = getStrapiImageUrl(post.featuredImage) || '/og-default.jpg';
-const category = post.category?.name || (locale === 'ca' ? 'Sense categoria' : 'Sin categoría');
+const imageUrl = getStrapiImageUrl(post.featuredImage ?? post.cover_image) || '/og-default.jpg';
+const category = post.category?.name || (post.categories?.[0] as any)?.name || (locale === 'ca' ? 'Sense categoria' : 'Sin categoría');
 ---
 
 <a href={blogUrl} class="group bg-white border border-zinc-100/80 rounded-3xl overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 shadow-sm flex flex-col h-full">
