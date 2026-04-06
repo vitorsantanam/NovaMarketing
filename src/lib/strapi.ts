@@ -239,7 +239,7 @@ export const strapiClient = {
 
   // Blog
   getBlogPosts: (locale: Locale = 'es', options?: { category?: string; limit?: number }): Promise<StrapiResponse<BlogPost[]>> => {
-    let query = `/api/articles?populate[categories]=*&populate[cover_image]=*&populate[author]=*&locale=${STRAPI_LOCALE[locale]}&publicationState=live&sort=publishedAt:desc`;
+    let query = `/api/articles?populate=*&locale=${STRAPI_LOCALE[locale]}&publicationState=live&sort=publishedAt:desc`;
     if (options?.category) query += `&filters[categories][slug][$eq]=${options.category}`;
     if (options?.limit) query += `&pagination[pageSize]=${options.limit}`;
     return strapiRequest(query);

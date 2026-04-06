@@ -29,11 +29,16 @@ const canonicalPath = `/blog/${category}`;
 const alternates = buildAlternates(canonicalPath, canonicalPath, SITE_URL);
 
 // Fetch data
-const postsRes = await strapiClient.getBlogPosts('ca', { category });
-const allCategoriesRes = await strapiClient.getBlogCategories('ca');
-
-const posts = postsRes.data.map(i => i.attributes ?? i);
-const allCategories = allCategoriesRes.data.map(i => i.attributes ?? i);
+let posts = [];
+let allCategories = [];
+try {
+  const postsRes = await strapiClient.getBlogPosts('ca', { category });
+  posts = postsRes.data.map(i => i.attributes ?? i);
+} catch (e) { console.error('Blog CA category posts error:', e); }
+try {
+  const allCategoriesRes = await strapiClient.getBlogCategories('ca');
+  allCategories = allCategoriesRes.data.map(i => i.attributes ?? i);
+} catch (e) { console.error('Blog CA categories error:', e); }
 ---
 
 <BaseLayout

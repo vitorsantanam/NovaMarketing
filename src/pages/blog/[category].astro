@@ -29,14 +29,18 @@ const canonicalPath = `/blog/${category}`;
 const alternates = buildAlternates(canonicalPath, canonicalPath, SITE_URL);
 
 // Fetch data
-const postsRes = await strapiClient.getBlogPosts('es', { category });
-const allCategoriesRes = await strapiClient.getBlogCategories('es');
+let posts = [];
+let allCategories = [];
+try {
+  const postsRes = await strapiClient.getBlogPosts('es', { category });
+  posts = postsRes.data.map(i => i.attributes ?? i);
+} catch (e) { console.error('Blog category posts error:', e); }
+try {
+  const allCategoriesRes = await strapiClient.getBlogCategories('es');
+  allCategories = allCategoriesRes.data.map(i => i.attributes ?? i);
+} catch (e) { console.error('Blog categories error:', e); }
 
-const posts = postsRes.data.map(i => i.attributes ?? i);
-const allCategories = allCategoriesRes.data.map(i => i.attributes ?? i);
-
-// Filter categories for the tabs (optional if you want to show all categories that have posts in general, or only those requested by user)
-const categoriesWithPosts = allCategories.filter(cat => !!cat.slug); // Showing all found
+const categoriesWithPosts = allCategories.filter(cat => !!cat.slug);
 ---
 
 <BaseLayout
