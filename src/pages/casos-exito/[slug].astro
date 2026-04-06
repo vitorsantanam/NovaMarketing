@@ -59,8 +59,13 @@ let cases = [];
 let allCategories = [];
 
 if (pageType === 'case-study') {
-    const detailRes = await strapiClient.getCaseStudy(initialData.slug, 'es');
-    caseStudy = detailRes.data[0]?.attributes ?? detailRes.data[0] ?? initialData;
+    try {
+      const detailRes = await strapiClient.getCaseStudy(initialData.slug, 'es');
+      caseStudy = detailRes.data[0]?.attributes ?? detailRes.data[0] ?? initialData;
+    } catch (e) {
+      console.error(`[slug] Error fetching case study ${initialData.slug}:`, e);
+      caseStudy = initialData;
+    }
 } else {
     // Category page: use category metadata from props, fetch its cases
     categoryData = initialData;
