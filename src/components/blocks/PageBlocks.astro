@@ -294,81 +294,71 @@ function embedUrl(url: string): string {
 .pb-html ul,
 .sb-content ul {
   list-style: none;
-  padding: 1.25rem 1.5rem 1.25rem 1.25rem;
+  padding: 0;
   margin: 0 0 1.75rem 0;
-  background: #f8f8f8;
-  border: 1px solid #efefef;
-  border-radius: 0.875rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
 }
 
 .pb-html ul li,
 .sb-content ul li {
-  display: flex;
-  align-items: baseline;
-  gap: 0.625rem;
+  position: relative;
+  padding: 0.5rem 0 0.5rem 1.375rem;
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.75;
   color: #3f3f46;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.pb-html ul li:last-child,
+.sb-content ul li:last-child {
+  border-bottom: none;
 }
 
 .pb-html ul li::before,
 .sb-content ul li::before {
   content: '';
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  min-width: 7px;
+  position: absolute;
+  left: 0;
+  top: 1.05em;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #3b82f6;
-  margin-top: 0.45em;
-  flex-shrink: 0;
 }
 
 .pb-html ol,
 .sb-content ol {
   list-style: none;
-  padding: 1.25rem 1.5rem 1.25rem 1.25rem;
+  padding: 0;
   margin: 0 0 1.75rem 0;
   counter-reset: ol-counter;
-  background: #f8f8f8;
-  border: 1px solid #efefef;
-  border-radius: 0.875rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
 }
 
 .pb-html ol li,
 .sb-content ol li {
   counter-increment: ol-counter;
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
+  position: relative;
+  padding: 0.5rem 0 0.5rem 2rem;
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.75;
   color: #3f3f46;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.pb-html ol li:last-child,
+.sb-content ol li:last-child {
+  border-bottom: none;
 }
 
 .pb-html ol li::before,
 .sb-content ol li::before {
-  content: counter(ol-counter);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.375rem;
-  height: 1.375rem;
-  border-radius: 50%;
-  background: #09090b;
-  color: #fff;
+  content: counter(ol-counter) '.';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
-  font-size: 0.5625rem;
-  flex-shrink: 0;
-  position: relative;
-  top: -0.1em;
+  font-size: 0.75rem;
+  color: #3b82f6;
 }
 
 /* Tablas */
