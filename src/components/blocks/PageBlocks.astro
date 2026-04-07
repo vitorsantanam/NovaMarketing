@@ -247,24 +247,32 @@ function embedUrl(url: string): string {
   margin: 0 0 1.5rem 0;
 }
 
-/* Indentación de contenido en desktop */
+/* Indentación de contenido en desktop — aplica a TODOS los bloques */
 @media (min-width: 768px) {
-  .pb-html p,
-  .sb-content p,
-  .pb-html span,
-  .sb-content span,
-  .pb-html ul,
-  .sb-content ul,
-  .pb-html ol,
-  .sb-content ol {
+  .pb-space p,
+  .pb-space span {
     padding-left: 25px;
   }
-  /* Los li ya tienen su propio padding-left relativo al ul/ol, no añadir doble */
-  .pb-html ul li,
-  .sb-content ul li,
-  .pb-html ol li,
-  .sb-content ol li {
+
+  /* Listas: más indentación que los párrafos */
+  .pb-space ul,
+  .pb-space ol {
+    padding-left: 40px;
+  }
+
+  /* Los li mantienen su padding interno para alinear bullet/número */
+  .pb-space ul li,
+  .pb-space ol li {
     padding-left: 1.75rem;
+  }
+
+  /* Headers: sin margen izquierdo */
+  .pb-space h2,
+  .pb-space h3,
+  .pb-space h4,
+  .pb-space h5,
+  .pb-space h6 {
+    padding-left: 0 !important;
   }
 }
 
