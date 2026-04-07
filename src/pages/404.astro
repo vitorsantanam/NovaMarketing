@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Página no encontrada | Nova Marketing"
+  description="Esta página no existe. Puede que la URL haya cambiado o haya sido eliminada."
+  noIndex={true}
+  locale="es"
+>
+  <main class="min-h-[80vh] flex items-center justify-center px-6 py-32 bg-white">
+    <div class="max-w-2xl w-full text-center">
+
+      <!-- Número 404 grande -->
+      <div class="relative mb-12 select-none">
+        <span class="text-[12rem] sm:text-[16rem] font-black leading-none text-zinc-100 block">
+          404
+        </span>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-24 h-24 rounded-[2rem] bg-accent/10 flex items-center justify-center">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-accent">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+              <path d="M11 8v3M11 14h.01"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Texto -->
+      <h1 class="text-4xl sm:text-5xl font-black uppercase tracking-tighter text-zinc-950 mb-4 leading-none">
+        Página no encontrada
+      </h1>
+      <p class="text-zinc-400 font-light text-lg mb-12 max-w-md mx-auto">
+        La URL que buscas no existe o ha sido movida. Puede que hayamos cambiado la dirección.
+      </p>
+
+      <!-- Acciones -->
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a
+          href="/"
+          class="px-10 py-5 bg-zinc-950 text-white text-[11px] font-black tracking-widest uppercase rounded-2xl hover:bg-accent transition-all duration-300"
+        >
+          ← Ir al inicio
+        </a>
+        <a
+          href="/blog"
+          class="px-10 py-5 bg-zinc-100 text-zinc-950 text-[11px] font-black tracking-widest uppercase rounded-2xl hover:bg-zinc-200 transition-all duration-300"
+        >
+          Ver el blog
+        </a>
+        <button
+          class="contact-modal-trigger px-10 py-5 border border-zinc-200 text-zinc-950 text-[11px] font-black tracking-widest uppercase rounded-2xl hover:border-accent hover:text-accent transition-all duration-300 cursor-pointer"
+        >
+          Contactar
+        </button>
+      </div>
+
+      <!-- Links útiles -->
+      <div class="mt-20 pt-10 border-t border-zinc-100">
+        <p class="text-[10px] font-black tracking-widest uppercase text-zinc-300 mb-6">
+          Puede que busques esto
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          {[
+            { label: 'Posicionamiento SEO', href: '/agencia-seo-para-pymes/' },
+            { label: 'Google Ads', href: '/agencia-sem-para-pymes/' },
+            { label: 'Diseño web', href: '/diseno-web-para-pymes/' },
+            { label: 'Casos de éxito', href: '/casos-exito' },
+            { label: 'Blog', href: '/blog' },
+          ].map(l => (
+            <a
+              href={l.href}
+              class="px-4 py-2 rounded-xl border border-zinc-200 text-zinc-600 text-xs font-bold hover:border-accent hover:text-accent transition-colors"
+            >
+              {l.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </main>
+</BaseLayout>
