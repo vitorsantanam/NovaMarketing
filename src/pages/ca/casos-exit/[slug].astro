@@ -103,9 +103,19 @@ if (pageType === 'case-study') {
     ]);
     sidebarServices = (servicesRes.data ?? []).map((i: any) => i.attributes ?? i).slice(0, 5);
     latestPosts = (postsRes.data ?? []).map((i: any) => i.attributes ?? i).slice(0, 5);
-  } catch {
-    // sidebar data optional
-  }
+  } catch {}
+}
+
+// Enriquecer autor con foto (populate=* no devuelve foto anidada)
+if (pageType === 'case-study' && caseStudy?.author) {
+  try {
+    const authorsRes = await strapiClient.getAuthors();
+    const found = (authorsRes.data ?? []).find((a: any) => {
+      const d = a.attributes ?? a;
+      return d.name === caseStudy.author.name;
+    });
+    if (found) caseStudy.author = found.attributes ?? found;
+  } catch {}
 }
 
 // CTA dinàmic segons categoria del cas

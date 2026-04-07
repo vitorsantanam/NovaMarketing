@@ -51,18 +51,16 @@ function formatDate(dateStr?: string) {
 
 const coverUrl = getStrapiImageUrl(post.featuredImage ?? (post as any).cover_image) || '/og-default.jpg';
 
-// Fetch autor amb foto
+// Fetch autor amb foto (populate=* no retorna foto anidada)
 let author: Author | undefined = post.author;
-if (author) {
-  try {
-    const authorsRes = await strapiClient.getAuthors();
-    const found = (authorsRes.data ?? []).find((a: any) => {
-      const d = a.attributes ?? a;
-      return d.name === author!.name || a.id === author!.id;
-    });
-    if (found) author = found.attributes ?? found;
-  } catch {}
-}
+try {
+  const authorsRes = await strapiClient.getAuthors();
+  const list = (authorsRes.data ?? []) as any[];
+  const found = author
+    ? list.find((a: any) => (a.attributes ?? a).name === author!.name)
+    : list[0]; // fallback: primer autor si l'article CA no té autor assignat
+  if (found) author = found.attributes ?? found;
+} catch {}
 
 // Últims articles (sense filtrar l'actual perquè sempre hi hagi resultats)
 let latestPosts: any[] = [];
