@@ -32,7 +32,7 @@ const author: Author | undefined = post.author;
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const canonicalPath = `/blog/${post.slug}`;
 const canonicalUrl = `${SITE_URL}${canonicalPath}`;
-const alternates = buildAlternates(canonicalPath, `/blog/${post.slug}`, SITE_URL);
+const alternates = buildAlternates(canonicalPath, `/ca/blog/${post.slug}`, SITE_URL);
 
 const schemas: object[] = [];
 
@@ -97,7 +97,7 @@ const coverUrl = getStrapiImageUrl(post.featuredImage ?? (post as any).cover_ima
                 )}
                 <div>
                    <div class="text-white font-bold text-lg leading-none mb-1">{author.name}</div>
-                   <div class="text-white/40 text-[10px] font-black uppercase tracking-widest">{author.jobTitle || 'Equipo Nova'}</div>
+                   <div class="text-white/40 text-[10px] font-black uppercase tracking-widest">{author.job_title || 'Equipo Nova'}</div>
                 </div>
             </div>
           )}
@@ -127,7 +127,7 @@ const coverUrl = getStrapiImageUrl(post.featuredImage ?? (post as any).cover_ima
           : <p class="text-zinc-500 italic">Contenido no disponible.</p>
         }
 
-        {author && <AuthorCard author={author} />}
+        {author && <AuthorCard author={author} locale="es" />}
       </article>
 
       <!-- Sidebar Minimalista -->

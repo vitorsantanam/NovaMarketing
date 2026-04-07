@@ -208,9 +208,14 @@ async function strapiRequest<T>(path: string): Promise<T> {
   return res.json();
 }
 
-// Helper para obtener la URL completa de una imagen
-export function getStrapiImageUrl(image?: StrapiImage): string | undefined {
-  if (!image?.url) return undefined;
+// Helper para obtener la URL completa de una imagen (compatible con Strapi v4 y v5)
+export function getStrapiImageUrl(image?: any): string | undefined {
+  if (!image) return undefined;
+  // Strapi v4: { data: { attributes: { url } } }
+  const v4url = image?.data?.attributes?.url;
+  if (v4url) return v4url.startsWith('http') ? v4url : `${STRAPI_URL}${v4url}`;
+  // Strapi v5 plano: { url }
+  if (!image.url) return undefined;
   if (image.url.startsWith('http')) return image.url;
   return `${STRAPI_URL}${image.url}`;
 }
