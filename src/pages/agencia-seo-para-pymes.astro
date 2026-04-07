@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildAlternates } from '../lib/i18n';
+import { strapiClient } from '../lib/strapi';
 import LogoMarquee from '../components/sections/LogoMarquee.astro';
 import FaqHome from '../components/sections/FaqHome.astro';
 
@@ -120,6 +121,18 @@ const seoServiceSchema = {
     "@id": "https://novamarketing.es/agencia-seo-para-pymes/"
   }
 };
+
+// Casos de éxito SEO
+let seoCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  seoCases = casesRes.data
+    .map((i: any) => i.attributes ?? i)
+    .filter((c: any) => {
+      const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+      return cats.some((s: string) => s.includes('seo'));
+    });
+} catch {}
 
 const steps = [
   { title: "Auditoría SEO Inicial", desc: "Analizamos tu pyme y su presencia digital con una auditoría completa para detectar errores técnicos y margen de mejora." },
@@ -317,10 +330,44 @@ const benefits = [
         document.addEventListener('astro:page-load', initTimeline);
     </script>
 
+    <!-- ═══ CASOS DE ÉXITO SEO ════════════════════════════════════════════ -->
+    {seoCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 reveal">
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+                    Casos de éxito de posicionamiento<br class="hidden md:inline" /> SEO en pymes
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {seoCases.map((cs: any, i: number) => {
+                  const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+                  const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+                  return (
+                    <div class="bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl reveal" style={`transition-delay: ${i * 80}ms`}>
+                      <div>
+                        {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                        <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors leading-tight">{cs.title}</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                      </div>
+                      {caseUrl && (
+                        <a href={caseUrl} class="mt-6 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 hover:gap-3 transition-all uppercase">
+                          VER MÁS <span class="text-sm">→</span>
+                        </a>
+                      )}
+                    </div>
+                  );
+                })}
+            </div>
+        </div>
+    </section>
+    )}
+
     <!-- ═══ FAQ ════════════════════════════════════════════════════════════ -->
-    <FaqHome 
-        items={faqItems} 
-        title="Preguntas sobre posicionamiento SEO <br /> que nos hacen otras pymes" 
+    <FaqHome
+        items={faqItems}
+        title="Preguntas sobre posicionamiento SEO <br /> que nos hacen otras pymes"
     />
 
 </BaseLayout>
