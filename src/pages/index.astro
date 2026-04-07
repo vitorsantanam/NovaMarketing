@@ -10,6 +10,16 @@ import FaqHome from '../components/sections/FaqHome.astro';
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/', '/', SITE_URL);
 
+// Casos de éxito reales desde Strapi
+let homeCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  homeCases = casesRes.data
+    .map((i: any) => i.attributes ?? i)
+    .filter((c: any) => c.isPublic)
+    .slice(0, 4);
+} catch {}
+
 const faqItems = [
     {
         question: "¿En qué se diferencia Nova de otras agencias para pymes?",
@@ -311,7 +321,7 @@ const homeSchema = {
         </div>
     </section>
 
-    <!-- ═══ SECCIÓN CASOS DE ÉXITO (NUEVA) ════════════════════════════════ -->
+    <!-- ═══ SECCIÓN CASOS DE ÉXITO ════════════════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 relative overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="mb-16 sm:mb-24 reveal">
@@ -321,45 +331,31 @@ const homeSchema = {
                 </h2>
             </div>
 
-            <!-- Carousel-style Container: Flex on mobile (snap), Grid on Desktop -->
             <div class="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-4 gap-6 pb-8 md:pb-0 scrollbar-hide">
-                
-                <div class="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all reveal">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">SEO + ADS</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Clínica Dental Martínez</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Multiplicamos la captación de pacientes locales optimizando Google Business y campañas hiper-segmentadas.</p>
+                {homeCases.map((cs: any, i: number) => {
+                  const catName = cs.categories?.[0]?.name || cs.categories?.[0]?.attributes?.name || '';
+                  const caseUrl = cs.slug ? `/casos-exito/${cs.slug}/` : null;
+                  return (
+                    <div class="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all reveal" style={`transition-delay: ${i * 100}ms`}>
+                      <div>
+                        {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">{cs.title}</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">{cs.description}</p>
+                      </div>
+                      {caseUrl && (
+                        <a href={caseUrl} class="text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 hover:gap-3 transition-all uppercase mt-4">
+                          VER MÁS <span class="text-sm">→</span>
+                        </a>
+                      )}
                     </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">+150% Leads</div>
-                </div>
+                  );
+                })}
+            </div>
 
-                <div class="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all reveal" style="transition-delay: 100ms">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">E-COMMERCE</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Ferretería El Tornillo</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Desarrollo de tienda online conectada a stock real. Ventas recurrentes a nivel nacional desde el primer mes.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">x3 Ventas</div>
-                </div>
-
-                <div class="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all reveal" style="transition-delay: 200ms">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">LOCAL SEO</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Restaurante El Sabor</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Posicionamiento en "restaurantes cerca de mí". Lleno garantizado cada fin de semana sin inversión en ADS.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">100% Ocupación</div>
-                </div>
-
-                <div class="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all reveal" style="transition-delay: 300ms">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">SOCIAL ADS</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Moda Joven Lara</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Estrategia de Instagram Ads con micro-influencers de la zona de Sabadell. Ventas directas por DM y web.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">-40% CAC</div>
-                </div>
-
+            <div class="mt-12 text-center reveal">
+              <a href="/casos-exito/" class="inline-flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 hover:text-accent transition-colors">
+                VER TODOS LOS CASOS <span class="text-base">→</span>
+              </a>
             </div>
         </div>
     </section>
