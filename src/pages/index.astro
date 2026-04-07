@@ -332,7 +332,7 @@ const homeSchema = {
 
             <div class="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-4 gap-6 pb-8 md:pb-0 scrollbar-hide">
                 {homeCases.map((cs: any, i: number) => {
-                  const catName = cs.categories?.[0]?.name || cs.categories?.[0]?.attributes?.name || '';
+                  const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
                   const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
                   return (
                     <div class="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all reveal" style={`transition-delay: ${i * 100}ms`}>
