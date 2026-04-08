@@ -42,16 +42,16 @@ try {
   <section class="pt-8 pb-16 px-6 sm:px-12 bg-white">
     <div class="max-w-7xl mx-auto">
       
-      <CategoryTabs 
-        categories={categoriesWithCases} 
-        currentCategory="all" 
-        baseUrl="/ca/casos-exit"
+      <CategoryTabs
+        categories={categoriesWithCases}
         locale="ca"
       />
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
         {cases.map(cs => (
-          <SuccessCard caseStudy={cs} locale="ca" />
+          <div data-item data-cat={(cs.categories as any)?.[0]?.attributes?.slug || (cs.categories as any)?.[0]?.slug || ''}>
+            <SuccessCard caseStudy={cs} locale="ca" />
+          </div>
         ))}
       </div>
 

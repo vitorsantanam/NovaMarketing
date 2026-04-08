@@ -40,16 +40,16 @@ try {
   <section class="py-20 px-6 sm:px-12 bg-white">
     <div class="max-w-7xl mx-auto">
       
-      <CategoryTabs 
-        categories={categoriesWithPosts} 
-        currentCategory="all" 
-        baseUrl="/ca/blog"
+      <CategoryTabs
+        categories={categoriesWithPosts}
         locale="ca"
       />
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {posts.map(post => (
-          <BlogCard post={post} locale="ca" />
+          <div data-item data-cat={post.category?.slug || (post.categories as any)?.[0]?.slug || ''}>
+            <BlogCard post={post} locale="ca" />
+          </div>
         ))}
       </div>
 

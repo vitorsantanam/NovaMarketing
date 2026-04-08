@@ -1,42 +1,39 @@
 ---
 interface Props {
-  categories: { name: string; slug: string; count?: number }[];
-  currentCategory?: string;
-  baseUrl: string;
+  categories: { name: string; slug: string }[];
   locale?: 'es' | 'ca';
 }
 
-const { categories, currentCategory = 'all', baseUrl, locale = 'es' } = Astro.props;
+const { categories, locale = 'es' } = Astro.props;
 const allLabel = locale === 'ca' ? 'Totes' : 'Todas';
 ---
 
 <div class="flex flex-wrap justify-center gap-2 mb-8 reveal py-2">
-  <a
-    href={`${baseUrl}/`}
-    class:list={[
-      'px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-xl transition-all duration-300 border whitespace-nowrap ',
-      currentCategory === 'all'
-        ? 'bg-accent border-accent text-white shadow-[0_8px_20px_rgba(255,107,0,0.2)]'
-        : 'bg-white border-black/10 text-zinc-500 hover:border-black/20 hover:text-black hover:bg-zinc-50'
-    ]}
-  >
+  <button class="cat-btn" data-cat="all" data-active>
     {allLabel}
-  </a>
-
-  {categories.map((cat) => (
-    <a
-      href={`${baseUrl}/${cat.slug}/`}
-      class:list={[
-        'px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-xl transition-all duration-300 border whitespace-nowrap ',
-        currentCategory === cat.slug
-          ? 'bg-accent border-accent text-white shadow-[0_8px_20px_rgba(255,107,0,0.2)]'
-          : 'bg-white border-black/10 text-zinc-500 hover:border-black/20 hover:text-black hover:bg-zinc-50'
-      ]}
-    >
+  </button>
+  {categories.map(cat => (
+    <button class="cat-btn" data-cat={cat.slug}>
       {cat.name}
-    </a>
+    </button>
   ))}
 </div>
+
+<script>
+  document.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = (btn as HTMLElement).dataset.cat;
+
+      document.querySelectorAll('.cat-btn').forEach(b => b.removeAttribute('data-active'));
+      btn.setAttribute('data-active', '');
+
+      document.querySelectorAll<HTMLElement>('[data-item]').forEach(item => {
+        const itemCat = item.dataset.cat;
+        item.style.display = (cat === 'all' || itemCat === cat) ? '' : 'none';
+      });
+    });
+  });
+</script>
 
 <style>
   .reveal {
@@ -44,11 +41,33 @@ const allLabel = locale === 'ca' ? 'Totes' : 'Todas';
     transform: translateY(10px);
     animation: revealFixed 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
-
   @keyframes revealFixed {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .cat-btn {
+    padding: 0.5rem 1rem;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    border-radius: 0.75rem;
+    transition: all 0.3s;
+    border: 1px solid rgba(0,0,0,0.1);
+    white-space: nowrap;
+    cursor: pointer;
+    background: white;
+    color: #71717a;
+  }
+  .cat-btn:hover {
+    border-color: rgba(0,0,0,0.2);
+    color: black;
+    background: #fafafa;
+  }
+  .cat-btn[data-active] {
+    background: var(--color-accent, #3b82f6);
+    border-color: var(--color-accent, #3b82f6);
+    color: white;
+    box-shadow: 0 8px 20px rgba(59,130,246,0.25);
   }
 </style>
