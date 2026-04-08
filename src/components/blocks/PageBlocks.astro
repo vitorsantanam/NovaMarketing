@@ -308,6 +308,19 @@ function embedUrl(url: string): string {
   margin: 2rem 0 0.75rem 0;
 }
 
+/* Links */
+.pb-html a, .sb-content a {
+  color: #8b5cf6;
+  text-decoration: underline;
+  text-decoration-color: #8b5cf630;
+  text-underline-offset: 3px;
+  font-weight: 500;
+  transition: text-decoration-color 0.2s;
+}
+.pb-html a:hover, .sb-content a:hover {
+  text-decoration-color: #8b5cf6;
+}
+
 /* Strong / em */
 .pb-html strong, .sb-content strong {
   font-weight: 700;
