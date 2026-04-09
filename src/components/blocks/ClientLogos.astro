@@ -23,7 +23,8 @@ const { title, logos = [] } = Astro.props;
           width={logo.width > 160 ? 160 : logo.width}
           height="auto"
           loading="lazy"
-          class="h-8 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0"
+          class="h-8 w-auto object-contain opacity-60 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0"
+          style="mix-blend-mode:multiply"
         />
       ))}
     </div>
