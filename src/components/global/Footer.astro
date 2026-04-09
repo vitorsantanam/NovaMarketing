@@ -1,81 +1,80 @@
 ---
 /**
- * Footer.astro — v5 Minimalist Premium
+ * Footer.astro
  */
 const { locale = 'es' } = Astro.props;
-const currentYear = new Date().getFullYear();
 
-const links = {
-    es: {
-        explore: 'EXPLORAR',
-        agency: 'AGENCIA',
-        casos: 'CASOS DE ÉXITO',
-        blog: 'BLOG',
-        legal: 'LEGAL',
-        privacy: 'PRIVACIDAD',
-        cookies: 'COOKIES',
-        notice: 'AVISO LEGAL',
-        terms: 'TÉRMINOS',
-        rights: 'TODOS LOS DERECHOS RESERVADOS.'
-    },
-    ca: {
-        explore: 'EXPLORAR',
-        agency: 'AGÈNCIA',
-        casos: 'CASOS D\'ÈXIT',
-        blog: 'BLOG',
-        legal: 'LEGAL',
-        privacy: 'PRIVACITAT',
-        cookies: 'COOKIES',
-        notice: 'AVÍS LEGAL',
-        terms: 'TERMES',
-        rights: 'TOTS ELS DRETS RESERVATS.'
-    }
+const t = locale === 'ca' ? {
+    tagline: 'Agència de màrqueting digital per a pimes',
+    explore: 'EXPLORA',
+    legal: 'LEGAL',
+    notice: 'AVÍS LEGAL',
+    privacy: 'PRIVACITAT',
+    cookies: 'COOKIES',
+    terms: 'TERMES',
+    cities: [
+        { label: 'Agència de màrqueting digital a Sabadell',   href: '/ca/agencia-de-marketing-digital-a-sabadell/' },
+        { label: 'Agència de màrqueting digital a Sant Cugat', href: '/ca/agencia-de-marketing-digital-a-sant-cugat/' },
+        { label: 'Agència de màrqueting digital a Barcelona',  href: '/ca/agencia-de-marketing-digital-a-barcelona/' },
+        { label: 'Agència de màrqueting digital a Terrassa',   href: '/ca/agencia-de-marketing-digital-a-terrassa/' },
+    ],
+} : {
+    tagline: 'Agencia de marketing digital para pymes',
+    explore: 'EXPLORAR',
+    legal: 'LEGAL',
+    notice: 'AVISO LEGAL',
+    privacy: 'PRIVACIDAD',
+    cookies: 'COOKIES',
+    terms: 'TÉRMINOS',
+    cities: [
+        { label: 'Agencia de marketing digital en Sabadell',   href: '/agencia-de-marketing-digital-en-sabadell/' },
+        { label: 'Agencia de marketing digital en Sant Cugat', href: '/agencia-de-marketing-digital-en-sant-cugat/' },
+        { label: 'Agencia de marketing digital en Barcelona',  href: '/agencia-de-marketing-digital-en-barcelona/' },
+        { label: 'Agencia de marketing digital en Terrassa',   href: '/agencia-de-marketing-digital-en-terrassa/' },
+    ],
 };
 
-const t = links[locale] || links.es;
 const prefix = locale === 'ca' ? '/ca' : '';
 ---
 
 <footer class="py-24 bg-black border-t border-white/5 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6">
         <div class="flex flex-col lg:flex-row justify-between items-start gap-20">
+
+            <!-- Brand -->
             <div>
-                <div class="text-3xl font-heading font-black tracking-tighter mb-8 text-white">
-                    Nova Marketing
+                <div class="group inline-block cursor-default mb-8">
+                    <span class="hover-animate-gradient text-3xl font-heading font-black tracking-tighter text-white">
+                        nova.
+                    </span>
                 </div>
                 <p class="text-zinc-500 max-w-sm font-light text-sm tracking-widest uppercase italic">
-                   Agencia de Crecimiento Avanzado para Pymes. <br>
-                   Sabadell, Barcelona.
+                    {t.tagline}
                 </p>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-16 uppercase text-[10px] font-black tracking-[0.3em] text-white">
+            <!-- Nav columns -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-16 uppercase text-[10px] font-black tracking-[0.3em] text-white">
+
+                <!-- Ciudades -->
                 <div class="flex flex-col gap-6">
                     <span class="text-zinc-600">{t.explore}</span>
-                    <a href={`${prefix}/`} class="hover:text-accent transition-colors">{t.agency}</a>
-                    <a href={locale === 'ca' ? "/ca/casos-exit/" : "/casos-exito/"} class="hover:text-accent transition-colors">{t.casos}</a>
-                    <a href={`${prefix}/blog/`} class="hover:text-accent transition-colors">{t.blog}</a>
+                    {t.cities.map(c => (
+                        <a href={c.href} class="hover:text-accent transition-colors normal-case font-bold tracking-normal text-[11px] text-zinc-300">
+                            {c.label}
+                        </a>
+                    ))}
                 </div>
-                <div class="flex flex-col gap-6">
-                    <span class="text-zinc-600">DIGITAL</span>
-                    <a href="https://linkedin.com" target="_blank" class="hover:text-accent transition-colors">LINKEDIN</a>
-                    <a href="https://instagram.com" target="_blank" class="hover:text-accent transition-colors">INSTAGRAM</a>
-                </div>
+
+                <!-- Legal -->
                 <div class="flex flex-col gap-6">
                     <span class="text-zinc-600">{t.legal}</span>
-                    <a href={locale === 'ca' ? "/ca/avis-legal/" : "/aviso-legal/"} class="hover:text-accent transition-colors">{t.notice}</a>
-                    <a href={locale === 'ca' ? "/ca/privacitat/" : "/privacidad/"} class="hover:text-accent transition-colors">{t.privacy}</a>
-                    <a href={locale === 'ca' ? "/ca/cookies/" : "/cookies/"} class="hover:text-accent transition-colors">{t.cookies}</a>
-                    <a href={locale === 'ca' ? "/ca/termes-i-condicions/" : "/terminos-y-condiciones/"} class="hover:text-accent transition-colors">{t.terms}</a>
+                    <a href={locale === 'ca' ? '/ca/avis-legal/' : '/aviso-legal/'} class="hover:text-accent transition-colors">{t.notice}</a>
+                    <a href={locale === 'ca' ? '/ca/privacitat/' : '/privacidad/'} class="hover:text-accent transition-colors">{t.privacy}</a>
+                    <a href={locale === 'ca' ? '/ca/cookies/' : '/cookies/'} class="hover:text-accent transition-colors">{t.cookies}</a>
+                    <a href={locale === 'ca' ? '/ca/termes-i-condicions/' : '/terminos-y-condiciones/'} class="hover:text-accent transition-colors">{t.terms}</a>
                 </div>
-            </div>
-        </div>
 
-        <div class="mt-24 pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-black tracking-[0.3em] uppercase text-zinc-600">
-            <div>© {currentYear} <span class="normal-case">Nova Marketing</span> AGENCY. {t.rights}</div>
-            <div class="flex gap-10">
-                <span class="text-accent underline decoration-accent/30 underline-offset-4">ENGINE: V5.0.0</span>
-                <span>BASED IN SABADELL, ES.</span>
             </div>
         </div>
     </div>
