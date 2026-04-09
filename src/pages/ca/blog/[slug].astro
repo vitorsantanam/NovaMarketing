@@ -158,15 +158,25 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
         }
 
         <!-- CTA inline -->
-        <div class="my-16 rounded-[2.5rem] bg-black text-white p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div class="flex-1">
-            <span class="inline-block px-3 py-1 bg-accent text-[9px] font-black tracking-widest rounded-full mb-4">AUDITORIA GRATUÏTA</span>
-            <div class="text-3xl md:text-4xl font-black leading-tight uppercase mb-3">{ctaTitle}</div>
-            <p class="text-white/50 font-light text-sm leading-relaxed max-w-md">Analitzem 5 punts clau de la teva web perquè comencis a facturar més.</p>
+        <div class="reveal mt-16 mb-8 relative group overflow-hidden p-8 sm:p-14 rounded-[3rem] bg-zinc-950 border border-white/10 transition-all duration-700 hover:border-accent/40 hover:shadow-[0_0_80px_-20px_rgba(59,130,246,0.3)]">
+          <div class="absolute -top-24 -right-24 w-80 h-80 bg-accent/20 rounded-full blur-[100px] group-hover:bg-accent/30 transition-all duration-1000"></div>
+          <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-purple-600/10 rounded-full blur-[100px] group-hover:bg-purple-600/20 transition-all duration-1000"></div>
+          <div class="relative z-10 flex flex-col items-center text-center gap-6 md:gap-10">
+            <div class="w-full">
+              <div class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mb-4 leading-none tracking-tighter uppercase transition-transform duration-500 group-hover:scale-[1.01]">
+                Vols que la teva empresa <span class="text-mktg-gradient">comenci a créixer</span>?
+              </div>
+              <p class="text-white/60 font-light text-base md:text-lg max-w-2xl mx-auto">
+                Explica'ns què tens en ment i quines necessitats tens. Nosaltres ens encarreguem de la resta.
+              </p>
+            </div>
+            <div class="mt-4">
+              <button class="contact-modal-trigger relative group/btn flex items-center gap-6 px-14 py-7 bg-accent text-white rounded-3xl font-black uppercase tracking-widest text-[13px] overflow-hidden transition-all duration-500 hover:scale-105 hover:bg-white hover:text-black shadow-[0_20px_60px_rgba(59,130,246,0.3)] hover:shadow-[0_30px_80px_rgba(255,255,255,0.2)]">
+                <span class="relative z-10">Començar Projecte</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 transition-transform duration-500 group-hover/btn:translate-x-3"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+            </div>
           </div>
-          <button class="contact-modal-trigger shrink-0 px-10 py-5 bg-white text-black text-[10px] font-black tracking-widest rounded-2xl hover:bg-accent hover:text-white transition-all cursor-pointer whitespace-nowrap">
-            SOL·LICITAR ARA
-          </button>
         </div>
 
         {author && <AuthorCard author={author} locale="ca" />}
