@@ -69,14 +69,11 @@
             "target": "api::category.category",
             "inversedBy": "case_studies"
         },
-        "content": {
-            "type": "richtext",
-            "required": false,
-            "pluginOptions": {
-                "i18n": {
-                    "localized": true
-                }
-            }
+        "author": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::author.author",
+            "inversedBy": "case_studies"
         },
         "slug": {
             "type": "uid",
@@ -92,6 +89,31 @@
         "isPublic": {
             "type": "boolean",
             "default": false,
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
+        },
+        "page_blocks": {
+            "type": "dynamiczone",
+            "components": [
+                "blocks.rich-text",
+                "blocks.html",
+                "blocks.image",
+                "blocks.callout",
+                "blocks.metrics-row",
+                "blocks.quote",
+                "blocks.cta",
+                "blocks.two-columns",
+                "blocks.image-text",
+                "blocks.video",
+                "blocks.divider",
+                "blocks.gallery",
+                "blocks.timeline",
+                "blocks.comparison",
+                "blocks.big-stat"
+            ],
             "pluginOptions": {
                 "i18n": {
                     "localized": true
