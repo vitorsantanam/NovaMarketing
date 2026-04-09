@@ -5,7 +5,7 @@ interface Props {
 }
 
 const { categories, locale = 'es' } = Astro.props;
-const allLabel = locale === 'ca' ? 'Totes' : 'Todas';
+const allLabel = locale === 'ca' ? 'Tots' : 'Todos';
 ---
 
 <div class="flex flex-wrap justify-center gap-2 mb-8 reveal py-2">
@@ -28,8 +28,8 @@ const allLabel = locale === 'ca' ? 'Totes' : 'Todas';
       btn.setAttribute('data-active', '');
 
       document.querySelectorAll<HTMLElement>('[data-item]').forEach(item => {
-        const itemCat = item.dataset.cat;
-        item.style.display = (cat === 'all' || itemCat === cat) ? '' : 'none';
+        const itemCats = (item.dataset.cats || item.dataset.cat || '').split(' ');
+        item.style.display = (cat === 'all' || itemCats.includes(cat!)) ? '' : 'none';
       });
     });
   });
