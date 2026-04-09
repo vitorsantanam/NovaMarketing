@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
-import LogoMarquee from '../components/sections/LogoMarquee.astro';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-seo-en-sabadell', '/ca/agencia-seo-a-sabadell', SITE_URL);
