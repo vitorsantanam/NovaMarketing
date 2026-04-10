@@ -15,7 +15,32 @@
       "Bash(for f:*)",
       "Bash(do grep:*)",
       "Bash(curl -X POST https://cms.novamarketing.es/api/contact -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"Test\"\",\"\"email\"\":\"\"test@test.com\"\",\"\"msg\"\":\"\"Prueba\"\"}')",
-      "Bash(curl -X POST https://cms.novamarketing.es/api/contact -H \"Content-Type: application/json\" -H \"Origin: https://novamarketing.es\" -d '{\"\"\"\"name\"\"\"\":\"\"\"\"Test\"\"\"\",\"\"\"\"email\"\"\"\":\"\"\"\"test@test.com\"\"\"\",\"\"\"\"msg\"\"\"\":\"\"\"\"Prueba\"\"\"\"}' -v)"
+      "Bash(curl -X POST https://cms.novamarketing.es/api/contact -H \"Content-Type: application/json\" -H \"Origin: https://novamarketing.es\" -d '{\"\"\"\"name\"\"\"\":\"\"\"\"Test\"\"\"\",\"\"\"\"email\"\"\"\":\"\"\"\"test@test.com\"\"\"\",\"\"\"\"msg\"\"\"\":\"\"\"\"Prueba\"\"\"\"}' -v)",
+      "Bash(ls c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/agencia-sem-en-*.astro c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/ca/agencia-sem-a-*.astro)",
+      "Bash(ls c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/agencia-de-*.astro c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/agencia-dis*.astro c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/consultoria*.astro)",
+      "Bash(ls c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/*.astro)",
+      "Bash(python3 -c \" import sys, json lines = sys.stdin.read\\(\\).strip\\(\\).split\\('\\\\n'\\) for line in lines[-20:]: try: obj = json.loads\\(line\\) if obj.get\\('type'\\) in ['human', 'assistant']: role = obj.get\\('type', ''\\) content = obj.get\\('content', ''\\) if isinstance\\(content, list\\): for c in content: if isinstance\\(c, dict\\) and c.get\\('type'\\) == 'text': print\\(f'[{role}]: {c[\\\\\"text\\\\\"][:500]}'\\) elif isinstance\\(content, str\\): print\\(f'[{role}]: {content[:500]}'\\) except: pass \")",
+      "Bash(git -C c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web log --oneline -10)",
+      "Bash(git -C c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web show --stat 7d174eb)",
+      "Bash(git -C c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web status)",
+      "Bash(git -C c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web log --oneline origin/main..HEAD)",
+      "Bash(git -C c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web log --oneline -5)",
+      "Bash(git -C c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web diff src/pages/agencia-sem-en-sabadell.astro)",
+      "Bash(git -C c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web diff src/pages/ca/agencia-sem-a-sabadell.astro)",
+      "Bash(git -C c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web show HEAD:src/pages/agencia-sem-en-sant-cugat.astro)",
+      "Bash(git -C c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web diff --stat)",
+      "Bash(ls \"c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/agencia-google-ads\"*)",
+      "Bash(ls \"c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/agencia-sem-en\"*)",
+      "Bash(ls \"c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/ca/agencia-google-ads\"*)",
+      "Bash(ls \"c:/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/ca/agencia-sem-a\"*)",
+      "Bash(python3 -)",
+      "Bash(python3 -c ':*)",
+      "Bash(ls /c/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/agencia-sem*)",
+      "Bash(python3 -c \"import os; print\\(repr\\(os.getcwd\\(\\)\\)\\)\")",
+      "Bash(python3 -c \"import os; base = os.getcwd\\(\\) + '/src/pages'; print\\(os.path.exists\\(base + '/agencia-sem-en-sabadell.astro'\\)\\); print\\(os.path.exists\\(base + '/agencia-sem-en-barcelona.astro'\\)\\)\")",
+      "Bash(grep -n \"═══ [89]\\\\.\" src/pages/agencia-google-ads-*.astro src/pages/ca/agencia-google-ads-*.astro)",
+      "Bash(grep -n \"8. FAQ\" src/pages/agencia-google-ads-*.astro src/pages/ca/agencia-google-ads-*.astro)",
+      "Bash(ls /c/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/public/img/consultor*)"
     ]
   }
 }
