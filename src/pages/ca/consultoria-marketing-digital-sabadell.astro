@@ -3,16 +3,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
-const alternates = buildAlternates('/consultoria-marketing-digital-sant-cugat/', '/ca/consultoria-marqueting-digital-sant-cugat/', SITE_URL);
+const alternates = buildAlternates('/consultoria-marketing-digital-sabadell/', '/ca/consultoria-marketing-digital-sabadell/', SITE_URL);
 
 const faqItems = [
     {
-        question: "¿Qué resultados puedo esperar de este servicio en Sant Cugat?",
-        answer: "Adaptamos cada estrategia a la realidad del mercado de Sant Cugat. Mediremos constantemente el retorno de inversión de tu proyecto para maximizar resultados."
+        question: "¿Qué resultados puedo esperar de este servicio en Sabadell?",
+        answer: "Adaptamos cada estrategia a la realidad del mercado de Sabadell. Mediremos constantemente el retorno de inversión de tu proyecto para maximizar resultados."
     },
     {
         question: "¿Por qué trabajar con un especialista local?",
-        answer: "Conocemos el tejido empresarial de la zona. Eso nos permite afinar estrategias, ya sea ofreciendo consultoría de marketing orientada directamente al tipo de clientes de Sant Cugat."
+        answer: "Conocemos el tejido empresarial de la zona. Eso nos permite afinar estrategias, ya sea ofreciendo consultoría de marketing orientada directamente al tipo de clientes de Sabadell."
     }
 ];
 
@@ -30,7 +30,7 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "serviceType": "Consultoría de Marketing Digital",
-  "name": "Servicios de Consultoría de Marketing Digital en Sant Cugat",
+  "name": "Servicios de Consultoría de Marketing Digital en Sabadell",
   "provider": {
     "@type": "ProfessionalService",
     "@id": "https://novamarketing.es/#organization",
@@ -41,10 +41,10 @@ const serviceSchema = {
     "priceRange": "€€",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Carrer de Francesc Moragas 12",
-      "addressLocality": "Sant Cugat",
+      "streetAddress": "Carrer de Bilbao 1",
+      "addressLocality": "Sabadell",
       "addressRegion": "Barcelona",
-      "postalCode": "08172",
+      "postalCode": "08202",
       "addressCountry": "ES"
     },
     "aggregateRating": {
@@ -55,16 +55,16 @@ const serviceSchema = {
   },
   "areaServed": {
     "@type": "City",
-    "name": "Sant Cugat"
+    "name": "Sabadell"
   },
-  "description": "Porta la innovació d\'ESADE Creapolis i l\'ESIC a la teva pròpia empresa. Consultoria digital premium especialitzada per a pimes orientades al creixement.",
+  "description": "Estratègies de màrqueting a mida per a escalar les vendes de la teva pime vallesana. Impulsem empreses des de Can Roqueta amb total seguretat i visió.",
   "offers": { "@type": "Offer", "priceRange": "€€" }
 };
 ---
 
 <BaseLayout
-  title="Consultor de Marketing Digital a Sant Cugat | Nova Marketing"
-  description="Porta la innovació d\'ESADE Creapolis i l\'ESIC a la teva pròpia empresa. Consultoria digital premium especialitzada per a pimes orientades al creixement."
+  title="Consultor de Marketing Digital a Sabadell | Nova Marketing"
+  description="Estratègies de màrqueting a mida per a escalar les vendes de la teva pime vallesana. Impulsem empreses des de Can Roqueta amb total seguretat i visió."
   locale="ca"
   alternates={alternates}
   schemas={[serviceSchema, faqSchema]}
@@ -83,11 +83,11 @@ const serviceSchema = {
 
             <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] uppercase font-black tracking-tighter leading-[0.82] mb-8 text-zinc-900 flex flex-col items-center text-center">
                 <span>Consultor de Marketing Digital a</span>
-                <span class="text-mktg-gradient px-4 overflow-visible inline-block xl:mt-2">Sant Cugat</span>
+                <span class="text-mktg-gradient px-4 overflow-visible inline-block xl:mt-2">Sabadell</span>
             </h1>
 
             <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
-                Porta la innovació d\'ESADE Creapolis i l\'ESIC a la teva pròpia empresa. Consultoria digital premium especialitzada per a pimes orientades al creixement.
+                Estratègies de màrqueting a mida per a escalar les vendes de la teva pime vallesana. Impulsem empreses des de Can Roqueta amb total seguretat i visió.
             </p>
 
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
