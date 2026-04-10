@@ -4,13 +4,70 @@ import { buildAlternates } from '../../lib/i18n';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-diseno-web-sabadell/', '/ca/agencia-disseny-web-sabadell/', SITE_URL);
+
+const faqItems = [
+    {
+        question: "¿Qué resultados puedo esperar de este servicio en Sabadell?",
+        answer: "Adaptamos cada estrategia a la realidad del mercado de Sabadell. Mediremos constantemente el retorno de inversión de tu proyecto para maximizar resultados."
+    },
+    {
+        question: "¿Por qué trabajar con un especialista local?",
+        answer: "Conocemos el tejido empresarial de la zona. Eso nos permite afinar estrategias, ya sea diseñando una web orientada directamente al tipo de clientes de Sabadell."
+    }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(f => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Diseño Web para Pymes",
+  "name": "Diseño de Páginas Web y Tiendas Online en Sabadell",
+  "provider": {
+    "@type": "ProfessionalService",
+    "@id": "https://novamarketing.es/#organization",
+    "name": "Nova Marketing",
+    "url": "https://novamarketing.es",
+    "image": "https://novamarketing.es/agencia-marketing-pymes-nova-marketing-logo.png",
+    "telephone": "+34644738270",
+    "priceRange": "€€",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Carrer de Bilbao 1",
+      "addressLocality": "Sabadell",
+      "addressRegion": "Barcelona",
+      "postalCode": "08202",
+      "addressCountry": "ES"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "35"
+    }
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Sabadell"
+  },
+  "description": "Dissenyem pàgines web que venen per a empreses del teixit industrial i comercial de Sabadell. Des del Centre fins a l\'Eix Macià, el teu negoci brillarà.",
+  "offers": { "@type": "Offer", "priceRange": "€€" }
+};
 ---
 
 <BaseLayout
   title="Agència de Disseny Web a Sabadell | Nova Marketing"
-  description="Dissenyem pàgines web que venen per a empreses del teixit industrial i comercial de Sabadell. Des del Centre fins a l'Eix Macià, el teu negoci brillarà."
+  description="Dissenyem pàgines web que venen per a empreses del teixit industrial i comercial de Sabadell. Des del Centre fins a l\'Eix Macià, el teu negoci brillarà."
   locale="ca"
   alternates={alternates}
+  schemas={[serviceSchema, faqSchema]}
 >
     <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
     <section class="min-h-[88vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
@@ -30,7 +87,7 @@ const alternates = buildAlternates('/agencia-diseno-web-sabadell/', '/ca/agencia
             </h1>
 
             <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
-                Dissenyem pàgines web que venen per a empreses del teixit industrial i comercial de Sabadell. Des del Centre fins a l'Eix Macià, el teu negoci brillarà.
+                Dissenyem pàgines web que venen per a empreses del teixit industrial i comercial de Sabadell. Des del Centre fins a l\'Eix Macià, el teu negoci brillarà.
             </p>
 
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
