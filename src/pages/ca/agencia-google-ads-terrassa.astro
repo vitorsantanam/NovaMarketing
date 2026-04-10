@@ -1,554 +1,461 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
+import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-google-ads-terrassa', '/ca/agencia-google-ads-terrassa', SITE_URL);
 
+let pageCases: any[] = [];
+try {
+  const res = await strapiClient.getCaseStudies('ca');
+  pageCases = res.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s.includes('google-ads') || s.includes('ads'));
+  });
+} catch {}
+
+const steps = [
+  {
+    title: "Anàlisi del mercat de Terrassa",
+    desc: "Estudiem la competència local a Google Ads dins de Terrassa, des dels comerços de l'Eix del Parc fins a les empreses industrials de Les Arenes i Ca n'Anglada, per trobar els buits d'oportunitat amb menor CPC."
+  },
+  {
+    title: "Configuració de campanyes locals",
+    desc: "Creem estructures de campanya segmentades per barri: Sant Pere, Les Fonts, Vallparadís, el centre històric i la zona comercial del Raval. Cada grup d'anuncis apunta al client correcte a l'àrea correcta de Terrassa."
+  },
+  {
+    title: "Redacció d'anuncis per al client terrassenc",
+    desc: "Escrivim anuncis que connecten amb el comprador de Terrassa. Missatges directes orientats al perfil del Vallès Occidental, que generen clics de qualitat i no trànsit irrellevant."
+  },
+  {
+    title: "Optimització contínua i reporting",
+    desc: "Cada setmana analitzem les mètriques reals: leads generats, cost per conversió, cerques que activen els teus anuncis a Terrassa. Ajustem sense parar per millorar el ROI al mercat del Vallès."
+  }
+];
+
+const faqItems = [
+  {
+    question: "Quant costa gestionar Google Ads per al meu negoci a Terrassa?",
+    answer: "El cost de gestió a Nova varia segons el volum d'inversió publicitària. Treballem amb pimes de Terrassa des de pressupostos de 300€/mes d'inversió a Google. L'important no és la mida del pressupost, sinó optimitzar-lo al màxim per al mercat local del Vallès Occidental."
+  },
+  {
+    question: "Google Ads funciona per a botigues del centre de Terrassa o l'Eix del Parc?",
+    answer: "Absolutament. Els comerços de l'Eix del Parc, la Rambla d'Ègara o el centre històric de Terrassa poden captar clients locals amb alta intenció de compra mitjançant Google Ads local. Segmentem perquè els teus anuncis es mostrin únicament a persones que cerquen prop del teu establiment."
+  },
+  {
+    question: "Pot la meva empresa industrial de Les Arenes o Ca n'Anglada usar Google Ads?",
+    answer: "Sí. Les empreses B2B dels polígons industrials de Terrassa —Les Arenes, Ca n'Anglada— tenen un perfil de client que també cerca a Google. Dissenyem campanyes orientades a paraules clau industrials i de serveis B2B que generen pressupostos i contractes reals."
+  },
+  {
+    question: "Quant temps tarda a funcionar Google Ads per a la meva empresa de Terrassa?",
+    answer: "A diferència del SEO, Google Ads ofereix visibilitat gairebé immediata. La teva empresa de Terrassa pot aparèixer als primers resultats en qüestió d'hores després d'activar la campanya. Al primer mes ja tens dades reals per optimitzar i millorar el ROI al mercat del Vallès."
+  },
+  {
+    question: "Els meus anuncis poden aparèixer a Google Maps per atraure clients al meu local de Terrassa?",
+    answer: "Sí. Configurem campanyes locals amb extensions d'ubicació perquè el teu negoci aparegui a Google Maps quan algú cerca el teu servei prop de la Rambla d'Ègara, el Parc de Vallparadís o qualsevol barri de Terrassa. Ideal per a restaurants, clíniques, tallers i serveis de proximitat."
+  },
+  {
+    question: "Quin pressupost mínim necessito per a Google Ads a Terrassa?",
+    answer: "A Terrassa, amb un nivell de competència mitjà-alt, els primers resultats poden veure's amb inversions des de 300-500€/mes en publicitat ben gestionada. Recomanem començar amb un pressupost conservador, mesurar resultats al mercat del Vallès i escalar quan el ROI estigui validat."
+  },
+  {
+    question: "Com es mesura l'èxit de les campanyes de Google Ads a Terrassa?",
+    answer: "Mesurem l'èxit en mètriques de negoci reals: leads generats, trucades rebudes, formularis completats i vendes directes. No en clics o impressions. Rebràs informes clars i transparents del rendiment de cada euro invertit en publicitat a Terrassa."
+  },
+  {
+    question: "Es poden segmentar els anuncis només per barris concrets de Terrassa?",
+    answer: "Sí. Google Ads permet una segmentació geogràfica molt precisa. Podem mostrar els teus anuncis únicament a zones específiques de Terrassa: Sant Pere, Vallparadís, Les Fonts, el centre històric, l'Eix del Parc o els polígons industrials. Així optimitzem cada euro cap a les àrees més rendibles per al teu negoci."
+  },
+  {
+    question: "Què diferencia Nova Marketing d'altres agències de Google Ads a Terrassa?",
+    answer: "A Nova coneixem el mercat del Vallès Occidental. No som una agència genèrica: entenem els sectors industrials de Terrassa, el perfil del consumidor local i la competència a cada barri. Cada campanya es dissenya específicament per al mercat de Terrassa, no s'apliquen plantilles genèriques."
+  },
+  {
+    question: "Puc començar amb Google Ads tot i no haver tingut campanyes abans a Terrassa?",
+    answer: "Per descomptat. Per a empreses de Terrassa sense historial previ a Google Ads fem una configuració inicial des de zero: investigació de paraules clau del Vallès, estructura de campanyes, redacció d'anuncis i configuració de conversions. En setmanes tens dades reals per prendre decisions."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(f => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Agència de Google Ads per a Pimes",
+  "provider": {
+    "@type": "ProfessionalService",
+    "@id": "https://novamarketing.es/#organization"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Terrassa",
+    "sameAs": "https://www.wikidata.org/wiki/Q12285"
+  },
+  "description": "Experts en gestió de campanyes de Google Ads i SEM per a petites i mitjanes empreses a Terrassa. Maximitzem la teva visibilitat i vendes amb estratègies a mida per al mercat del Vallès Occidental.",
+  "offers": { "@type": "Offer", "priceRange": "€€" },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "19"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serveis de Publicitat a Google",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Auditoria de compte de Google Ads" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Configuració inicial de campanyes SEM" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Optimització contínua i gestió de pujades" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gestió de Google Merchant Center i Shopping" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Campanyes de Remarketing i Display" }}
+    ]
+  }
+};
 ---
 
 <BaseLayout
   title="Agència Google Ads a Terrassa | Nova Marketing"
-  description="Experts en Google Ads i SEM a Terrassa. Gestió de campanyes PPC enfocades al retorn d'inversió (ROI) per a pimes i empreses locals."
+  description="Gestió de campanyes de Google Ads per a empreses de Terrassa. Rendibilitza la teva inversió publicitària al Vallès Occidental des del primer dia. Auditoria gratuïta."
   locale="ca"
   alternates={alternates}
+  schemas={[serviceSchema, faqSchema]}
 >
 
-    
-    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        
-        <!-- Background Grid Mesh -->
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+  <!-- ═══ 1. HERO ═══ -->
+  <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+    <div class="max-w-5xl mx-auto reveal relative z-10">
+      <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+        <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+        Publicitat Online Rendible
+      </span>
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase font-black tracking-tighter leading-[0.80] mb-6 text-zinc-900 flex flex-col items-center text-center">
+        <span>Agència de</span>
+        <span>Google Ads</span>
+        <span class="bg-gradient-to-r from-accent via-accent/90 to-purple-600 bg-clip-text text-transparent px-4 overflow-visible inline-block">a Terrassa</span>
+      </h1>
+      <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">Maximitzem les teves vendes amb campanyes de pagament per clic hipersegmentades a Terrassa. Des dels comerços de l'Eix del Parc i la Rambla d'Ègara fins a les empreses industrials de Les Arenes, cada clic compta.</p>
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
+          MULTIPLICAR LA MEVA FACTURACIÓ
+        </button>
+      </div>
+    </div>
+  </section>
 
-        <!-- Glow Orbs -->
-        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+  <!-- ═══ 2. LOGO MARQUEE ═══ -->
+  <LogoMarquee />
 
-        <div class="max-w-5xl mx-auto reveal relative z-10">
-            <!-- Glassmorphic Subtitle Badge -->
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
-                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                Publicitat Online Rentable
-            </span>
-
-            <!-- H1 Style -->
-            <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase font-black tracking-tighter leading-[0.80] mb-6 text-zinc-900 flex flex-col items-center text-center">
-                <span>Agència de</span>
-                <span>Google Ads</span>
-                <span class="bg-gradient-to-r from-accent via-accent/90 to-purple-600 bg-clip-text text-transparent px-4 overflow-visible inline-block">a Terrassa</span>
-            </h1>
-
-            <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
-                Maximitzem les teves vendes amb campanyes de pagament per clic hipersegmentades a Terrassa. Enfocament en PPC per a indústria pesada, comerç local i empreses familiars.
-            </p>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
-                    MULTIPLICAR LA MEVA FACTURACIÓ
-                </a>
+  <!-- ═══ 3. DOMINI TOTAL + 4 CARDS ═══ -->
+  <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.82]">
+          Domini Total de <br class="hidden sm:inline" /> Google Ads a Terrassa
+        </h2>
+        <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">No experimentem amb el pressupost d'empreses de Terrassa. Dissenyem campanyes quirúrgiques per al mercat del Vallès que impacten exactament en el client ideal quan està llest per comprar.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        {[
+          { title: "Auditoria de Compte", desc: "Analitzem el teu historial a Google Ads detectant fuites de pressupost habituals al mercat de Terrassa. Atenció especial a sectors com la indústria de Les Arenes i el comerç de l'Eix del Parc i la Rambla d'Ègara." },
+          { title: "Keyword Research SEM", desc: "Seleccionem cerques amb alta intenció de compra a Terrassa: des de serveis locals a l'Eix del Parc fins a empreses B2B dels polígons industrials. Zero clics de curiosos." },
+          { title: "Anuncis d'Impacte", desc: "Redactem textos que connecten amb el client terrassenc. Missatges que ressonen tant per al comprador del centre històric com per a l'industrial de Ca n'Anglada o Les Arenes." },
+          { title: "Optimització de Pujada", desc: "Ajustem les pujades perquè la teva empresa de Terrassa pagui el mínim per cada client captat, prioritzant els moments de major intenció comercial al Vallès Occidental." }
+        ].map((s, i) => (
+          <div class="group flex flex-col justify-between p-8 sm:p-10 h-full bg-white rounded-3xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden reveal flex-1">
+            <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
+            <div class="absolute -bottom-6 -right-4 text-9xl font-black text-black/2 group-hover:text-accent/[0.04] transition-all duration-500 select-none">0{i + 1}</div>
+            <div class="relative z-10 flex flex-col h-full justify-between">
+              <div>
+                <div class="p-3 bg-zinc-50 border border-black/5 w-fit rounded-xl mb-6 group-hover:bg-accent/5 transition-colors">
+                  <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                </div>
+                <h3 class="text-xl sm:text-2xl uppercase mb-3 tracking-tighter group-hover:text-accent font-black text-zinc-900 border-b border-zinc-100 pb-2 w-fit">{s.title}</h3>
+                <p class="text-xs sm:text-sm text-zinc-500 leading-relaxed font-light">{s.desc}</p>
+              </div>
             </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4. TIMELINE ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-2xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+          Com treballem el SEM a Terrassa
+        </h2>
+        <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed">
+          <p>Oblida't del SEM en pilot automàtic. Comptaràs amb un <strong>Account Manager dedicat</strong> que coneix el mercat de Terrassa i treballarà de la mà del teu equip per supervisar avenços i mantenir-te informat amb mètriques reals.</p>
         </div>
-    </section>
-
-    <LogoMarquee />
-    
-
-    
-    <!-- ═══ SECCIÓN 1: ESPECIALISTAS / H2 ══════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
-        
-        <div class="max-w-6xl mx-auto">
-            <!-- Header section -->
-            <div class="max-w-3xl mx-auto text-center mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">PPC & SEM Experts</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85] text-gradient">
-                    Especialistes en SEM i Publicitat Online a Terrassa
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    La publicitat a Terrassa no admet errors de pressupost. Estudiem el mercat de zones com Can Parellada, Rambla d'Égara, Segle XX per licitar per clics qualificats que busquin contractació immediata.
-                </p>
+      </div>
+      <div id="timeline-container" class="relative timeline-container">
+        <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+        <div class="progress-bar hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
+        <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+          {steps.map((step, index) => (
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal" style={`transition-delay: ${index * 100}ms`}>
+              <div class="hidden md:block md:flex-1 text-right md:order-1">
+                {index % 2 === 0 && (
+                  <div class="md:pr-12">
+                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{step.title}</h3>
+                    <p class="text-sm text-zinc-500 font-light max-w-md ml-auto">{step.desc}</p>
+                  </div>
+                )}
+              </div>
+              <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all duration-300">0{index + 1}</div>
+              <div class="flex-1 text-left md:order-3">
+                <div class="md:pl-12">
+                  <h3 class:list={["text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900", index % 2 === 0 ? "md:hidden" : ""]}>{step.title}</h3>
+                  <p class:list={["text-sm text-zinc-500 font-light max-w-md mr-auto", index % 2 === 0 ? "md:hidden" : ""]}>{step.desc}</p>
+                </div>
+              </div>
             </div>
-
-            <!-- Bento Grid Frame structure -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 reveal">
-                
-                <!-- Card 1: Main Big Bento -->
-                <div class="md:col-span-8 bg-white p-8 sm:p-12 border border-black/5 rounded-2xl shadow-sm group hover:border-black/10 hover:shadow-xl transition-all duration-500 flex flex-col justify-between relative overflow-hidden min-h-[350px]">
-                    <div class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    
-                    <div>
-                        <div class="self-start p-4 bg-zinc-50 border border-black/5 rounded-2xl mb-6 shadow-sm group-hover:bg-accent/10 group-hover:border-accent/10 transition-colors">
-                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-4 max-w-md">
-                            Gestió de Campanyes de Cerca a Terrassa
-                        </h3>
-                        <p class="text-sm sm:text-base text-zinc-400 font-light leading-relaxed max-w-lg">
-                            Creem anuncis de text que responen a la intenció de compra exacta d'usuaris a Terrassa elevant el CTR.
-                        </p>
-                    </div>
-
-                    <div class="mt-8 flex justify-between items-center">
-                        <a href="#contacto" class="contact-modal-trigger flex items-center gap-2 text-xs font-black tracking-widest text-black group-hover:text-accent transition-colors">
-                            MÉS INFORMACIÓ 
-                            <span class="transform group-hover:translate-x-1 transition-transform">→</span>
-                        </a>
-                        <div class="text-5xl font-black text-black/5">01</div>
-                    </div>
-                </div>
-
-                <!-- Card 2: Small Bento -->
-                <div class="md:col-span-4 bg-white p-8 border border-black/5 rounded-2xl shadow-sm hover:border-black/10 hover:shadow-xl transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="p-4 bg-zinc-50 border border-black/5 rounded-2xl w-fit mb-4 group-hover:bg-accent/10 transition-colors">
-                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </div>
-                        <h3 class="text-lg font-black uppercase tracking-tighter text-zinc-900 mb-2">Auditoria de Comptes de Google Ads a Terrassa</h3>
-                        <p class="text-xs text-zinc-400 font-light leading-relaxed">Revisem el teu historial de Campanyes a Terrassa per eliminar fugues de clics irrellevants i millorar el nivell de qualitat.</p>
-                    </div>
-                    <div class="mt-6 flex justify-between items-center">
-                         <a href="#contacto" class="contact-modal-trigger text-[10px] font-black tracking-widest text-accent hover:underline">MÉS INFO</a>
-                         <div class="text-3xl font-black text-black/5">02</div>
-                    </div>
-                </div>
-
-                <!-- Card 3: Small Bento -->
-                <div class="md:col-span-4 bg-white p-8 border border-black/5 rounded-2xl shadow-sm hover:border-black/10 hover:shadow-xl transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="p-4 bg-zinc-50 border border-black/5 rounded-2xl w-fit mb-4 group-hover:bg-accent/10 transition-colors">
-                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                        </div>
-                        <h3 class="text-lg font-black uppercase tracking-tighter text-zinc-900 mb-2">Optimització del Cost per Clic a Terrassa</h3>
-                        <p class="text-xs text-zinc-400 font-light leading-relaxed">Ajustem licitacions quirúrgicament per reduir el CPC assegurant que cada euro sumi en rendibilitat sobre els teus balanços.</p>
-                    </div>
-                    <div class="mt-6 flex justify-between items-center">
-                         <a href="#contacto" class="contact-modal-trigger text-[10px] font-black tracking-widest text-accent hover:underline">MÉS INFO</a>
-                         <div class="text-3xl font-black text-black/5">03</div>
-                    </div>
-                </div>
-
-                <!-- Card 4: Medium Bento (Span remaining) -->
-                <div class="md:col-span-8 bg-zinc-900 text-white p-8 sm:p-12 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col sm:flex-row justify-between items-center gap-6 group overflow-hidden relative">
-                    <div class="absolute inset-0 bg-gradient-to-r from-transparent to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="relative z-10 flex flex-col justify-between h-full">
-                        <div>
-                            <div class="p-4 bg-white/5 border border-white/5 rounded-2xl w-fit mb-4 group-hover:bg-accent/20 transition-colors">
-                                <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m13 13v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m0 0H15"></path></svg>
-                            </div>
-                            <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter text-white mb-2 max-w-md">Campanyes de Remarketing per a Empreses de Terrassa</h3>
-                            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed max-w-md">Recuperem l'interès de visitants de Terrassa que no van convertir la primera vegada mitjançant impactes visuals enfocats.</p>
-                        </div>
-                        <div class="mt-6">
-                            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-3 !px-6 !text-[10px] !bg-white !text-black shadow-lg">
-                                COMENÇAR
-                            </a>
-                        </div>
-                    </div>
-                    <div class="relative z-10 text-8xl font-black text-white/5">04</div>
-                </div>
-
-            </div>
+          ))}
         </div>
-    </section>
-    
-
-    
-    
-    <!-- ═══ METODOLOGÍA: BARRA DE PROGRESO ════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Step by Step</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85] text-gradient">
-                    La Nostra Metodologia en Google Ads
-                </h2>
-                <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed">
-                    <p>Un procés estratègic orientat exclusivament a rendibilitzar la teva inversió publicitària.</p>
-                </div>
-            </div>
-
-            <div class="timeline-container relative">
-                <!-- Outer Path track connector -->
-                <div class="absolute left-4 md:left-1/2 top-10 bottom-12 w-[2px] bg-zinc-100 md:-translate-x-1/2 overflow-hidden">
-                    <div class="progress-bar absolute top-0 left-0 w-full bg-accent transition-all duration-100" style="height: 0%;"></div>
-                </div>
-                
-                <div class="space-y-12 md:space-y-20 flex flex-col items-center">
-
-                    <!-- Paso 1 -->
-                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                        <!-- Left Desktop card or spacing -->
-                        <div class="hidden md:block md:flex-1 text-right md:order-1 md:pr-12">
-                            <div class="bg-zinc-50 p-8 rounded-2xl border border-black/5 hover:border-black/10 transition-all hover:shadow-xl group relative overflow-hidden text-left">
-                                <div class="absolute -bottom-6 -right-6 text-9xl font-black text-black/2 group-hover:text-accent/5 transition-colors duration-500">01</div>
-                                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-3 text-zinc-900 border-b-2 border-accent w-fit pb-1">1. Gestió de Campanyes de Cerca a Terrassa</h3>
-                                <p class="text-sm text-zinc-500 font-light max-w-md">Creem anuncis de text que responen a la intenció de compra exacta d'usuaris a Terrassa elevant el CTR.</p>
-                            </div>
-                        </div>
-
-                        <!-- Node Center -->
-                        <div class="absolute left-0 md:static md:order-2 flex justify-center items-center z-10 w-10 md:w-auto">
-                            <div class="relative flex items-center justify-center">
-                                <div class="absolute inset-0 bg-accent/20 rounded-full animate-ping opacity-60"></div>
-                                <div class="node-circle w-10 h-10 rounded-full border-2 border-accent bg-white text-zinc-900 flex items-center justify-center font-black text-sm shadow-lg">01</div>
-                            </div>
-                        </div>
-
-                        <!-- Mobile card support -->
-                        <div class="pl-12 md:pl-0 flex-1 text-left md:order-3 md:pl-12">
-                            <div class="bg-zinc-50 p-6 rounded-xl border border-black/5 md:hidden">
-                                <h3 class="text-lg font-black uppercase tracking-tighter mb-2 text-zinc-900">1. Gestió de Campanyes de Cerca a Terrassa</h3>
-                                <p class="text-xs text-zinc-500 font-light">Creem anuncis de text que responen a la intenció de compra exacta d'usuaris a Terrassa elevant el CTR.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Paso 2 -->
-                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                         <!-- Spacing/Card desktop for mobile-first order -->
-                         <div class="hidden md:block md:flex-1 text-left md:order-3 md:pl-12">
-                              <div class="bg-zinc-50 p-8 rounded-2xl border border-black/5 hover:border-black/10 transition-all hover:shadow-xl group relative overflow-hidden text-left">
-                                <div class="absolute -bottom-6 -right-6 text-9xl font-black text-black/2 group-hover:text-accent/5 transition-colors duration-500">02</div>
-                                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-3 text-zinc-900 border-b-2 border-accent w-fit pb-1">2. Auditoria de Comptes de Google Ads a Terrassa</h3>
-                                <p class="text-sm text-zinc-500 font-light max-w-md">Revisem el teu historial de Campanyes a Terrassa per eliminar fugues de clics irrellevants i millorar el nivell de qualitat.</p>
-                              </div>
-                         </div>
-
-                        <!-- Node Center -->
-                           <div class="absolute left-0 md:static md:order-2 flex justify-center items-center z-10 w-10 md:w-auto">
-                             <div class="node-circle w-10 h-10 rounded-full border-2 border-accent/20 bg-white text-zinc-900 flex items-center justify-center font-black text-sm shadow-md hover:border-accent hover:bg-zinc-900 hover:text-white transition-all duration-300">02</div>
-                           </div>
-
-                        <!-- Mobile card support -->
-                        <div class="pl-12 md:pl-0 flex-1 text-left md:order-1 md:pr-12">
-                            <div class="bg-zinc-50 p-6 rounded-xl border border-black/5 md:hidden">
-                                <h3 class="text-lg font-black uppercase tracking-tighter mb-2 text-zinc-900">2. Auditoria de Comptes de Google Ads a Terrassa</h3>
-                                <p class="text-xs text-zinc-500 font-light">Revisem el teu historial de Campanyes a Terrassa per eliminar fugues de clics irrellevants i millorar el nivell de qualitat.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Paso 3 -->
-                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                        <div class="hidden md:block md:flex-1 text-right md:order-1 md:pr-12">
-                            <div class="bg-zinc-50 p-8 rounded-2xl border border-black/5 hover:border-black/10 transition-all hover:shadow-xl group relative overflow-hidden text-left">
-                                <div class="absolute -bottom-6 -right-6 text-9xl font-black text-black/2 group-hover:text-accent/5 transition-colors duration-500">03</div>
-                                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-3 text-zinc-900 border-b-2 border-accent w-fit pb-1">3. Optimització del Cost per Clic a Terrassa</h3>
-                                <p class="text-sm text-zinc-500 font-light max-w-md">Ajustem licitacions quirúrgicament per reduir el CPC assegurant que cada euro sumi en rendibilitat sobre els teus balanços.</p>
-                            </div>
-                        </div>
-
-                        <!-- Node Center -->
-                        <div class="absolute left-0 md:static md:order-2 flex justify-center items-center z-10 w-10 md:w-auto">
-                             <div class="node-circle w-10 h-10 rounded-full border-2 border-accent/20 bg-white text-zinc-900 flex items-center justify-center font-black text-sm shadow-md hover:border-accent hover:bg-zinc-900 hover:text-white transition-all duration-300">03</div>
-                        </div>
-
-                        <!-- Mobile card support -->
-                        <div class="pl-12 md:pl-0 flex-1 text-left md:order-3 md:pl-12">
-                            <div class="bg-zinc-50 p-6 rounded-xl border border-black/5 md:hidden">
-                                <h3 class="text-lg font-black uppercase tracking-tighter mb-2 text-zinc-900">3. Optimització del Cost per Clic a Terrassa</h3>
-                                <p class="text-xs text-zinc-500 font-light">Ajustem licitacions quirúrgicament per reduir el CPC assegurant que cada euro sumi en rendibilitat sobre els teus balanços.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-    
-
-
-    
-    
-    <!-- ═══ SECCIÓN 2: CONSULTORÍA / H2 ════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
-        <div class="max-w-6xl mx-auto reveal">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-                
-                <!-- Image side with mesh effects -->
-                <div class="md:col-span-5 relative group flex justify-center">
-                    <!-- Glow mesh behind -->
-                    <div class="absolute inset-0 bg-accent/20 rounded-full blur-3xl opacity-30 group-hover:scale-105 transition-transform duration-500"></div>
-                    
-                    <div class="relative w-full max-w-sm">
-                        <!-- Polka Dots Background Pattern -->
-                        <div class="absolute -top-6 -left-6 w-24 h-24 bg-[radial-gradient(#000000_15%,transparent_15%)] bg-[length:12px_12px] opacity-20"></div>
-                        
-                        <div class="overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-4 border-white">
-                            <img src="/img/consultor-de-google-ads-a-terrassa.webp" alt="Consultor de Google Ads a Terrassa" class="w-full h-auto object-cover transform scale-100 group-hover:scale-102 transition-transform duration-700">
-                        </div>
-
-                        <!-- Floating Floating badge with Glassmorphism -->
-                        <div class="absolute -bottom-4 -right-4 backdrop-blur-md bg-black/90 text-white px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 border border-white/10">
-                            <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                            <div class="text-[10px] sm:text-xs font-black uppercase tracking-widest">Estrategia SEM</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Text side -->
-                <div class="md:col-span-7 text-left">
-                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Rendibilitat PPC</span>
-                    <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85] text-gradient">
-                        Consultor de Google Ads a Terrassa
-                    </h2>
-                    <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">
-                        Com a consultor expert, configuro i audito campanyes perquè no es perdi pressupost en clics irrellevants. El meu objectiu és trobar els compradors d’alta intenció directament on realitzen les cerques.
-                    </p>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
-                            <div class="text-sm font-black uppercase tracking-wider text-black mb-2">Auditoria</div>
-                            <p class="text-xs text-zinc-400 font-light">Control de pressupost de clics.</p>
-                        </div>
-                        <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
-                            <div class="text-sm font-black uppercase tracking-wider text-black mb-2">ROI Directe</div>
-                            <p class="text-xs text-zinc-400 font-light">Enfocament a benefici local.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    
-        
-    
-    <!-- ═══ SECCIÓN 3: PUNTOS CLAVE ════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-[#0a0a0b] text-white border-y border-white/5 px-4 sm:px-6">
-        <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20 animate-pulse"></div>
-<div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.5em] text-accent mb-6 block">Estratègia Dirigida</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-white leading-[0.9]">
-                    Publicitat de Pagament per Clic per a Negocis de Terrassa
-                </h2>
-                <p class="text-zinc-400 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Per competir a Terrassa la segmentació geogràfica és clau. Segmentem les teves estructures d'anuncis únicament en àrees rentables com Sector Industrial evitant llançar fons en impressions de baix valor comercial.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left reveal">
-                <!-- Tarjeta 1 -->
-                <div class="bg-zinc-900/40 backdrop-blur-xl p-8 border border-zinc-800/40 rounded-2xl shadow-sm hover:border-accent/40 hover:shadow-[0_20px_40px_-15px_rgba(var(--accent-rgb),0.1)] hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl text-white/5 font-black mb-6 group-hover:text-accent transition-colors">01</div>
-                    <h3 class="font-black text-xl uppercase tracking-tighter text-white mb-3">Precisió de Públic</h3>
-                    <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                        Només impactem usuaris llestos per comprar els teus serveis o productes, ignorant el trànsit curiós sense intenció comercial.
-                    </p>
-                </div>
-                <!-- Tarjeta 2 -->
-                <div class="bg-zinc-900/40 backdrop-blur-xl p-8 border border-zinc-800/40 rounded-2xl shadow-sm hover:border-accent/40 hover:shadow-[0_20px_40px_-15px_rgba(var(--accent-rgb),0.1)] hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl text-white/5 font-black mb-6 group-hover:text-accent transition-colors">02</div>
-                    <h3 class="font-black text-xl uppercase tracking-tighter text-white mb-3">Escalfament del Lead</h3>
-                    <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                        Redactem anuncis i continguts enfocats als beneficis clau que busca el teu arquetip de client ideal.
-                    </p>
-                </div>
-                <!-- Tarjeta 3 -->
-                <div class="bg-zinc-900/40 backdrop-blur-xl p-8 border border-zinc-800/40 rounded-2xl shadow-sm hover:border-accent/40 hover:shadow-[0_20px_40px_-15px_rgba(var(--accent-rgb),0.1)] hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl text-white/5 font-black mb-6 group-hover:text-accent transition-colors">03</div>
-                    <h3 class="font-black text-xl uppercase tracking-tighter text-white mb-3">Dominació Local</h3>
-                    <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                        Assegurem presència d'absoluta autoritat a les àrees geogràfiques de major rendibilitat per al teu negoci.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-        
-
-
-    <!-- ═══ SECCIÓN 4: RESULTADOS / CASOS ÉXITO ════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Rendibilitat i ROI en Google Ads Terrassa
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    No mesurem l'èxit en clics. Mesurem el cost per adquisició i el marge de benefici generat. Obtindràs un panell de mètriques transparents alineades amb les vendes orgàniques del teu negoci.
-                </p>
-            </div>
-
-            <!-- Panel de Métricas Directas -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 reveal text-center">
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+40%</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Mitjana de Conversió</div>
-                </div>
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">-35%</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Reducció Cost / Clic</div>
-                </div>
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x4.5</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Retorn Inversió (ROI)</div>
-                </div>
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+200</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Leads Qualificats/Mes</div>
-                </div>
-            </div>
-
-            <!-- Casos de Éxito Emulados -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
-                <div class="bg-zinc-950 text-white p-10 rounded-2xl border border-zinc-800 relative overflow-hidden group hover:shadow-2xl hover:border-zinc-700 transition-all flex flex-col justify-between">
-                    <div>
-                        <div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
-<div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
-<div class="flex items-center gap-2 mb-6 text-accent">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                        </div>
-                        <p class="font-light text-lg sm:text-xl leading-relaxed mb-8">
-                            "Vam retallar la despesa innecessària el primer mes. Ara reben visites qualificades directes als nostres serveis principals augmentant la cartera de clients."
-                        </p>
-                    </div>
-                    <div>
-                        <div class="font-black">Empresa de Servicios B2B</div>
-                        <div class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Cas d´Èxit Real</div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-10 rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:border-accent/10 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col justify-between group flex flex-col justify-between" style="transition-delay: 100ms">
-                    <div>
-                        <div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
-<div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
-<div class="flex items-center gap-2 mb-6 text-accent">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                        </div>
-                        <p class="font-light text-zinc-600 text-lg sm:text-xl leading-relaxed mb-8">
-                           "La claredat amb què expliquen on va cada euro i per què, ens va permetre duplicar les vendes. Hem deixat d´experimentar per anar sobre assegurança." 
-                        </p>
-                    </div>
-                    <div>
-                        <div class="font-black text-zinc-900">Compañía Industrial</div>
-                        <div class="text-[10px] text-zinc-400 uppercase tracking-widest mt-1">Cas d´Èxit Real</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-        
-
-<!-- ═══ SECCIÓN 5: CONTACTO / H2 ═════════════════════════════════════ -->
-    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
-        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
-            <div class="reveal text-white">
-                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO INMEDIATO</span>
-                <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
-                   Contactar amb Experts en Google Ads a Terrassa
-                </h2>
-                <p class="font-light max-w-sm text-base sm:text-lg">
-                    Sol·licita la teva auditoria de Google Ads gratis. Revisarem el teu compte i traçarem un pla per optimitzar el teu ROI a Terrassa.
-                </p>
-            </div>
-
-            <div class="reveal">
-                <div class="bg-white p-8 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
-                    <form class="space-y-6" id="contact-form">
-                        <div class="grid grid-cols-1 gap-4 text-[10px] font-black tracking-widest uppercase">
-                            <div class="flex flex-col gap-2">
-                                <label class="opacity-30">NOMBRE</label>
-                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 gap-4 text-[10px] font-black tracking-widest uppercase">
-                            <div class="flex flex-col gap-2">
-                                <label class="opacity-30">EMAIL PROFESIONAL</label>
-                                <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">MENSAJE</label>
-                            <textarea name="msg" aria-label="Mensaje" rows="2" class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm resize-none"></textarea>
-                        </div>
-                        <button type="submit" class="w-full btn-mktg-v5 !py-4 shadow-md">AUDITAR LA MEVA COMPTE</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-<script>
+      </div>
+    </div>
+  </section>
+  <style>
+    .timeline-container .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .timeline-container .reveal.active { opacity: 1; transform: translateY(0); }
+  </style>
+  <script is:inline>
     function initTimeline() {
-        const progressBars = document.querySelectorAll('.progress-bar');
-        const timelines = document.querySelectorAll('.timeline-container');
-        if (progressBars.length === 0 || timelines.length === 0) return;
-
-        function updateProgress() {
-            timelines.forEach((timeline, i) => {
-                const progressBar = progressBars[i];
-                if (!progressBar) return;
-                const rect = timeline.getBoundingClientRect();
-                const winHeight = window.innerHeight;
-                const topPassed = (winHeight / 2) - rect.top;
-                let percentage = (topPassed / rect.height) * 100;
-                percentage = Math.max(0, Math.min(100, percentage));
-                progressBar.style.height = `${percentage}%`;
-
-                const nodes = timeline.querySelectorAll('.node-circle');
-                nodes.forEach((node) => {
-                    const nodeTop = node.getBoundingClientRect().top;
-                    if (nodeTop < winHeight / 2) {
-                        node.classList.add('!border-accent', '!bg-accent', '!text-white');
-                    } else {
-                        node.classList.remove('!border-accent', '!bg-accent', '!text-white');
-                    }
-                });
-            });
-        }
-
-        window.addEventListener('scroll', updateProgress);
-        document.addEventListener('astro:page-load', updateProgress);
-        updateProgress();
+      const timeline = document.getElementById('timeline-container');
+      const progressBar = timeline?.querySelector('.progress-bar');
+      function updateProgress() {
+        if (!timeline || !progressBar) return;
+        const rect = timeline.getBoundingClientRect();
+        const winHeight = window.innerHeight;
+        const topPassed = (winHeight / 2) - rect.top;
+        let percentage = (topPassed / rect.height) * 100;
+        percentage = Math.max(0, Math.min(100, percentage));
+        progressBar.style.height = `${percentage}%`;
+        const nodes = timeline.querySelectorAll('.node-circle');
+        nodes.forEach((node) => {
+          const nodeTop = node.getBoundingClientRect().top;
+          if (nodeTop < winHeight / 2) { node.classList.add('!border-accent', '!bg-accent', '!text-white'); }
+          else { node.classList.remove('!border-accent', '!bg-accent', '!text-white'); }
+        });
+      }
+      window.addEventListener('scroll', updateProgress);
+      document.addEventListener('astro:page-load', updateProgress);
+      updateProgress();
     }
     document.addEventListener('DOMContentLoaded', initTimeline);
     document.addEventListener('astro:page-load', initTimeline);
-</script>
+  </script>
 
-</BaseLayout>
+  <!-- ═══ 5. CONSULTOR ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-6xl mx-auto reveal">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+        <div class="md:col-span-5 relative group flex justify-center">
+          <div class="absolute inset-0 bg-accent/20 rounded-full blur-3xl opacity-30 group-hover:scale-105 transition-transform duration-500"></div>
+          <div class="relative w-full max-w-sm">
+            <div class="absolute -top-6 -left-6 w-24 h-24 bg-[radial-gradient(#000000_15%,transparent_15%)] bg-[length:12px_12px] opacity-20"></div>
+            <div class="overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-4 border-white">
+              <img src="/img/consultor-de-google-ads-en-terrassa.webp" alt="Consultor de Google Ads a Terrassa" class="w-full h-auto object-cover">
+            </div>
+            <div class="absolute -bottom-4 -right-4 backdrop-blur-md bg-black/90 text-white px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 border border-white/10">
+              <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+              <div class="text-[10px] sm:text-xs font-black uppercase tracking-widest">Estratègia SEM</div>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-span-7 text-left">
+          <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Rendibilitat PPC</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+            Consultor de Google Ads a Terrassa
+          </h2>
+          <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">Com a consultor expert en Google Ads a Terrassa, configuro i optimitzo campanyes perquè cap euro de pressupost es perdi en clics irrellevants. Conec el mercat local del Vallès Occidental —des de la Rambla d'Ègara i el Parc de Vallparadís fins als polígons industrials de Les Arenes— i dissenyo estratègies orientades a atraure compradors d'alta intenció.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+              <div class="text-sm font-black uppercase tracking-wider text-black mb-2">Auditoria</div>
+              <p class="text-xs text-zinc-400 font-light">Control de pressupost de clics.</p>
+            </div>
+            <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+              <div class="text-sm font-black uppercase tracking-wider text-black mb-2">ROI Directe</div>
+              <p class="text-xs text-zinc-400 font-light">Enfocament a benefici local.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-    if (document.getElementById('contact-form')) {
-        document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const btn = form.querySelector('button');
-        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
-        const data = Object.fromEntries(new FormData(form));
-        try {
-            const res = await fetch('https://cms.novamarketing.es/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            if (res.ok) {
-                window.location.href = '/ca/gracies/';
-            } else { throw new Error(); }
-        } catch {
-            if (btn) { btn.innerHTML = 'ERROR — TORNA-HO A INTENTAR'; btn.disabled = false; btn.style.background = '#ef4444'; }
-        }
-    });
+  <!-- ═══ 6. RENDIBILITAT + STATS + TESTIMONIS ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+          Rendibilitat de campanyes de Google Ads a Terrassa
+        </h2>
+        <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+          No mesurem l'èxit en clics. Mesurem el cost per adquisició i el marge de benefici generat. Obtindràs un panell de mètriques transparents alineades amb les vendes reals del teu negoci a Terrassa.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 reveal text-center">
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+40%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Mitjana de Conversió</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">-35%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Reducció Cost / Clic</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x4.5</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Retorn Inversió (ROI)</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x3</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Leads Qualificats/Mes</div></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+        <div class="bg-zinc-950 text-white p-10 rounded-2xl border border-zinc-800 flex flex-col justify-between group hover:shadow-2xl hover:border-zinc-700 transition-all">
+          <div>
+            <div class="flex items-center gap-1 mb-6 text-accent">★★★★★</div>
+            <p class="font-light text-lg leading-relaxed mb-8">"Teníem pressupost de Google Ads però no veiem retorn. Nova va ajustar les campanyes al nostre sector a Terrassa i en dos mesos vam triplicar els contactes de qualitat del Vallès."</p>
+          </div>
+          <div>
+            <div class="font-black">Empresa industrial, Polígon de Les Arenes</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Sector: Indústria B2B</div>
+          </div>
+        </div>
+        <div class="bg-white p-10 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-xl hover:border-accent/10 hover:-translate-y-1 transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1 mb-6 text-accent">★★★★★</div>
+            <p class="font-light text-zinc-600 text-lg leading-relaxed mb-8">"La nostra botiga de l'Eix del Parc de Terrassa va començar a rebre visites qualificades des de Google Ads. L'equip de Nova coneix el mercat local com ningú."</p>
+          </div>
+          <div>
+            <div class="font-black text-zinc-900">Comerç de l'Eix del Parc, Terrassa</div>
+            <div class="text-[10px] text-zinc-400 uppercase tracking-widest mt-1">Sector: Retail local</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7. CASOS D'ÈXIT ═══ -->
+  {pageCases.length > 0 && (
+  <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12 reveal">
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+          Casos d'èxit de Google Ads<br class="hidden md:inline" /> a Terrassa
+        </h2>
+      </div>
+      <div class="cases-carousel relative overflow-hidden">
+        <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+          {pageCases.map((cs: any, i: number) => {
+            const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+            const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
+            return (
+              <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                <div>
+                  {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                  <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors leading-tight">{cs.title}</h3>
+                  <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                </div>
+                {caseUrl && (
+                  <a href={caseUrl} class="mt-6 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 hover:gap-3 transition-all uppercase">
+                    VEURE MÉS <span class="text-sm">→</span>
+                  </a>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+  )}
+  <script is:inline>
+    function initCasesCarousel() {
+      const track = document.querySelector('.cases-track');
+      if (!track) return;
+      const slides = track.querySelectorAll('.cases-slide');
+      if (slides.length <= 4) return;
+      let current = 0;
+      const total = slides.length;
+      function getVisible() {
+        if (window.innerWidth >= 1024) return 4;
+        if (window.innerWidth >= 640) return 2;
+        return 1;
+      }
+      function next() {
+        const visible = getVisible();
+        const maxIndex = total - visible;
+        current = current >= maxIndex ? 0 : current + 1;
+        const slideWidth = slides[0].offsetWidth + 24;
+        track.style.transform = `translateX(-${current * slideWidth}px)`;
+      }
+      const interval = setInterval(next, 5000);
+      document.addEventListener('astro:before-preparation', () => clearInterval(interval));
     }
-</script>
-  
+    document.addEventListener('DOMContentLoaded', initCasesCarousel);
+    document.addEventListener('astro:page-load', initCasesCarousel);
+  </script>
+
+  <!-- ═══ 9. ALTRES SERVEIS ═══ -->
+  <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
+          Altres serveis de màrqueting<br class="hidden sm:inline" /> per a empreses de Terrassa
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 reveal">
+        <a href="/ca/agencia-seo-a-terrassa" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Agència de Posicionament SEO a Terrassa</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Posiciona la teva empresa a Google de forma orgànica a Terrassa i el Vallès Occidental. SEO local per aparèixer primer quan un client et cerca.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÉS →</span>
+        </a>
+        <a href="/ca/agencia-de-marketing-digital-a-terrassa" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Agència de Màrqueting Digital a Terrassa</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Estratègia digital integral per a empreses de Terrassa: SEO, SEM, xarxes socials i analítica web per créixer de forma sostinguda.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÉS →</span>
+        </a>
+        <a href="/ca/disseny-web-per-pimes" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Agència de Disseny Web a Terrassa</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Dissenyem webs professionals per a empreses de Terrassa orientades a captar clients i convertir visites en contactes reals.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÉS →</span>
+        </a>
+        <a href="/ca/consultoria-marketing-per-pimes" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Consultoria de Màrqueting a Terrassa</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Consultoria de màrqueting per a pimes de Terrassa. Analitzem el teu negoci i dissenyem el pla de màrqueting més rendible per al Vallès.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÉS →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+    <!-- ═══ 8. FAQ ═══ -->
+  <section class="py-20 sm:py-32 bg-white border-t border-black/5 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
+          Preguntes sobre Google Ads<br class="hidden sm:inline" /> d'empreses de Terrassa
+        </h2>
+      </div>
+      <div class="space-y-4 reveal">
+        {faqItems.map((item, i) => (
+          <details class="group bg-zinc-50 border border-zinc-100 rounded-2xl overflow-hidden">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-black text-sm sm:text-base uppercase tracking-tight text-zinc-900 hover:text-accent transition-colors">
+              {item.question}
+              <span class="ml-4 text-accent text-xl group-open:rotate-45 transition-transform duration-300 shrink-0">+</span>
+            </summary>
+            <div class="px-6 pb-6 text-sm text-zinc-500 font-light leading-relaxed">{item.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ </BaseLayout>

@@ -1,554 +1,461 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildAlternates } from '../lib/i18n';
+import { strapiClient } from '../lib/strapi';
 import LogoMarquee from '../components/sections/LogoMarquee.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-google-ads-sabadell', '/ca/agencia-google-ads-sabadell', SITE_URL);
 
+let pageCases: any[] = [];
+try {
+  const res = await strapiClient.getCaseStudies('es');
+  pageCases = res.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s.includes('google-ads') || s.includes('ads'));
+  });
+} catch {}
+
+const steps = [
+  {
+    title: "Análisis del mercado de Sabadell",
+    desc: "Estudiamos la competencia local en Google Ads dentro de Sabadell, desde los comercios del barri de Gràcia hasta las empresas del polígon Can Roqueta, para encontrar los huecos de oportunidad con menor CPC."
+  },
+  {
+    title: "Configuración de campañas locales",
+    desc: "Creamos estructuras de campaña segmentadas por barrio: Creu Alta, Can Feu, Eix Macià, el centro histórico. Cada grupo de anuncios apunta al cliente correcto en el área correcta de Sabadell."
+  },
+  {
+    title: "Redacción de anuncios para el cliente sabadellense",
+    desc: "Escribimos anuncios que hablan el idioma del comprador del Vallès. Mensajes directos, orientados a la conversión, que generan clics de calidad y no tráfico irrelevante."
+  },
+  {
+    title: "Optimización continua y reporting",
+    desc: "Cada semana analizamos las métricas reales: leads generados, coste por conversión, búsquedas que activan tus anuncios en Sabadell. Ajustamos sin parar para mejorar el ROI."
+  }
+];
+
+const faqItems = [
+  {
+    question: "¿Cuánto cuesta gestionar Google Ads para mi negocio en Sabadell?",
+    answer: "El coste de gestión en Nova varía según el volumen de inversión publicitaria. Trabajamos con pymes de Sabadell desde presupuestos de 300€/mes de inversión en Google. Lo importante no es el tamaño del presupuesto, sino optimizarlo al máximo para el mercado local del Vallès Occidental."
+  },
+  {
+    question: "¿Google Ads funciona para tiendas del centro de Sabadell o la Rambla?",
+    answer: "Absolutamente. Las tiendas físicas del centro de Sabadell, en la Rambla, el Eix Macià o la zona peatonal, pueden captar clientes locales con alta intención de compra mediante Google Ads local. Segmentamos para que tus anuncios se muestren únicamente a personas que buscan cerca de tu establecimiento."
+  },
+  {
+    question: "¿Puede mi empresa industrial del polígon Can Roqueta de Sabadell usar Google Ads?",
+    answer: "Sí. Las empresas B2B de los polígons industrials de Sabadell —Can Roqueta, Can Feu, Ribatallada— tienen un perfil de cliente que también busca en Google. Diseñamos campañas orientadas a palabras clave industriales y de servicios B2B que generan presupuestos y contratos reales."
+  },
+  {
+    question: "¿Cuánto tiempo tarda en funcionar Google Ads para mi empresa de Sabadell?",
+    answer: "A diferencia del SEO, Google Ads ofrece visibilidad casi inmediata. Tu empresa de Sabadell puede aparecer en los primeros resultados en cuestión de horas tras activar la campaña. En el primer mes ya tienes datos reales para optimizar y mejorar el ROI en el mercado del Vallès."
+  },
+  {
+    question: "¿Mis anuncios pueden aparecer en Google Maps para atraer clientes a mi local de Sabadell?",
+    answer: "Sí. Configuramos campañas locales con extensiones de ubicación para que tu negocio aparezca en Google Maps cuando alguien busca tu servicio cerca de la Rambla, el Mercat Central o cualquier barrio de Sabadell. Ideal para restaurantes, clínicas, talleres y servicios de proximidad."
+  },
+  {
+    question: "¿Qué presupuesto mínimo necesito para Google Ads en Sabadell?",
+    answer: "En Sabadell, con un nivel de competencia medio, los primeros resultados pueden verse con inversiones desde 300-500€/mes en publicidad bien gestionada. Recomendamos empezar con un presupuesto conservador, medir resultados en el mercado del Vallès y escalar cuando el ROI esté validado."
+  },
+  {
+    question: "¿Cómo se mide el éxito de las campañas de Google Ads en Sabadell?",
+    answer: "Medimos el éxito en métricas de negocio reales: leads generados, llamadas recibidas, formularios completados y ventas directas. No en clics o impresiones. Recibirás informes claros y transparentes del rendimiento de cada euro invertido en publicidad en Sabadell."
+  },
+  {
+    question: "¿Se pueden segmentar los anuncios solo para barrios concretos de Sabadell?",
+    answer: "Sí. Google Ads permite una segmentación geográfica muy precisa. Podemos mostrar tus anuncios únicamente en zonas específicas de Sabadell: Can Feu, Creu Alta, el centro histórico, el Eix Macià o los polígons del Vallès Occidental. Así optimizamos cada euro hacia las áreas más rentables para tu negocio."
+  },
+  {
+    question: "¿Qué diferencia a Nova Marketing de otras agencias de Google Ads en Sabadell?",
+    answer: "En Nova conocemos el mercado del Vallès Occidental. No somos una agencia genérica: entendemos los sectores industriales de Sabadell, el perfil del consumidor local y la competencia en cada barrio. Cada campaña se diseña específicamente para el mercado de Sabadell, no se aplican plantillas genéricas."
+  },
+  {
+    question: "¿Puedo empezar con Google Ads aunque no haya tenido campañas antes en Sabadell?",
+    answer: "Por supuesto. Para empresas de Sabadell sin historial previo en Google Ads hacemos una configuración inicial desde cero: investigación de palabras clave del Vallès, estructura de campañas, redacción de anuncios y configuración de conversiones. En semanas tienes datos reales para tomar decisiones."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(f => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Agencia de Google Ads para Pymes",
+  "provider": {
+    "@type": "ProfessionalService",
+    "@id": "https://novamarketing.es/#organization"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Sabadell",
+    "sameAs": "https://www.wikidata.org/wiki/Q12258"
+  },
+  "description": "Expertos en gestión de campañas de Google Ads y SEM para pequeñas y medianas empresas en Sabadell. Maximizamos tu visibilidad y ventas con estrategias a medida para el mercado del Vallès Occidental.",
+  "offers": { "@type": "Offer", "priceRange": "€€" },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "24"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios de Publicidad en Google",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Auditoría de cuenta de Google Ads" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Configuración inicial de campañas SEM" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Optimización continua y gestión de pujas" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gestión de Google Merchant Center y Shopping" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Campañas de Remarketing y Display" }}
+    ]
+  }
+};
 ---
 
 <BaseLayout
   title="Agencia Google Ads en Sabadell | Nova Marketing"
-  description="Expertos en Google Ads y SEM en Sabadell. Gestión de campañas PPC enfocadas al retorno de inversión (ROI) para pymes y empresas locales."
+  description="Gestión de campañas de Google Ads para empresas de Sabadell. Rentabiliza tu inversión publicitaria en el Vallès Occidental desde el primer día. Auditoría gratuita."
   locale="es"
   alternates={alternates}
+  schemas={[serviceSchema, faqSchema]}
 >
 
-    
-    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        
-        <!-- Background Grid Mesh -->
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+  <!-- ═══ 1. HERO ═══ -->
+  <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+    <div class="max-w-5xl mx-auto reveal relative z-10">
+      <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+        <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+        Publicidad Online Rentable
+      </span>
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase font-black tracking-tighter leading-[0.80] mb-6 text-zinc-900 flex flex-col items-center text-center">
+        <span>Agencia de</span>
+        <span>Google Ads</span>
+        <span class="bg-gradient-to-r from-accent via-accent/90 to-purple-600 bg-clip-text text-transparent px-4 overflow-visible inline-block">en Sabadell</span>
+      </h1>
+      <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">Maximizamos tus ventas con campañas de pago por clic hipersegmentadas en Sabadell. Desde los comercios de la Rambla y el Eix Macià hasta las empresas industriales de Can Feu y los polígons del Vallès, cada clic cuenta.</p>
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
+          MULTIPLICAR MI FACTURACIÓN
+        </button>
+      </div>
+    </div>
+  </section>
 
-        <!-- Glow Orbs -->
-        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+  <!-- ═══ 2. LOGO MARQUEE ═══ -->
+  <LogoMarquee />
 
-        <div class="max-w-5xl mx-auto reveal relative z-10">
-            <!-- Glassmorphic Subtitle Badge -->
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
-                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                Publicidad Online Rentable
-            </span>
-
-            <!-- H1 Style -->
-            <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase font-black tracking-tighter leading-[0.80] mb-6 text-zinc-900 flex flex-col items-center text-center">
-                <span>Agencia de</span>
-                <span>Google Ads</span>
-                <span class="bg-gradient-to-r from-accent via-accent/90 to-purple-600 bg-clip-text text-transparent px-4 overflow-visible inline-block">en Sabadell</span>
-            </h1>
-
-            <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
-                Maximizamos tus ventas con campañas de pago por clic hipersegmentadas en Sabadell. Enfoque en captar clientes del sector comercio y servicios en el área del Vallès.
-            </p>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
-                    MULTIPLICAR MI FACTURACIÓN
-                </a>
+  <!-- ═══ 3. DOMINIO TOTAL + 4 CARDS ═══ -->
+  <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.82]">
+          Dominio Total de <br class="hidden sm:inline" /> Google Ads en Sabadell
+        </h2>
+        <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">No experimentamos con el presupuesto de empresas de Sabadell. Diseñamos campañas quirúrgicas para el mercado del Vallès que impactan exactamente en el cliente ideal cuando está listo para comprar.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        {[
+          { title: "Auditoría de Cuenta", desc: "Analizamos tu historial en Google Ads detectando fugas de presupuesto habituales en el mercado del Vallès Occidental. Especial atención a sectores como la industria de Can Feu y el comercio del Eix Macià de Sabadell." },
+          { title: "Keyword Research SEM", desc: "Seleccionamos búsquedas con alta intención de compra en Sabadell: desde servicios locales en la Rambla hasta empresas B2B de los polígons industrials. Cero clics de curiosos." },
+          { title: "Anuncios de Impacto", desc: "Redactamos textos que conectan con el cliente sabadellense. Mensajes que resuenan tanto para el comprador del Mercat Central como para el industrial de Creu Alta." },
+          { title: "Optimización de Puja", desc: "Ajustamos las pujas para que tu empresa de Sabadell pague el mínimo por cada cliente captado, priorizando los momentos de mayor intención comercial en el Vallès." }
+        ].map((s, i) => (
+          <div class="group flex flex-col justify-between p-8 sm:p-10 h-full bg-white rounded-3xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden reveal flex-1">
+            <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
+            <div class="absolute -bottom-6 -right-4 text-9xl font-black text-black/2 group-hover:text-accent/[0.04] transition-all duration-500 select-none">0{i + 1}</div>
+            <div class="relative z-10 flex flex-col h-full justify-between">
+              <div>
+                <div class="p-3 bg-zinc-50 border border-black/5 w-fit rounded-xl mb-6 group-hover:bg-accent/5 transition-colors">
+                  <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                </div>
+                <h3 class="text-xl sm:text-2xl uppercase mb-3 tracking-tighter group-hover:text-accent font-black text-zinc-900 border-b border-zinc-100 pb-2 w-fit">{s.title}</h3>
+                <p class="text-xs sm:text-sm text-zinc-500 leading-relaxed font-light">{s.desc}</p>
+              </div>
             </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4. TIMELINE ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-2xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+          Cómo trabajamos el SEM en Sabadell
+        </h2>
+        <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed">
+          <p>Olvídate del SEM en piloto automático. Contarás con un <strong>Account Manager dedicado</strong> que conoce el mercado de Sabadell y trabajará de la mano con tu equipo para supervisar avances y mantenerte informado con métricas reales.</p>
         </div>
-    </section>
-
-    <LogoMarquee />
-    
-
-    
-    <!-- ═══ SECCIÓN 1: ESPECIALISTAS / H2 ══════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
-        
-        <div class="max-w-6xl mx-auto">
-            <!-- Header section -->
-            <div class="max-w-3xl mx-auto text-center mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">PPC & SEM Experts</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85] text-gradient">
-                    Especialistas en SEM y Publicidad Online en Sabadell
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    La publicidad en Sabadell no admite errores de presupuesto. Estudiamos el mercado de zonas como Can Feu, Eix Macià, Rambla de Sabadell para pujar por clics cualificados que busquen contratación inmediata.
-                </p>
+      </div>
+      <div id="timeline-container" class="relative timeline-container">
+        <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+        <div class="progress-bar hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
+        <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+          {steps.map((step, index) => (
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal" style={`transition-delay: ${index * 100}ms`}>
+              <div class="hidden md:block md:flex-1 text-right md:order-1">
+                {index % 2 === 0 && (
+                  <div class="md:pr-12">
+                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{step.title}</h3>
+                    <p class="text-sm text-zinc-500 font-light max-w-md ml-auto">{step.desc}</p>
+                  </div>
+                )}
+              </div>
+              <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all duration-300">0{index + 1}</div>
+              <div class="flex-1 text-left md:order-3">
+                <div class="md:pl-12">
+                  <h3 class:list={["text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900", index % 2 === 0 ? "md:hidden" : ""]}>{step.title}</h3>
+                  <p class:list={["text-sm text-zinc-500 font-light max-w-md mr-auto", index % 2 === 0 ? "md:hidden" : ""]}>{step.desc}</p>
+                </div>
+              </div>
             </div>
-
-            <!-- Bento Grid Frame structure -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 reveal">
-                
-                <!-- Card 1: Main Big Bento -->
-                <div class="md:col-span-8 bg-white p-8 sm:p-12 border border-black/5 rounded-2xl shadow-sm group hover:border-black/10 hover:shadow-xl transition-all duration-500 flex flex-col justify-between relative overflow-hidden min-h-[350px]">
-                    <div class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    
-                    <div>
-                        <div class="self-start p-4 bg-zinc-50 border border-black/5 rounded-2xl mb-6 shadow-sm group-hover:bg-accent/10 group-hover:border-accent/10 transition-colors">
-                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-4 max-w-md">
-                            Gestión de Campañas de Búsqueda en Sabadell
-                        </h3>
-                        <p class="text-sm sm:text-base text-zinc-400 font-light leading-relaxed max-w-lg">
-                            Creamos anuncios de texto que responden a la intención de compra exacta de usuarios en Sabadell elevando el CTR.
-                        </p>
-                    </div>
-
-                    <div class="mt-8 flex justify-between items-center">
-                        <a href="#contacto" class="contact-modal-trigger flex items-center gap-2 text-xs font-black tracking-widest text-black group-hover:text-accent transition-colors">
-                            MÁS INFORMACIÓN 
-                            <span class="transform group-hover:translate-x-1 transition-transform">→</span>
-                        </a>
-                        <div class="text-5xl font-black text-black/5">01</div>
-                    </div>
-                </div>
-
-                <!-- Card 2: Small Bento -->
-                <div class="md:col-span-4 bg-white p-8 border border-black/5 rounded-2xl shadow-sm hover:border-black/10 hover:shadow-xl transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="p-4 bg-zinc-50 border border-black/5 rounded-2xl w-fit mb-4 group-hover:bg-accent/10 transition-colors">
-                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </div>
-                        <h3 class="text-lg font-black uppercase tracking-tighter text-zinc-900 mb-2">Auditoría de Cuentas de Google Ads en Sabadell</h3>
-                        <p class="text-xs text-zinc-400 font-light leading-relaxed">Revisamos tu historial de Campañas en Sabadell para eliminar fugas de clics irrelevantes y mejorar el nivel de calidad.</p>
-                    </div>
-                    <div class="mt-6 flex justify-between items-center">
-                         <a href="#contacto" class="contact-modal-trigger text-[10px] font-black tracking-widest text-accent hover:underline">MÁS INFO</a>
-                         <div class="text-3xl font-black text-black/5">02</div>
-                    </div>
-                </div>
-
-                <!-- Card 3: Small Bento -->
-                <div class="md:col-span-4 bg-white p-8 border border-black/5 rounded-2xl shadow-sm hover:border-black/10 hover:shadow-xl transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="p-4 bg-zinc-50 border border-black/5 rounded-2xl w-fit mb-4 group-hover:bg-accent/10 transition-colors">
-                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                        </div>
-                        <h3 class="text-lg font-black uppercase tracking-tighter text-zinc-900 mb-2">Optimización del Coste por Clic en Sabadell</h3>
-                        <p class="text-xs text-zinc-400 font-light leading-relaxed">Ajustamos pujas quirúrgicamente para reducir el CPC asegurando que cada euro sume en rentabilidad sobre tus balances.</p>
-                    </div>
-                    <div class="mt-6 flex justify-between items-center">
-                         <a href="#contacto" class="contact-modal-trigger text-[10px] font-black tracking-widest text-accent hover:underline">MÁS INFO</a>
-                         <div class="text-3xl font-black text-black/5">03</div>
-                    </div>
-                </div>
-
-                <!-- Card 4: Medium Bento (Span remaining) -->
-                <div class="md:col-span-8 bg-zinc-900 text-white p-8 sm:p-12 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col sm:flex-row justify-between items-center gap-6 group overflow-hidden relative">
-                    <div class="absolute inset-0 bg-gradient-to-r from-transparent to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="relative z-10 flex flex-col justify-between h-full">
-                        <div>
-                            <div class="p-4 bg-white/5 border border-white/5 rounded-2xl w-fit mb-4 group-hover:bg-accent/20 transition-colors">
-                                <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m13 13v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m0 0H15"></path></svg>
-                            </div>
-                            <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter text-white mb-2 max-w-md">Campañas de Remarketing para Empresas de Sabadell</h3>
-                            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed max-w-md">Recuperamos el interés de visitantes de Sabadell que no convirtieron la primera vez mediante impactos visuales enfocados.</p>
-                        </div>
-                        <div class="mt-6">
-                            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-3 !px-6 !text-[10px] !bg-white !text-black shadow-lg">
-                                EMPEZAR
-                            </a>
-                        </div>
-                    </div>
-                    <div class="relative z-10 text-8xl font-black text-white/5">04</div>
-                </div>
-
-            </div>
+          ))}
         </div>
-    </section>
-    
-
-    
-    
-    <!-- ═══ METODOLOGÍA: BARRA DE PROGRESO ════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Step by Step</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85] text-gradient">
-                    Nuestra Metodología en Google Ads
-                </h2>
-                <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed">
-                    <p>Un proceso estratégico orientado exclusivamente a rentabilizar tu inversión publicitaria desde el primer clic.</p>
-                </div>
-            </div>
-
-            <div class="timeline-container relative">
-                <!-- Outer Path track connector -->
-                <div class="absolute left-4 md:left-1/2 top-10 bottom-12 w-[2px] bg-zinc-100 md:-translate-x-1/2 overflow-hidden">
-                    <div class="progress-bar absolute top-0 left-0 w-full bg-accent transition-all duration-100" style="height: 0%;"></div>
-                </div>
-                
-                <div class="space-y-12 md:space-y-20 flex flex-col items-center">
-
-                    <!-- Paso 1 -->
-                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                        <!-- Left Desktop card or spacing -->
-                        <div class="hidden md:block md:flex-1 text-right md:order-1 md:pr-12">
-                            <div class="bg-zinc-50 p-8 rounded-2xl border border-black/5 hover:border-black/10 transition-all hover:shadow-xl group relative overflow-hidden text-left">
-                                <div class="absolute -bottom-6 -right-6 text-9xl font-black text-black/2 group-hover:text-accent/5 transition-colors duration-500">01</div>
-                                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-3 text-zinc-900 border-b-2 border-accent w-fit pb-1">1. Gestión de Campañas de Búsqueda en Sabadell</h3>
-                                <p class="text-sm text-zinc-500 font-light max-w-md">Creamos anuncios de texto que responden a la intención de compra exacta de usuarios en Sabadell elevando el CTR.</p>
-                            </div>
-                        </div>
-
-                        <!-- Node Center -->
-                        <div class="absolute left-0 md:static md:order-2 flex justify-center items-center z-10 w-10 md:w-auto">
-                            <div class="relative flex items-center justify-center">
-                                <div class="absolute inset-0 bg-accent/20 rounded-full animate-ping opacity-60"></div>
-                                <div class="node-circle w-10 h-10 rounded-full border-2 border-accent bg-white text-zinc-900 flex items-center justify-center font-black text-sm shadow-lg">01</div>
-                            </div>
-                        </div>
-
-                        <!-- Mobile card support -->
-                        <div class="pl-12 md:pl-0 flex-1 text-left md:order-3 md:pl-12">
-                            <div class="bg-zinc-50 p-6 rounded-xl border border-black/5 md:hidden">
-                                <h3 class="text-lg font-black uppercase tracking-tighter mb-2 text-zinc-900">1. Gestión de Campañas de Búsqueda en Sabadell</h3>
-                                <p class="text-xs text-zinc-500 font-light">Creamos anuncios de texto que responden a la intención de compra exacta de usuarios en Sabadell elevando el CTR.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Paso 2 -->
-                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                         <!-- Spacing/Card desktop for mobile-first order -->
-                         <div class="hidden md:block md:flex-1 text-left md:order-3 md:pl-12">
-                              <div class="bg-zinc-50 p-8 rounded-2xl border border-black/5 hover:border-black/10 transition-all hover:shadow-xl group relative overflow-hidden text-left">
-                                <div class="absolute -bottom-6 -right-6 text-9xl font-black text-black/2 group-hover:text-accent/5 transition-colors duration-500">02</div>
-                                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-3 text-zinc-900 border-b-2 border-accent w-fit pb-1">2. Auditoría de Cuentas de Google Ads en Sabadell</h3>
-                                <p class="text-sm text-zinc-500 font-light max-w-md">Revisamos tu historial de Campañas en Sabadell para eliminar fugas de clics irrelevantes y mejorar el nivel de calidad.</p>
-                              </div>
-                         </div>
-
-                        <!-- Node Center -->
-                           <div class="absolute left-0 md:static md:order-2 flex justify-center items-center z-10 w-10 md:w-auto">
-                             <div class="node-circle w-10 h-10 rounded-full border-2 border-accent/20 bg-white text-zinc-900 flex items-center justify-center font-black text-sm shadow-md hover:border-accent hover:bg-zinc-900 hover:text-white transition-all duration-300">02</div>
-                           </div>
-
-                        <!-- Mobile card support -->
-                        <div class="pl-12 md:pl-0 flex-1 text-left md:order-1 md:pr-12">
-                            <div class="bg-zinc-50 p-6 rounded-xl border border-black/5 md:hidden">
-                                <h3 class="text-lg font-black uppercase tracking-tighter mb-2 text-zinc-900">2. Auditoría de Cuentas de Google Ads en Sabadell</h3>
-                                <p class="text-xs text-zinc-500 font-light">Revisamos tu historial de Campañas en Sabadell para eliminar fugas de clics irrelevantes y mejorar el nivel de calidad.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Paso 3 -->
-                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                        <div class="hidden md:block md:flex-1 text-right md:order-1 md:pr-12">
-                            <div class="bg-zinc-50 p-8 rounded-2xl border border-black/5 hover:border-black/10 transition-all hover:shadow-xl group relative overflow-hidden text-left">
-                                <div class="absolute -bottom-6 -right-6 text-9xl font-black text-black/2 group-hover:text-accent/5 transition-colors duration-500">03</div>
-                                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-3 text-zinc-900 border-b-2 border-accent w-fit pb-1">3. Optimización del Coste por Clic en Sabadell</h3>
-                                <p class="text-sm text-zinc-500 font-light max-w-md">Ajustamos pujas quirúrgicamente para reducir el CPC asegurando que cada euro sume en rentabilidad sobre tus balances.</p>
-                            </div>
-                        </div>
-
-                        <!-- Node Center -->
-                        <div class="absolute left-0 md:static md:order-2 flex justify-center items-center z-10 w-10 md:w-auto">
-                             <div class="node-circle w-10 h-10 rounded-full border-2 border-accent/20 bg-white text-zinc-900 flex items-center justify-center font-black text-sm shadow-md hover:border-accent hover:bg-zinc-900 hover:text-white transition-all duration-300">03</div>
-                        </div>
-
-                        <!-- Mobile card support -->
-                        <div class="pl-12 md:pl-0 flex-1 text-left md:order-3 md:pl-12">
-                            <div class="bg-zinc-50 p-6 rounded-xl border border-black/5 md:hidden">
-                                <h3 class="text-lg font-black uppercase tracking-tighter mb-2 text-zinc-900">3. Optimización del Coste por Clic en Sabadell</h3>
-                                <p class="text-xs text-zinc-500 font-light">Ajustamos pujas quirúrgicamente para reducir el CPC asegurando que cada euro sume en rentabilidad sobre tus balances.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-    
-
-
-    
-    
-    <!-- ═══ SECCIÓN 2: CONSULTORÍA / H2 ════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
-        <div class="max-w-6xl mx-auto reveal">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-                
-                <!-- Image side with mesh effects -->
-                <div class="md:col-span-5 relative group flex justify-center">
-                    <!-- Glow mesh behind -->
-                    <div class="absolute inset-0 bg-accent/20 rounded-full blur-3xl opacity-30 group-hover:scale-105 transition-transform duration-500"></div>
-                    
-                    <div class="relative w-full max-w-sm">
-                        <!-- Polka Dots Background Pattern -->
-                        <div class="absolute -top-6 -left-6 w-24 h-24 bg-[radial-gradient(#000000_15%,transparent_15%)] bg-[length:12px_12px] opacity-20"></div>
-                        
-                        <div class="overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-4 border-white">
-                            <img src="/img/consultor-de-google-ads-en-sabadell.webp" alt="Consultor de Google Ads en Sabadell" class="w-full h-auto object-cover transform scale-100 group-hover:scale-102 transition-transform duration-700">
-                        </div>
-
-                        <!-- Floating Floating badge with Glassmorphism -->
-                        <div class="absolute -bottom-4 -right-4 backdrop-blur-md bg-black/90 text-white px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 border border-white/10">
-                            <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                            <div class="text-[10px] sm:text-xs font-black uppercase tracking-widest">Estrategia SEM</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Text side -->
-                <div class="md:col-span-7 text-left">
-                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Rentabilidad PPC</span>
-                    <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85] text-gradient">
-                        Consultor de Google Ads en Sabadell
-                    </h2>
-                    <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">
-                        Como consultor experto, configuro y audito campañas para que no se pierda presupuesto en clics irrelevantes. Mi objetivo es encontrar los compradores de alta intención directamente donde realizan las búsquedas.
-                    </p>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
-                            <div class="text-sm font-black uppercase tracking-wider text-black mb-2">Auditoría</div>
-                            <p class="text-xs text-zinc-400 font-light">Control de presupuesto de clics.</p>
-                        </div>
-                        <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
-                            <div class="text-sm font-black uppercase tracking-wider text-black mb-2">ROI Directo</div>
-                            <p class="text-xs text-zinc-400 font-light">Enfoque a beneficio local.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    
-        
-    
-    <!-- ═══ SECCIÓN 3: PUNTOS CLAVE ════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-[#0a0a0b] text-white border-y border-white/5 px-4 sm:px-6">
-        <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20 animate-pulse"></div>
-<div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.5em] text-accent mb-6 block">Estrategia Dirigida</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-white leading-[0.9]">
-                    Publicidad de Pago por Clic para Negocios de Sabadell
-                </h2>
-                <p class="text-zinc-400 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Para competir en Sabadell la segmentación geográfica es clave. Segmentamos tus estructuras de anuncios únicamente en áreas rentables como Polígono Industrial Can Roqueta evitando tirar fondos en impresiones de bajo valor comercial.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left reveal">
-                <!-- Tarjeta 1 -->
-                <div class="bg-zinc-900/40 backdrop-blur-xl p-8 border border-zinc-800/40 rounded-2xl shadow-sm hover:border-accent/40 hover:shadow-[0_20px_40px_-15px_rgba(var(--accent-rgb),0.1)] hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl text-white/5 font-black mb-6 group-hover:text-accent transition-colors">01</div>
-                    <h3 class="font-black text-xl uppercase tracking-tighter text-white mb-3">Precisión de Público</h3>
-                    <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                        Solo impactamos usuarios listos para comprar tus servicios o productos, ignorando el tráfico curioso sin intención comercial.
-                    </p>
-                </div>
-                <!-- Tarjeta 2 -->
-                <div class="bg-zinc-900/40 backdrop-blur-xl p-8 border border-zinc-800/40 rounded-2xl shadow-sm hover:border-accent/40 hover:shadow-[0_20px_40px_-15px_rgba(var(--accent-rgb),0.1)] hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl text-white/5 font-black mb-6 group-hover:text-accent transition-colors">02</div>
-                    <h3 class="font-black text-xl uppercase tracking-tighter text-white mb-3">Calentamiento del Lead</h3>
-                    <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                        Redactamos anuncios y contenidos enfocados a los beneficios clave que busca tu arquetipo de cliente ideal.
-                    </p>
-                </div>
-                <!-- Tarjeta 3 -->
-                <div class="bg-zinc-900/40 backdrop-blur-xl p-8 border border-zinc-800/40 rounded-2xl shadow-sm hover:border-accent/40 hover:shadow-[0_20px_40px_-15px_rgba(var(--accent-rgb),0.1)] hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl text-white/5 font-black mb-6 group-hover:text-accent transition-colors">03</div>
-                    <h3 class="font-black text-xl uppercase tracking-tighter text-white mb-3">Dominación Local</h3>
-                    <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                        Aseguramos presencia de absoluta autoridad en las áreas geográficas de mayor rentabilidad para tu negocio.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-        
-
-
-    <!-- ═══ SECCIÓN 4: RESULTADOS / CASOS ÉXITO ════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Rentabilidad y ROI en Google Ads Sabadell
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    No medimos el éxito en clics. Medimos el coste por adquisición y el margen de beneficio generado. Obtendrás un panel de métricas transparentes alineadas con las ventas orgánicas de tu negocio.
-                </p>
-            </div>
-
-            <!-- Panel de Métricas Directas -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 reveal text-center">
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+40%</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Media de Conversión</div>
-                </div>
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">-35%</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Reducción Coste / Clic</div>
-                </div>
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x4.5</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Retorno Inversión (ROI)</div>
-                </div>
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 relative group overflow-hidden hover:border-accent/20 hover:shadow-lg transition-all border border-black/5 rounded-2xl">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-<div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+200</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Leads Cualificados/Mes</div>
-                </div>
-            </div>
-
-            <!-- Casos de Éxito Emulados -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
-                <div class="bg-zinc-950 text-white p-10 rounded-2xl border border-zinc-800 relative overflow-hidden group hover:shadow-2xl hover:border-zinc-700 transition-all flex flex-col justify-between">
-                    <div>
-                        <div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
-<div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
-<div class="flex items-center gap-2 mb-6 text-accent">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                        </div>
-                        <p class="font-light text-lg sm:text-xl leading-relaxed mb-8">
-                            "Recortamos el gasto innecesario el primer mes. Ahora recibimos visitas cualificadas directas a nuestros servicios principales aumentando la cartera de clientes."
-                        </p>
-                    </div>
-                    <div>
-                        <div class="font-black">Empresa de Servicios B2B</div>
-                        <div class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Caso de Éxito Real</div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-10 rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:border-accent/10 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col justify-between group flex flex-col justify-between" style="transition-delay: 100ms">
-                    <div>
-                        <div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
-<div class="absolute -inset-2 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
-<div class="flex items-center gap-2 mb-6 text-accent">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                        </div>
-                        <p class="font-light text-zinc-600 text-lg sm:text-xl leading-relaxed mb-8">
-                           "La claridad con la que explican a dónde va cada euro y el por qué, nos permitió duplicar las ventas. Hemos dejado de experimentar para ir sobre seguro." 
-                        </p>
-                    </div>
-                    <div>
-                        <div class="font-black text-zinc-900">Compañía Industrial</div>
-                        <div class="text-[10px] text-zinc-400 uppercase tracking-widest mt-1">Caso de Éxito Real</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-        
-
-<!-- ═══ SECCIÓN 5: CONTACTO / H2 ═════════════════════════════════════ -->
-    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
-        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
-            <div class="reveal text-white">
-                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO INMEDIATO</span>
-                <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
-                   Contactar con Expertos en Google Ads en Sabadell
-                </h2>
-                <p class="font-light max-w-sm text-base sm:text-lg">
-                    Solicita tu auditoría de Google Ads gratis. Revisaremos tu cuenta y trazaremos un plan para optimizar tu ROI en Sabadell.
-                </p>
-            </div>
-
-            <div class="reveal">
-                <div class="bg-white p-8 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
-                    <form class="space-y-6" id="contact-form">
-                        <div class="grid grid-cols-1 gap-4 text-[10px] font-black tracking-widest uppercase">
-                            <div class="flex flex-col gap-2">
-                                <label class="opacity-30">NOMBRE</label>
-                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 gap-4 text-[10px] font-black tracking-widest uppercase">
-                            <div class="flex flex-col gap-2">
-                                <label class="opacity-30">EMAIL PROFESIONAL</label>
-                                <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">MENSAJE</label>
-                            <textarea name="msg" aria-label="Mensaje" rows="2" class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm resize-none"></textarea>
-                        </div>
-                        <button type="submit" class="w-full btn-mktg-v5 !py-4 shadow-md">AUDITAR MI CUENTA</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-<script>
+      </div>
+    </div>
+  </section>
+  <style>
+    .timeline-container .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .timeline-container .reveal.active { opacity: 1; transform: translateY(0); }
+  </style>
+  <script is:inline>
     function initTimeline() {
-        const progressBars = document.querySelectorAll('.progress-bar');
-        const timelines = document.querySelectorAll('.timeline-container');
-        if (progressBars.length === 0 || timelines.length === 0) return;
-
-        function updateProgress() {
-            timelines.forEach((timeline, i) => {
-                const progressBar = progressBars[i];
-                if (!progressBar) return;
-                const rect = timeline.getBoundingClientRect();
-                const winHeight = window.innerHeight;
-                const topPassed = (winHeight / 2) - rect.top;
-                let percentage = (topPassed / rect.height) * 100;
-                percentage = Math.max(0, Math.min(100, percentage));
-                progressBar.style.height = `${percentage}%`;
-
-                const nodes = timeline.querySelectorAll('.node-circle');
-                nodes.forEach((node) => {
-                    const nodeTop = node.getBoundingClientRect().top;
-                    if (nodeTop < winHeight / 2) {
-                        node.classList.add('!border-accent', '!bg-accent', '!text-white');
-                    } else {
-                        node.classList.remove('!border-accent', '!bg-accent', '!text-white');
-                    }
-                });
-            });
-        }
-
-        window.addEventListener('scroll', updateProgress);
-        document.addEventListener('astro:page-load', updateProgress);
-        updateProgress();
+      const timeline = document.getElementById('timeline-container');
+      const progressBar = timeline?.querySelector('.progress-bar');
+      function updateProgress() {
+        if (!timeline || !progressBar) return;
+        const rect = timeline.getBoundingClientRect();
+        const winHeight = window.innerHeight;
+        const topPassed = (winHeight / 2) - rect.top;
+        let percentage = (topPassed / rect.height) * 100;
+        percentage = Math.max(0, Math.min(100, percentage));
+        progressBar.style.height = `${percentage}%`;
+        const nodes = timeline.querySelectorAll('.node-circle');
+        nodes.forEach((node) => {
+          const nodeTop = node.getBoundingClientRect().top;
+          if (nodeTop < winHeight / 2) { node.classList.add('!border-accent', '!bg-accent', '!text-white'); }
+          else { node.classList.remove('!border-accent', '!bg-accent', '!text-white'); }
+        });
+      }
+      window.addEventListener('scroll', updateProgress);
+      document.addEventListener('astro:page-load', updateProgress);
+      updateProgress();
     }
     document.addEventListener('DOMContentLoaded', initTimeline);
     document.addEventListener('astro:page-load', initTimeline);
-</script>
+  </script>
 
-</BaseLayout>
+  <!-- ═══ 5. CONSULTOR ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-6xl mx-auto reveal">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+        <div class="md:col-span-5 relative group flex justify-center">
+          <div class="absolute inset-0 bg-accent/20 rounded-full blur-3xl opacity-30 group-hover:scale-105 transition-transform duration-500"></div>
+          <div class="relative w-full max-w-sm">
+            <div class="absolute -top-6 -left-6 w-24 h-24 bg-[radial-gradient(#000000_15%,transparent_15%)] bg-[length:12px_12px] opacity-20"></div>
+            <div class="overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-4 border-white">
+              <img src="/img/consultor-de-google-ads-en-sabadell.webp" alt="Consultor de Google Ads en Sabadell" class="w-full h-auto object-cover">
+            </div>
+            <div class="absolute -bottom-4 -right-4 backdrop-blur-md bg-black/90 text-white px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 border border-white/10">
+              <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+              <div class="text-[10px] sm:text-xs font-black uppercase tracking-widest">Estrategia SEM</div>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-span-7 text-left">
+          <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Rentabilidad PPC</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+            Consultor de Google Ads en Sabadell
+          </h2>
+          <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">Como consultor experto en Google Ads en Sabadell, configuro y optimizo campañas para que ningún euro de presupuesto se pierda en clics irrelevantes. Conozco el mercado local del Vallès Occidental —desde la Rambla de Sabadell hasta los polígons industrials de Can Roqueta— y diseño estrategias orientadas a atraer compradores de alta intención.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+              <div class="text-sm font-black uppercase tracking-wider text-black mb-2">Auditoría</div>
+              <p class="text-xs text-zinc-400 font-light">Control de presupuesto de clics.</p>
+            </div>
+            <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+              <div class="text-sm font-black uppercase tracking-wider text-black mb-2">ROI Directo</div>
+              <p class="text-xs text-zinc-400 font-light">Enfoque a beneficio local.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-    if (document.getElementById('contact-form')) {
-        document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const btn = form.querySelector('button');
-        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
-        const data = Object.fromEntries(new FormData(form));
-        try {
-            const res = await fetch('https://cms.novamarketing.es/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            if (res.ok) {
-                window.location.href = '/gracias/';
-            } else { throw new Error(); }
-        } catch {
-            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
-        }
-    });
+  <!-- ═══ 6. RENTABILIDAD + STATS + TESTIMONIALS ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+          Rentabilidad de campañas de Google Ads en Sabadell
+        </h2>
+        <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+          No medimos el éxito en clics. Medimos el coste por adquisición y el margen de beneficio generado. Obtendrás un panel de métricas transparentes alineadas con las ventas reales de tu negocio en Sabadell.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 reveal text-center">
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+40%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Media de Conversión</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">-35%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Reducción Coste / Clic</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x4.5</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Retorno Inversión (ROI)</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x3</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Leads Cualificados/Mes</div></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+        <div class="bg-zinc-950 text-white p-10 rounded-2xl border border-zinc-800 flex flex-col justify-between group hover:shadow-2xl hover:border-zinc-700 transition-all">
+          <div>
+            <div class="flex items-center gap-1 mb-6 text-accent">★★★★★</div>
+            <p class="font-light text-lg leading-relaxed mb-8">"Teníamos presupuesto de Google Ads pero no veíamos retorno. Nova ajustó las campañas a nuestro sector en el Vallès y en dos meses triplicamos los contactos de calidad."</p>
+          </div>
+          <div>
+            <div class="font-black">Empresa de servicios industriales, Polígon de Can Roqueta</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Sector: Industria B2B</div>
+          </div>
+        </div>
+        <div class="bg-white p-10 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-xl hover:border-accent/10 hover:-translate-y-1 transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1 mb-6 text-accent">★★★★★</div>
+            <p class="font-light text-zinc-600 text-lg leading-relaxed mb-8">"Nuestra tienda de la Rambla de Sabadell empezó a recibir visitas cualificadas desde Google Ads. El equipo de Nova conoce el mercado local como nadie."</p>
+          </div>
+          <div>
+            <div class="font-black text-zinc-900">Comercio del centro de Sabadell</div>
+            <div class="text-[10px] text-zinc-400 uppercase tracking-widest mt-1">Sector: Retail local</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7. CASOS DE ÉXITO ═══ -->
+  {pageCases.length > 0 && (
+  <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12 reveal">
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+          Casos de éxito de Google Ads<br class="hidden md:inline" /> en Sabadell
+        </h2>
+      </div>
+      <div class="cases-carousel relative overflow-hidden">
+        <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+          {pageCases.map((cs: any, i: number) => {
+            const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+            const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+            return (
+              <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                <div>
+                  {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                  <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors leading-tight">{cs.title}</h3>
+                  <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                </div>
+                {caseUrl && (
+                  <a href={caseUrl} class="mt-6 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 hover:gap-3 transition-all uppercase">
+                    VER MÁS <span class="text-sm">→</span>
+                  </a>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+  )}
+  <script is:inline>
+    function initCasesCarousel() {
+      const track = document.querySelector('.cases-track');
+      if (!track) return;
+      const slides = track.querySelectorAll('.cases-slide');
+      if (slides.length <= 4) return;
+      let current = 0;
+      const total = slides.length;
+      function getVisible() {
+        if (window.innerWidth >= 1024) return 4;
+        if (window.innerWidth >= 640) return 2;
+        return 1;
+      }
+      function next() {
+        const visible = getVisible();
+        const maxIndex = total - visible;
+        current = current >= maxIndex ? 0 : current + 1;
+        const slideWidth = slides[0].offsetWidth + 24;
+        track.style.transform = `translateX(-${current * slideWidth}px)`;
+      }
+      const interval = setInterval(next, 5000);
+      document.addEventListener('astro:before-preparation', () => clearInterval(interval));
     }
-</script>
-  
+    document.addEventListener('DOMContentLoaded', initCasesCarousel);
+    document.addEventListener('astro:page-load', initCasesCarousel);
+  </script>
+
+  <!-- ═══ 9. OTROS SERVICIOS ═══ -->
+  <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
+          Otros servicios de marketing<br class="hidden sm:inline" /> para empresas de Sabadell
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 reveal">
+        <a href="/agencia-seo-en-sabadell" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Agencia de Posicionamiento SEO en Sabadell</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Posiciona tu empresa en Google de forma orgánica en Sabadell y el Vallès Occidental. SEO local para aparecer primero cuando un cliente te busca.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÁS →</span>
+        </a>
+        <a href="/agencia-de-marketing-digital-en-sabadell" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Agencia de Marketing Digital en Sabadell</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Estrategia digital integral para empresas de Sabadell: SEO, SEM, redes sociales y analítica web para crecer de forma sostenida.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÁS →</span>
+        </a>
+        <a href="/diseno-web-para-pymes" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Agencia de Diseño Web en Sabadell</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Diseñamos webs profesionales para empresas de Sabadell orientadas a captar clientes y convertir visitas en contactos reales.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÁS →</span>
+        </a>
+        <a href="/consultoria-marketing-para-pymes" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Consultoría de Marketing en Sabadell</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Consultoría de marketing para pymes de Sabadell. Analizamos tu negocio y diseñamos el plan de marketing más rentable para el Vallès.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÁS →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 8. FAQ ═══ -->
+  <section class="py-20 sm:py-32 bg-white border-t border-black/5 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
+          Preguntas sobre Google Ads<br class="hidden sm:inline" /> de empresas de Sabadell
+        </h2>
+      </div>
+      <div class="space-y-4 reveal">
+        {faqItems.map((item, i) => (
+          <details class="group bg-zinc-50 border border-zinc-100 rounded-2xl overflow-hidden">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-black text-sm sm:text-base uppercase tracking-tight text-zinc-900 hover:text-accent transition-colors">
+              {item.question}
+              <span class="ml-4 text-accent text-xl group-open:rotate-45 transition-transform duration-300 shrink-0">+</span>
+            </summary>
+            <div class="px-6 pb-6 text-sm text-zinc-500 font-light leading-relaxed">{item.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  </BaseLayout>
