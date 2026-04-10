@@ -94,7 +94,23 @@ const serviceSchema = {
   "serviceType": "Agència de Google Ads per a Pimes",
   "provider": {
     "@type": "ProfessionalService",
-    "@id": "https://novamarketing.es/#organization"
+    "@id": "https://novamarketing.es/#organization",
+    "name": "Nova Marketing",
+    "image": "https://novamarketing.es/agencia-marketing-pymes-nova-marketing-logo.png",
+    "telephone": "+34644738270",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Carrer de Bilbao 1",
+      "addressLocality": "Sabadell",
+      "addressRegion": "Barcelona",
+      "postalCode": "08202",
+      "addressCountry": "ES"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "21"
+    },
   },
   "areaServed": {
     "@type": "City",
@@ -103,11 +119,7 @@ const serviceSchema = {
   },
   "description": "Experts en gestió de campanyes de Google Ads i SEM per a petites i mitjanes empreses a Sant Cugat del Vallès. Maximitzem la teva visibilitat i vendes amb estratègies a mida per al mercat local.",
   "offers": { "@type": "Offer", "priceRange": "€€" },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "21"
-  },
+
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Serveis de Publicitat a Google",
