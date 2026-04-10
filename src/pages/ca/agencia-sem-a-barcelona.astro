@@ -1,0 +1,249 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../lib/i18n';
+import { strapiClient } from '../../lib/strapi';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-sem-en-barcelona', '/ca/agencia-sem-a-barcelona', SITE_URL);
+
+let pageCases: any[] = [];
+try {
+  const res = await strapiClient.getCaseStudies('ca');
+  pageCases = res.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s.includes('google-ads') || s.includes('ads'));
+  });
+} catch {}
+
+const faqItems = [
+  {
+    question: "És molt cara la publicitat a Google per a una pime barcelonina?",
+    answer: "Barcelona és un dels mercats més competitius d'Espanya, cosa que pot elevar el CPC en alguns sectors. Però una gestió professional marca la diferència: a Nova optimitzem cada campanya perquè la teva empresa barcelonina competeixi eficientment, controlant el pressupost i maximitzant el retorn fins i tot en sectors saturats com el turisme o la restauració del barri Gòtic."
+  },
+  {
+    question: "Google Ads funciona per a negocis locals en barris com Gràcia, Sarrià o l'Eixample?",
+    answer: "Absolutament. Google Ads permet segmentar per zona geogràfica amb gran precisió. Podem mostrar els teus anuncis exclusivament a persones que cerquen en un radi determinat al voltant del teu local a Gràcia, Sarrià, l'Eixample o qualsevol altre barri de Barcelona. És ideal per a comerços, restaurants i serveis de proximitat."
+  },
+  {
+    question: "Pot una empresa del 22@ de Barcelona aprofitar Google Ads per captar clients B2B?",
+    answer: "Sí. Les empreses tecnològiques i startups del 22@ tenen un perfil de client B2B molt definit. Google Ads amb campanyes de cerca ben segmentades permet arribar a directius i responsables de compres en el moment exacte en què cerquen la teva solució, amb un ROI molt més controlable que la publicitat tradicional."
+  },
+  {
+    question: "Quant de temps triga Google Ads a funcionar per al meu negoci a Barcelona?",
+    answer: "A diferència del SEO, Google Ads ofereix visibilitat gairebé immediata. La teva empresa barcelonina pot aparèixer als primers resultats en qüestió d'hores després d'activar la campanya. Per a negocis en sectors competitius com l'hostaleria de la Barceloneta o el retail del Passeig de Gràcia, és la forma més ràpida de guanyar visibilitat."
+  },
+  {
+    question: "Per què una agència especialitzada a Barcelona i no gestionar els anuncis internament?",
+    answer: "A Barcelona, on la competència és ferotge i el CPC pot ser elevat, una mala gestió de Google Ads pot suposar pèrdues importants. A Nova portem anys treballant amb empreses barcelonines de tots els sectors, coneixem el mercat local i sabem com optimitzar campanyes perquè cada euro treballi al màxim."
+  }
+];
+
+const steps = [
+  { title: "Estudi de Keywords a Barcelona", desc: "Mapegem les cerques amb major intenció de compra a Barcelona, considerant la diversitat de barris: des del comerç de luxe del Passeig de Gràcia i l'Eixample fins als negocis locals de Gràcia, Sarrià o la Barceloneta." },
+  { title: "Optimització de Landings", desc: "A Barcelona la competència és brutal. Optimitzem les pàgines de destinació perquè cada clic es converteixi en una oportunitat real, amb missatges adaptats al perfil del client de cada zona de la ciutat." },
+  { title: "Creació d'Anuncis Locals", desc: "Dissenyem anuncis que parlen directament al client barceloní: ja sigui una empresa del 22@, un comerç de l'Eixample o un restaurant del barri Gòtic. Missatges precisos per a cada audiència." },
+  { title: "Test A/B i Optimització Contínua", desc: "Al mercat més competitiu de Catalunya, l'optimització contínua no és opcional. Testem creativitats, paraules clau i pàgines de destinació per reduir el CPC i maximitzar el ROI de cada campanya." }
+];
+---
+
+<BaseLayout
+  title="Agència Google Ads a Barcelona | Nova Marketing"
+  description="Gestió de campanyes de Google Ads per a empreses de Barcelona. Rendibilitza la teva inversió al mercat més competitiu de Catalunya. Auditoria gratuïta sense compromís."
+  locale="ca"
+  alternates={alternates}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="min-h-[88vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-7xl mx-auto reveal relative z-10">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Especialistes en Google Ads a Barcelona
+            </span>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] uppercase font-black tracking-tighter leading-[0.82] mb-8 text-zinc-900 flex flex-col items-center text-center">
+                <span>Agència de</span>
+                <span>Google Ads</span>
+                <span class="text-mktg-gradient px-4 overflow-visible inline-block">a Barcelona</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
+                Rendibilitzem la teva inversió en Google Ads per a empreses de Barcelona des del primer dia. De l'Eixample i el Passeig de Gràcia al 22@ de Poblenou, dissenyem campanyes que capten clients amb intenció de compra real a la ciutat comtal.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
+                    SOL·LICITAR AUDITORIA GRATIS
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ LOGOS CLIENTES (SOCIAL PROOF) ══════════════════════════════════ -->
+    <LogoMarquee />
+
+    <!-- ═══ SECCIÓN 1: DOMINI TOTAL ══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.82]">
+                    Domini Total de <br class="hidden sm:inline" /> Google Ads a Barcelona
+                </h2>
+                <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+                    En un mercat tan competitiu com Barcelona, no experimentem amb el teu pressupost. Dissenyem campanyes que impacten exactament en el client ideal de cada barri —Gràcia, Sarrià, la Barceloneta, l'Eixample— quan està a punt per comprar.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+                {[
+                    { title: "Auditoria de Compte Barcelona", desc: "Analitzem el teu historial publicitari detectant fugues de pressupost freqüents al competitiu mercat barceloní, des del comerç de l'Eixample fins a les empreses del 22@ i el sector turístic de la Barceloneta." },
+                    { title: "Keyword Research SEM", desc: "Identifiquem les cerques amb major intenció de compra a Barcelona: des del comerç del Passeig de Gràcia fins a serveis per a empreses del 22@ i hostaleria del barri Gòtic." },
+                    { title: "Anuncis d'Impacte", desc: "Creem anuncis que connecten amb el client barceloní, un dels més exigents d'Espanya, per maximitzar el CTR i el nivell de qualitat de les teves campanyes a la ciutat comtal." },
+                    { title: "Optimització de Puja", desc: "Gestionem ofertes al mercat més competitiu de Catalunya perquè la teva empresa barcelonina pagui el mínim possible per cada client captat, amb anàlisi contínua de CPA per zona i barri." }
+                ].map((s, i) => (
+                    <div class="group flex flex-col justify-between p-8 sm:p-10 h-full bg-white rounded-3xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden reveal flex-1">
+                        <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
+                        <div class="absolute -bottom-6 -right-4 text-9xl font-black text-black/2 group-hover:text-accent/[0.04] transition-all duration-500 select-none">
+                            0{i + 1}
+                        </div>
+                        <div class="relative z-10 flex flex-col h-full justify-between">
+                            <div>
+                                <div class="p-3 bg-zinc-50 border border-black/5 w-fit rounded-xl mb-6 group-hover:bg-accent/5 transition-colors">
+                                    <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                </div>
+                                <h3 class="text-xl sm:text-2xl uppercase mb-3 tracking-tighter group-hover:text-accent font-black text-zinc-900 border-b border-zinc-100 pb-2 w-fit">{s.title}</h3>
+                                <p class="text-xs sm:text-sm text-zinc-500 leading-relaxed font-light">{s.desc}</p>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓN 2: TIMELINE ═══════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <h2 class="text-2xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+                    Com treballem la publicitat a Google a Barcelona
+                </h2>
+                <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed space-y-4">
+                    <p>
+                        Oblida't de les campanyes en pilot automàtic. Comptaràs amb un <strong>Account Manager dedicat</strong> que treballarà de la mà amb el teu equip a Barcelona per supervisar avenços i mantenir-te informat amb mètriques reals de negoci.
+                    </p>
+                </div>
+            </div>
+
+            <div id="timeline-container" class="relative timeline-container">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div class="progress-bar hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {steps.map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal" style={`transition-delay: ${index * 100}ms`}>
+                            <div class="hidden md:block md:flex-1 text-right md:order-1">
+                                {index % 2 === 0 && (
+                                    <div class="md:pr-12">
+                                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{step.title}</h3>
+                                        <p class="text-sm text-zinc-500 font-light max-w-md ml-auto">{step.desc}</p>
+                                    </div>
+                                )}
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all duration-300">
+                                0{index + 1}
+                            </div>
+                            <div class="flex-1 text-left md:order-3">
+                                <div class="md:pl-12">
+                                    <h3 class:list={["text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900", index % 2 === 0 ? "md:hidden" : ""]}>{step.title}</h3>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md mr-auto", index % 2 === 0 ? "md:hidden" : ""]}>{step.desc}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .timeline-container .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .timeline-container .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+
+    <script is:inline>
+        function initTimeline() {
+            const timeline = document.getElementById('timeline-container');
+            const progressBar = timeline?.querySelector('.progress-bar');
+            function updateProgress() {
+                if (!timeline || !progressBar) return;
+                const rect = timeline.getBoundingClientRect();
+                const winHeight = window.innerHeight;
+                const topPassed = (winHeight / 2) - rect.top;
+                let percentage = (topPassed / rect.height) * 100;
+                percentage = Math.max(0, Math.min(100, percentage));
+                progressBar.style.height = `${percentage}%`;
+                const nodes = timeline.querySelectorAll('.node-circle');
+                nodes.forEach((node) => {
+                    const nodeTop = node.getBoundingClientRect().top;
+                    if (nodeTop < winHeight / 2) { node.classList.add('!border-accent', '!bg-accent', '!text-white'); }
+                    else { node.classList.remove('!border-accent', '!bg-accent', '!text-white'); }
+                });
+            }
+            window.addEventListener('scroll', updateProgress);
+            document.addEventListener('astro:page-load', updateProgress);
+            updateProgress();
+        }
+        document.addEventListener('DOMContentLoaded', initTimeline);
+        document.addEventListener('astro:page-load', initTimeline);
+    </script>
+
+    <!-- ═══ CASOS D'ÈXIT GOOGLE ADS ══════════════════════════════════════ -->
+    {pageCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 reveal">
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+                    Casos d'èxit de Google Ads<br class="hidden md:inline" /> a Barcelona
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {pageCases.map((cs: any, i: number) => {
+                  const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+                  const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
+                  return (
+                    <div class="bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl reveal" style={`transition-delay: ${i * 80}ms`}>
+                      <div>
+                        {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                        <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors leading-tight">{cs.title}</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                      </div>
+                      {caseUrl && (
+                        <a href={caseUrl} class="mt-6 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 hover:gap-3 transition-all uppercase">
+                          VEURE MÉS <span class="text-sm">→</span>
+                        </a>
+                      )}
+                    </div>
+                  );
+                })}
+            </div>
+        </div>
+    </section>
+    )}
+
+    <!-- ═══ FAQ ════════════════════════════════════════════════════════════ -->
+    <FaqHome
+        items={faqItems}
+        title="Preguntes sobre Google Ads a Barcelona<br/>que ens fan altres pimes"
+    />
+
+</BaseLayout>
