@@ -3,7 +3,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
 import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
-import FaqHome from '../../components/sections/FaqHome.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-sem-en-sant-cugat', '/ca/agencia-sem-a-sant-cugat', SITE_URL);
@@ -17,233 +16,446 @@ try {
   });
 } catch {}
 
-const faqItems = [
+const steps = [
   {
-    question: "Google Ads és efectiu per a empreses tecnològiques del parc de Can Sant Joan a Sant Cugat?",
-    answer: "Sí. L'ecosistema tecnològic de Sant Cugat, amb empreses establertes al parc tecnològic de Can Sant Joan, genera una demanda B2B molt concreta. Google Ads permet impactar a prenedors de decisions en el moment exacte en què cerquen la teva solució, amb un ROI mesurable i controlable."
+    title: "Anàlisi del mercat de Sant Cugat",
+    desc: "Estudiem la competència local a Google Ads dins de Sant Cugat del Vallès, des dels comerços de l'Eix Comercial fins a les empreses del parc tecnològic de Can Sant Joan, per trobar els buits d'oportunitat amb menor CPC."
   },
   {
-    question: "Quanta inversió necessita el meu comerç de l'Eix Comercial de Sant Cugat per veure resultats?",
-    answer: "Sant Cugat té un perfil de consumidor d'alt poder adquisitiu, cosa que fa que una inversió ben orientada de 400-600€/mes pugui generar un retorn molt interessant. La clau està en segmentar correctament per al perfil de l'Eix Comercial i els barris residencials de Valldoreix i Les Planes."
+    title: "Configuració de campanyes locals",
+    desc: "Creem estructures de campanya segmentades per zona: Valldoreix, La Floresta, Les Planes, l'entorn del Monestir i el centre. Cada grup d'anuncis apunta al client correcte a l'àrea correcta de Sant Cugat."
   },
   {
-    question: "Quant de temps triga Google Ads a funcionar per a la meva empresa de Sant Cugat?",
-    answer: "Amb Google Ads, la teva empresa de Sant Cugat pot aparèixer als primers resultats de cerca en qüestió d'hores després d'activar la campanya. És l'eina perfecta per obtenir visibilitat ràpida en un mercat tan competitiu com el del Vallès."
+    title: "Redacció d'anuncis per al client santkugatenc",
+    desc: "Escrivim anuncis que connecten amb el comprador del Vallès Occidental. Missatges directes orientats al perfil exigent de Sant Cugat, que generen clics de qualitat i no trànsit irrellevant."
   },
   {
-    question: "Els meus anuncis poden aparèixer a Google Maps per atraure clients al local de Sant Cugat?",
-    answer: "Sí. Configurem campanyes locals perquè el teu negoci a l'Eix Comercial de Sant Cugat, a La Floresta o a qualsevol punt de la ciutat aparegui a Google Maps quan algú cerca el teu servei a prop. És especialment potent per a restaurants, clíniques i serveis de proximitat."
-  },
-  {
-    question: "Per què una agència especialitzada a Sant Cugat i no una de genèrica?",
-    answer: "El mercat de Sant Cugat és peculiar: barreja empresa tecnològica, comerç de qualitat i famílies amb alt poder adquisitiu. Conèixer aquest perfil és fonamental per dissenyar campanyes que ressoneixin i converteixin. A Nova coneixem el Vallès i adaptem cada campanya a la realitat local de cada client."
+    title: "Optimització contínua i reporting",
+    desc: "Cada setmana analitzem les mètriques reals: leads generats, cost per conversió, cerques que activen els teus anuncis a Sant Cugat. Ajustem sense parar per millorar el ROI."
   }
 ];
 
-const steps = [
-  { title: "Estudi de Keywords a Sant Cugat", desc: "Investiguem les cerques locals amb major conversió a Sant Cugat del Vallès, des de l'Eix Comercial i La Floresta fins als residents premium de Valldoreix i les empreses del parc tecnològic de Can Sant Joan." },
-  { title: "Optimització de Landings", desc: "Adaptem les pàgines de destinació perquè l'exigent client de Sant Cugat trobi exactament el que cercava, amb un disseny i missatge acord al nivell de la marca." },
-  { title: "Creació d'Anuncis Locals", desc: "Dissenyem anuncis amb missatges orientats al perfil de Sant Cugat: des de l'empresa familiar de l'Eix Comercial fins a la startup del parc tecnològic de Can Sant Joan que necessita créixer ràpidament." },
-  { title: "Test A/B i Optimització Contínua", desc: "Iterem constantment per baixar el CPC i millorar el ROI. A Sant Cugat, amb un perfil de compra exigent, el detall en l'optimització marca la diferència en els resultats." }
+const faqItems = [
+  {
+    question: "Quant costa gestionar Google Ads per al meu negoci a Sant Cugat?",
+    answer: "El cost de gestió a Nova varia segons el volum d'inversió publicitària. Treballem amb pimes de Sant Cugat des de pressupostos de 300€/mes d'inversió a Google. L'important no és la mida del pressupost, sinó optimitzar-lo al màxim per al mercat local del Vallès Occidental."
+  },
+  {
+    question: "Google Ads funciona per a botigues de l'Eix Comercial de Sant Cugat?",
+    answer: "Absolutament. Les botigues de l'Eix Comercial de Sant Cugat tenen accés a un comprador d'alt poder adquisitiu. Amb Google Ads local segmentem perquè els teus anuncis es mostrin únicament a persones que cerquen prop del teu establiment a Sant Cugat."
+  },
+  {
+    question: "Pot la meva empresa tecnològica del parc de Can Sant Joan usar Google Ads?",
+    answer: "Sí. L'ecosistema tecnològic del parc de Can Sant Joan genera una demanda B2B molt específica. Google Ads permet impactar als decisors en el moment exacte en què cerquen la teva solució, amb un ROI mesurable i controlable."
+  },
+  {
+    question: "Quant temps tarda a funcionar Google Ads per a la meva empresa de Sant Cugat?",
+    answer: "A diferència del SEO, Google Ads ofereix visibilitat gairebé immediata. La teva empresa de Sant Cugat pot aparèixer als primers resultats en qüestió d'hores després d'activar la campanya. Al primer mes ja tens dades reals per optimitzar i millorar el ROI al mercat del Vallès."
+  },
+  {
+    question: "Els meus anuncis poden aparèixer a Google Maps per atraure clients al meu local de Sant Cugat?",
+    answer: "Sí. Configurem campanyes locals amb extensions d'ubicació perquè el teu negoci aparegui a Google Maps quan algú cerca el teu servei prop de l'Eix Comercial, la Rambla del Celler o qualsevol barri de Sant Cugat. Ideal per a restaurants, clíniques, tallers i serveis de proximitat."
+  },
+  {
+    question: "Quin pressupost mínim necessito per a Google Ads a Sant Cugat?",
+    answer: "A Sant Cugat, amb un perfil de consumidor d'alt poder adquisitiu, els primers resultats poden veure's amb inversions des de 400-600€/mes en publicitat ben gestionada. Recomanem començar amb un pressupost conservador, mesurar resultats i escalar quan el ROI estigui validat."
+  },
+  {
+    question: "Com es mesura l'èxit de les campanyes de Google Ads a Sant Cugat?",
+    answer: "Mesurem l'èxit en mètriques de negoci reals: leads generats, trucades rebudes, formularis completats i vendes directes. No en clics o impressions. Rebràs informes clars i transparents del rendiment de cada euro invertit en publicitat a Sant Cugat."
+  },
+  {
+    question: "Es poden segmentar els anuncis només per zones concretes de Sant Cugat?",
+    answer: "Sí. Google Ads permet una segmentació geogràfica molt precisa. Podem mostrar els teus anuncis únicament a zones específiques de Sant Cugat: Valldoreix, La Floresta, Les Planes, el centre històric al voltant del Monestir, o el parc tecnològic. Així optimitzem cada euro cap a les àrees més rendibles."
+  },
+  {
+    question: "Què diferencia Nova Marketing d'altres agències de Google Ads a Sant Cugat?",
+    answer: "A Nova coneixem el mercat del Vallès Occidental. No som una agència genèrica: entenem la barreja d'empresa tecnològica, comerç de qualitat i famílies amb alt poder adquisitiu de Sant Cugat. Cada campanya es dissenya específicament per a aquest mercat, no s'apliquen plantilles genèriques."
+  },
+  {
+    question: "Puc començar amb Google Ads tot i no haver tingut campanyes abans a Sant Cugat?",
+    answer: "Per descomptat. Per a empreses de Sant Cugat sense historial previ a Google Ads fem una configuració inicial des de zero: investigació de paraules clau locals, estructura de campanyes, redacció d'anuncis i configuració de conversions. En setmanes tens dades reals per prendre decisions."
+  }
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(f => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Agència de Google Ads per a Pimes",
+  "provider": {
+    "@type": "ProfessionalService",
+    "@id": "https://novamarketing.es/#organization"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Sant Cugat del Vallès",
+    "sameAs": "https://www.wikidata.org/wiki/Q12260"
+  },
+  "description": "Experts en gestió de campanyes de Google Ads i SEM per a petites i mitjanes empreses a Sant Cugat del Vallès. Maximitzem la teva visibilitat i vendes amb estratègies a mida per al mercat local.",
+  "offers": { "@type": "Offer", "priceRange": "€€" },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "21"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serveis de Publicitat a Google",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Auditoria de compte de Google Ads" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Configuració inicial de campanyes SEM" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Optimització contínua i gestió de pujades" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gestió de Google Merchant Center i Shopping" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Campanyes de Remarketing i Display" }}
+    ]
+  }
+};
 ---
 
 <BaseLayout
   title="Agència Google Ads a Sant Cugat del Vallès | Nova Marketing"
-  description="Gestió de campanyes de Google Ads per a empreses de Sant Cugat del Vallès. ROI mesurable des del primer dia a l'Eix Comercial i el parc tecnològic. Auditoria gratuïta."
+  description="Gestió de campanyes de Google Ads per a empreses de Sant Cugat del Vallès. Rentabilitza la teva inversió publicitària des del primer dia. Auditoria gratuïta."
   locale="ca"
   alternates={alternates}
+  schemas={[serviceSchema, faqSchema]}
 >
 
-    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="min-h-[88vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
-        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+  <!-- ═══ 1. HERO ═══ -->
+  <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+    <div class="max-w-5xl mx-auto reveal relative z-10">
+      <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+        <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+        Publicitat Online Rendible
+      </span>
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase font-black tracking-tighter leading-[0.80] mb-6 text-zinc-900 flex flex-col items-center text-center">
+        <span>Agència de</span>
+        <span>Google Ads</span>
+        <span class="bg-gradient-to-r from-accent via-accent/90 to-purple-600 bg-clip-text text-transparent px-4 overflow-visible inline-block">a Sant Cugat</span>
+      </h1>
+      <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">Maximitzem les teves vendes amb campanyes de pagament per clic hipersegmentades a Sant Cugat del Vallès. Des dels comerços de l'Eix Comercial fins a les empreses tecnològiques del parc de Can Sant Joan, cada clic compta.</p>
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
+          MULTIPLICAR LA MEVA FACTURACIÓ
+        </button>
+      </div>
+    </div>
+  </section>
 
-        <div class="max-w-7xl mx-auto reveal relative z-10">
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-sm">
-                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                Especialistes en Google Ads a Sant Cugat
-            </span>
+  <!-- ═══ 2. LOGO MARQUEE ═══ -->
+  <LogoMarquee />
 
-            <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] uppercase font-black tracking-tighter leading-[0.82] mb-8 text-zinc-900 flex flex-col items-center text-center">
-                <span>Agència de</span>
-                <span>Google Ads</span>
-                <span class="text-mktg-gradient px-4 overflow-visible inline-block">a Sant Cugat</span>
-            </h1>
-
-            <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
-                Rendibilitzem la teva inversió en Google Ads per a empreses de Sant Cugat del Vallès des del primer dia. De l'Eix Comercial al parc tecnològic de Can Sant Joan, gestionem campanyes que capten clients amb alta intenció de compra.
-            </p>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
-                    SOL·LICITAR AUDITORIA GRATIS
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ LOGOS CLIENTES (SOCIAL PROOF) ══════════════════════════════════ -->
-    <LogoMarquee />
-
-    <!-- ═══ SECCIÓN 1: DOMINI TOTAL ══════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
-
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.82]">
-                    Domini Total de <br class="hidden sm:inline" /> Google Ads a Sant Cugat
-                </h2>
-                <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-                    A Nova no experimentem amb el pressupost d'empreses de Sant Cugat. Dissenyem campanyes orientades a les empreses de l'Eix Comercial, el sector tecnològic de Can Sant Joan i el públic premium de Valldoreix.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-                {[
-                    { title: "Auditoria de Compte Sant Cugat", desc: "Analitzem el teu historial publicitari detectant fugues de pressupost habituals al mercat de Sant Cugat, un municipi amb perfil d'empresa tecnològica i comerç d'alt valor afegit." },
-                    { title: "Keyword Research SEM", desc: "Identifiquem les cerques amb major intenció de compra a Sant Cugat: des de serveis per a empreses del parc tecnològic de Can Sant Joan fins a comerços de l'Eix Comercial i famílies de Valldoreix." },
-                    { title: "Anuncis d'Impacte", desc: "Creem anuncis que connecten amb el perfil del client de Sant Cugat, una audiència exigent acostumada a la qualitat, per maximitzar el CTR i el nivell de qualitat de les teves campanyes." },
-                    { title: "Optimització de Puja", desc: "Ajustem ofertes per captar el client ideal de Sant Cugat amb el mínim cost possible, prioritzant segments d'alta conversió com l'entorn del parc tecnològic i l'Eix Comercial." }
-                ].map((s, i) => (
-                    <div class="group flex flex-col justify-between p-8 sm:p-10 h-full bg-white rounded-3xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden reveal flex-1">
-                        <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-                        <div class="absolute -bottom-6 -right-4 text-9xl font-black text-black/2 group-hover:text-accent/[0.04] transition-all duration-500 select-none">
-                            0{i + 1}
-                        </div>
-                        <div class="relative z-10 flex flex-col h-full justify-between">
-                            <div>
-                                <div class="p-3 bg-zinc-50 border border-black/5 w-fit rounded-xl mb-6 group-hover:bg-accent/5 transition-colors">
-                                    <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                                </div>
-                                <h3 class="text-xl sm:text-2xl uppercase mb-3 tracking-tighter group-hover:text-accent font-black text-zinc-900 border-b border-zinc-100 pb-2 w-fit">{s.title}</h3>
-                                <p class="text-xs sm:text-sm text-zinc-500 leading-relaxed font-light">{s.desc}</p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SECCIÓN 2: TIMELINE ═══════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <h2 class="text-2xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
-                    Com treballem la publicitat a Google a Sant Cugat
-                </h2>
-                <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed space-y-4">
-                    <p>
-                        Oblida't de les campanyes en pilot automàtic. Comptaràs amb un <strong>Account Manager dedicat</strong> que treballarà de la mà amb el teu equip a Sant Cugat per supervisar avenços i mantenir-te informat amb mètriques reals de negoci.
-                    </p>
+  <!-- ═══ 3. DOMINI TOTAL + 4 CARDS ═══ -->
+  <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.82]">
+          Domini Total de <br class="hidden sm:inline" /> Google Ads a Sant Cugat
+        </h2>
+        <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">No experimentem amb el pressupost d'empreses de Sant Cugat. Dissenyem campanyes quirúrgiques per al mercat del Vallès que impacten exactament en el client ideal quan està llest per comprar.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        {[
+          { title: "Auditoria de Compte", desc: "Analitzem el teu historial a Google Ads detectant fuites de pressupost habituals al mercat de Sant Cugat. Atenció especial a sectors com la tecnologia de Can Sant Joan i el comerç premium de l'Eix Comercial." },
+          { title: "Keyword Research SEM", desc: "Seleccionem cerques amb alta intenció de compra a Sant Cugat: des de serveis locals al centre històric fins a empreses B2B del parc tecnològic. Zero clics de curiosos." },
+          { title: "Anuncis d'Impacte", desc: "Redactem textos que connecten amb el client santkugatenc. Missatges que ressonen tant per al comprador de l'Eix Comercial com per al directiu del parc de Can Sant Joan." },
+          { title: "Optimització de Pujada", desc: "Ajustem les pujades perquè la teva empresa de Sant Cugat pagui el mínim per cada client captat, prioritzant els moments de major intenció comercial al Vallès Occidental." }
+        ].map((s, i) => (
+          <div class="group flex flex-col justify-between p-8 sm:p-10 h-full bg-white rounded-3xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden reveal flex-1">
+            <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
+            <div class="absolute -bottom-6 -right-4 text-9xl font-black text-black/2 group-hover:text-accent/[0.04] transition-all duration-500 select-none">0{i + 1}</div>
+            <div class="relative z-10 flex flex-col h-full justify-between">
+              <div>
+                <div class="p-3 bg-zinc-50 border border-black/5 w-fit rounded-xl mb-6 group-hover:bg-accent/5 transition-colors">
+                  <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                 </div>
+                <h3 class="text-xl sm:text-2xl uppercase mb-3 tracking-tighter group-hover:text-accent font-black text-zinc-900 border-b border-zinc-100 pb-2 w-fit">{s.title}</h3>
+                <p class="text-xs sm:text-sm text-zinc-500 leading-relaxed font-light">{s.desc}</p>
+              </div>
             </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-            <div id="timeline-container" class="relative timeline-container">
-                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
-                <div class="progress-bar hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
-
-                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
-                    {steps.map((step, index) => (
-                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal" style={`transition-delay: ${index * 100}ms`}>
-                            <div class="hidden md:block md:flex-1 text-right md:order-1">
-                                {index % 2 === 0 && (
-                                    <div class="md:pr-12">
-                                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{step.title}</h3>
-                                        <p class="text-sm text-zinc-500 font-light max-w-md ml-auto">{step.desc}</p>
-                                    </div>
-                                )}
-                            </div>
-                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all duration-300">
-                                0{index + 1}
-                            </div>
-                            <div class="flex-1 text-left md:order-3">
-                                <div class="md:pl-12">
-                                    <h3 class:list={["text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900", index % 2 === 0 ? "md:hidden" : ""]}>{step.title}</h3>
-                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md mr-auto", index % 2 === 0 ? "md:hidden" : ""]}>{step.desc}</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+  <!-- ═══ 4. TIMELINE ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-2xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+          Com treballem el SEM a Sant Cugat
+        </h2>
+        <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed">
+          <p>Oblida't del SEM en pilot automàtic. Comptaràs amb un <strong>Account Manager dedicat</strong> que coneix el mercat de Sant Cugat i treballarà de la mà del teu equip per supervisar avenços i mantenir-te informat amb mètriques reals.</p>
+        </div>
+      </div>
+      <div id="timeline-container" class="relative timeline-container">
+        <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+        <div class="progress-bar hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
+        <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+          {steps.map((step, index) => (
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal" style={`transition-delay: ${index * 100}ms`}>
+              <div class="hidden md:block md:flex-1 text-right md:order-1">
+                {index % 2 === 0 && (
+                  <div class="md:pr-12">
+                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{step.title}</h3>
+                    <p class="text-sm text-zinc-500 font-light max-w-md ml-auto">{step.desc}</p>
+                  </div>
+                )}
+              </div>
+              <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all duration-300">0{index + 1}</div>
+              <div class="flex-1 text-left md:order-3">
+                <div class="md:pl-12">
+                  <h3 class:list={["text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900", index % 2 === 0 ? "md:hidden" : ""]}>{step.title}</h3>
+                  <p class:list={["text-sm text-zinc-500 font-light max-w-md mr-auto", index % 2 === 0 ? "md:hidden" : ""]}>{step.desc}</p>
                 </div>
+              </div>
             </div>
+          ))}
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
+  <style>
+    .timeline-container .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .timeline-container .reveal.active { opacity: 1; transform: translateY(0); }
+  </style>
+  <script is:inline>
+    function initTimeline() {
+      const timeline = document.getElementById('timeline-container');
+      const progressBar = timeline?.querySelector('.progress-bar');
+      function updateProgress() {
+        if (!timeline || !progressBar) return;
+        const rect = timeline.getBoundingClientRect();
+        const winHeight = window.innerHeight;
+        const topPassed = (winHeight / 2) - rect.top;
+        let percentage = (topPassed / rect.height) * 100;
+        percentage = Math.max(0, Math.min(100, percentage));
+        progressBar.style.height = `${percentage}%`;
+        const nodes = timeline.querySelectorAll('.node-circle');
+        nodes.forEach((node) => {
+          const nodeTop = node.getBoundingClientRect().top;
+          if (nodeTop < winHeight / 2) { node.classList.add('!border-accent', '!bg-accent', '!text-white'); }
+          else { node.classList.remove('!border-accent', '!bg-accent', '!text-white'); }
+        });
+      }
+      window.addEventListener('scroll', updateProgress);
+      document.addEventListener('astro:page-load', updateProgress);
+      updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+  </script>
 
-    <style>
-        .timeline-container .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
-        .timeline-container .reveal.active { opacity: 1; transform: translateY(0); }
-    </style>
-
-    <script is:inline>
-        function initTimeline() {
-            const timeline = document.getElementById('timeline-container');
-            const progressBar = timeline?.querySelector('.progress-bar');
-            function updateProgress() {
-                if (!timeline || !progressBar) return;
-                const rect = timeline.getBoundingClientRect();
-                const winHeight = window.innerHeight;
-                const topPassed = (winHeight / 2) - rect.top;
-                let percentage = (topPassed / rect.height) * 100;
-                percentage = Math.max(0, Math.min(100, percentage));
-                progressBar.style.height = `${percentage}%`;
-                const nodes = timeline.querySelectorAll('.node-circle');
-                nodes.forEach((node) => {
-                    const nodeTop = node.getBoundingClientRect().top;
-                    if (nodeTop < winHeight / 2) { node.classList.add('!border-accent', '!bg-accent', '!text-white'); }
-                    else { node.classList.remove('!border-accent', '!bg-accent', '!text-white'); }
-                });
-            }
-            window.addEventListener('scroll', updateProgress);
-            document.addEventListener('astro:page-load', updateProgress);
-            updateProgress();
-        }
-        document.addEventListener('DOMContentLoaded', initTimeline);
-        document.addEventListener('astro:page-load', initTimeline);
-    </script>
-
-    <!-- ═══ CASOS D'ÈXIT GOOGLE ADS ══════════════════════════════════════ -->
-    {pageCases.length > 0 && (
-    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-16 reveal">
-                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
-                    Casos d'èxit de Google Ads<br class="hidden md:inline" /> a Sant Cugat
-                </h2>
+  <!-- ═══ 5. CONSULTOR ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-6xl mx-auto reveal">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+        <div class="md:col-span-5 relative group flex justify-center">
+          <div class="absolute inset-0 bg-accent/20 rounded-full blur-3xl opacity-30 group-hover:scale-105 transition-transform duration-500"></div>
+          <div class="relative w-full max-w-sm">
+            <div class="absolute -top-6 -left-6 w-24 h-24 bg-[radial-gradient(#000000_15%,transparent_15%)] bg-[length:12px_12px] opacity-20"></div>
+            <div class="overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-4 border-white">
+              <img src="/img/consultor-de-google-ads-en-sant-cugat.webp" alt="Consultor de Google Ads a Sant Cugat" class="w-full h-auto object-cover">
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {pageCases.map((cs: any, i: number) => {
-                  const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
-                  const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
-                  return (
-                    <div class="bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl reveal" style={`transition-delay: ${i * 80}ms`}>
-                      <div>
-                        {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
-                        <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors leading-tight">{cs.title}</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
-                      </div>
-                      {caseUrl && (
-                        <a href={caseUrl} class="mt-6 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 hover:gap-3 transition-all uppercase">
-                          VEURE MÉS <span class="text-sm">→</span>
-                        </a>
-                      )}
-                    </div>
-                  );
-                })}
+            <div class="absolute -bottom-4 -right-4 backdrop-blur-md bg-black/90 text-white px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 border border-white/10">
+              <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+              <div class="text-[10px] sm:text-xs font-black uppercase tracking-widest">Estratègia SEM</div>
             </div>
+          </div>
         </div>
-    </section>
-    )}
+        <div class="md:col-span-7 text-left">
+          <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Rendibilitat PPC</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+            Consultor de Google Ads a Sant Cugat
+          </h2>
+          <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">Com a consultor expert en Google Ads a Sant Cugat, configuro i optimitzo campanyes perquè cap euro de pressupost es perdi en clics irrellevants. Conec el mercat local del Vallès —des de l'Eix Comercial fins a les empreses tecnològiques del parc de Can Sant Joan— i dissenyo estratègies orientades a atraure compradors d'alta intenció.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+              <div class="text-sm font-black uppercase tracking-wider text-black mb-2">Auditoria</div>
+              <p class="text-xs text-zinc-400 font-light">Control de pressupost de clics.</p>
+            </div>
+            <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+              <div class="text-sm font-black uppercase tracking-wider text-black mb-2">ROI Directe</div>
+              <p class="text-xs text-zinc-400 font-light">Enfocament a benefici local.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- ═══ FAQ ════════════════════════════════════════════════════════════ -->
-    <FaqHome
-        items={faqItems}
-        title="Preguntes sobre Google Ads a Sant Cugat<br/>que ens fan altres pimes"
-    />
+  <!-- ═══ 6. RENDIBILITAT + STATS + TESTIMONIS ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+          Rendibilitat de campanyes de Google Ads a Sant Cugat
+        </h2>
+        <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+          No mesurem l'èxit en clics. Mesurem el cost per adquisició i el marge de benefici generat. Obtindràs un panell de mètriques transparents alineades amb les vendes reals del teu negoci a Sant Cugat.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 reveal text-center">
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+40%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Mitjana de Conversió</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">-35%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Reducció Cost / Clic</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x4.5</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Retorn Inversió (ROI)</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x3</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Leads Qualificats/Mes</div></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+        <div class="bg-zinc-950 text-white p-10 rounded-2xl border border-zinc-800 flex flex-col justify-between group hover:shadow-2xl hover:border-zinc-700 transition-all">
+          <div>
+            <div class="flex items-center gap-1 mb-6 text-accent">★★★★★</div>
+            <p class="font-light text-lg leading-relaxed mb-8">"Portàvem anys al parc tecnològic de Can Sant Joan sense veure resultats a Google Ads. Nova reestructurà tot i al primer trimestre vam triplicar les sol·licituds de demo."</p>
+          </div>
+          <div>
+            <div class="font-black">Software B2B, Parc Tecnològic de Can Sant Joan</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Sector: Tecnologia</div>
+          </div>
+        </div>
+        <div class="bg-white p-10 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-xl hover:border-accent/10 hover:-translate-y-1 transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1 mb-6 text-accent">★★★★★</div>
+            <p class="font-light text-zinc-600 text-lg leading-relaxed mb-8">"La nostra clínica de l'Eix Comercial de Sant Cugat va començar a rebre pacients qualificats des de Google Ads. L'equip de Nova coneix el perfil del client local com ningú."</p>
+          </div>
+          <div>
+            <div class="font-black text-zinc-900">Clínica especialitzada, Eix Comercial Sant Cugat</div>
+            <div class="text-[10px] text-zinc-400 uppercase tracking-widest mt-1">Sector: Salut</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7. CASOS D'ÈXIT ═══ -->
+  {pageCases.length > 0 && (
+  <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12 reveal">
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+          Casos d'èxit de Google Ads<br class="hidden md:inline" /> a Sant Cugat
+        </h2>
+      </div>
+      <div class="cases-carousel relative overflow-hidden">
+        <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+          {pageCases.map((cs: any, i: number) => {
+            const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+            const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
+            return (
+              <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                <div>
+                  {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                  <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors leading-tight">{cs.title}</h3>
+                  <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                </div>
+                {caseUrl && (
+                  <a href={caseUrl} class="mt-6 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 hover:gap-3 transition-all uppercase">
+                    VEURE MÉS <span class="text-sm">→</span>
+                  </a>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+  )}
+  <script is:inline>
+    function initCasesCarousel() {
+      const track = document.querySelector('.cases-track');
+      if (!track) return;
+      const slides = track.querySelectorAll('.cases-slide');
+      if (slides.length <= 4) return;
+      let current = 0;
+      const total = slides.length;
+      function getVisible() {
+        if (window.innerWidth >= 1024) return 4;
+        if (window.innerWidth >= 640) return 2;
+        return 1;
+      }
+      function next() {
+        const visible = getVisible();
+        const maxIndex = total - visible;
+        current = current >= maxIndex ? 0 : current + 1;
+        const slideWidth = slides[0].offsetWidth + 24;
+        track.style.transform = `translateX(-${current * slideWidth}px)`;
+      }
+      const interval = setInterval(next, 5000);
+      document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+    }
+    document.addEventListener('DOMContentLoaded', initCasesCarousel);
+    document.addEventListener('astro:page-load', initCasesCarousel);
+  </script>
+
+  <!-- ═══ 8. FAQ ═══ -->
+  <section class="py-20 sm:py-32 bg-white border-t border-black/5 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
+          Preguntes sobre Google Ads<br class="hidden sm:inline" /> d'empreses de Sant Cugat
+        </h2>
+      </div>
+      <div class="space-y-4 reveal">
+        {faqItems.map((item, i) => (
+          <details class="group bg-zinc-50 border border-zinc-100 rounded-2xl overflow-hidden">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-black text-sm sm:text-base uppercase tracking-tight text-zinc-900 hover:text-accent transition-colors">
+              {item.question}
+              <span class="ml-4 text-accent text-xl group-open:rotate-45 transition-transform duration-300 shrink-0">+</span>
+            </summary>
+            <div class="px-6 pb-6 text-sm text-zinc-500 font-light leading-relaxed">{item.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 9. ALTRES SERVEIS ═══ -->
+  <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
+          Altres serveis de màrqueting<br class="hidden sm:inline" /> per a empreses de Sant Cugat
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 reveal">
+        <a href="/ca/agencia-seo-a-sant-cugat" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Agència de Posicionament SEO a Sant Cugat</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Posiciona la teva empresa a Google de forma orgànica a Sant Cugat del Vallès. SEO local per aparèixer primer quan un client et cerca.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÉS →</span>
+        </a>
+        <a href="/ca/agencia-de-marketing-digital-a-sant-cugat" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Agència de Màrqueting Digital a Sant Cugat</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Estratègia digital integral per a empreses de Sant Cugat: SEO, SEM, xarxes socials i analítica web per créixer de forma sostinguda.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÉS →</span>
+        </a>
+        <a href="/ca/disseny-web-per-pimes" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Agència de Disseny Web a Sant Cugat</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Dissenyem webs professionals per a empreses de Sant Cugat orientades a captar clients i convertir visites en contactes reals.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÉS →</span>
+        </a>
+        <a href="/ca/consultoria-marketing-per-pimes" class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors">Consultoria de Màrqueting a Sant Cugat</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Consultoria de màrqueting per a pimes de Sant Cugat del Vallès. Analitzem el teu negoci i dissenyem el pla de màrqueting més rendible.</p>
+          <span class="mt-4 text-[9px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 uppercase">SABER MÉS →</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
 </BaseLayout>
