@@ -26,6 +26,16 @@
       "unique": true,
       "pluginOptions": { "i18n": { "localized": true } }
     },
+    "excerpt": {
+      "type": "text",
+      "required": false,
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "metadescription": {
+      "type": "text",
+      "required": false,
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
     "cover_image": {
       "type": "media",
       "multiple": false,
@@ -44,16 +54,6 @@
       "relation": "manyToMany",
       "target": "api::category.category",
       "inversedBy": "articles"
-    },
-    "excerpt": {
-      "type": "text",
-      "required": false,
-      "pluginOptions": { "i18n": { "localized": true } }
-    },
-    "metadescription": {
-      "type": "text",
-      "required": false,
-      "pluginOptions": { "i18n": { "localized": true } }
     },
     "page_blocks": {
       "type": "dynamiczone",
