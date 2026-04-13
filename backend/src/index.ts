@@ -61,13 +61,17 @@ export default {
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
     // Forzar layout del admin para artículos (excerpt + metadescription visibles)
+    // Strapi v5: store usa type:'plugin', name:'content_manager' y clave 'configuration_api::article.article'
     try {
-      const CM_KEY = 'plugin_content_manager_configuration_content_types::api::article.article';
-      const existing = await strapi.store({ environment: '' }).get({ key: CM_KEY }) as any;
+      const CM_STORE = strapi.store({ type: 'plugin', name: 'content_manager' } as any);
+      const CM_KEY = 'configuration_api::article.article';
+      const existing = await CM_STORE.get({ key: CM_KEY }) as any;
       const editLayout: string[] = (existing?.layouts?.edit || []).flat().map((f: any) => f?.name);
       if (!editLayout.includes('metadescription')) {
-        await strapi.store({ environment: '' }).set({ key: CM_KEY, value: ARTICLE_LAYOUT });
+        await CM_STORE.set({ key: CM_KEY, value: ARTICLE_LAYOUT });
         strapi.log.info('[bootstrap] Article admin layout updated: added excerpt + metadescription');
+      } else {
+        strapi.log.info('[bootstrap] Article admin layout already up to date');
       }
     } catch (err: any) {
       strapi.log.warn('[bootstrap] Could not update article layout: ' + err?.message);
