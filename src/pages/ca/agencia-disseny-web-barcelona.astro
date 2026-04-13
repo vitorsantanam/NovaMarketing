@@ -84,7 +84,24 @@ const serviceSchema = {
   "serviceType": "Agència de Disseny Web per a Pimes",
   "provider": {
     "@type": "ProfessionalService",
-    "@id": "https://novamarketing.es/#organization"
+    "@id": "https://novamarketing.es/#organization",
+    "name": "Nova Marketing",
+    "image": "https://novamarketing.es/agencia-marketing-pymes-nova-marketing-logo.png",
+    "telephone": "+34644738270",
+    "priceRange": "€€",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Calle General Mendoza 10",
+      "addressLocality": "Barcelona",
+      "addressRegion": "Barcelona",
+      "postalCode": "08035",
+      "addressCountry": "ES"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "47"
+    }
   },
   "areaServed": {
     "@type": "City",
@@ -95,11 +112,6 @@ const serviceSchema = {
   "offers": {
     "@type": "Offer",
     "priceRange": "€€"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "47"
   },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
