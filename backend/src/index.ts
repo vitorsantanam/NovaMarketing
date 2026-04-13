@@ -6,7 +6,7 @@ const ARTICLE_LAYOUT = {
     id: { edit: {}, list: { label: 'id', searchable: true, sortable: true } },
     title: { edit: { label: 'Título', description: '', placeholder: '', visible: true, editable: true }, list: { label: 'Título', searchable: true, sortable: true } },
     slug: { edit: { label: 'Slug', description: '', placeholder: '', visible: true, editable: true }, list: { label: 'Slug', searchable: true, sortable: true } },
-    excerpt: { edit: { label: 'Extracto', description: 'Resumen visible en listados del blog', placeholder: 'Escribe un resumen breve...', visible: true, editable: true }, list: { label: 'Extracto', searchable: false, sortable: false } },
+    excerpt: { edit: { label: 'Extracto', description: '', placeholder: '', visible: false, editable: true }, list: { label: 'Extracto', searchable: false, sortable: false } },
     metadescription: { edit: { label: 'Meta Descripción SEO', description: 'Descripción para Google (150-160 caracteres)', placeholder: 'Escribe la meta descripción...', visible: true, editable: true }, list: { label: 'Meta Descripción', searchable: false, sortable: false } },
     cover_image: { edit: { label: 'Imagen de portada', description: '', placeholder: '', visible: true, editable: true }, list: { label: 'cover_image', searchable: false, sortable: false } },
     author: { edit: { label: 'Autor', description: '', placeholder: '', visible: true, editable: true }, list: { label: 'author', searchable: true, sortable: true } },
@@ -22,7 +22,6 @@ const ARTICLE_LAYOUT = {
     list: ['id', 'title', 'slug', 'cover_image'],
     edit: [
       [{ name: 'title', size: 6 }, { name: 'slug', size: 6 }],
-      [{ name: 'excerpt', size: 12 }],
       [{ name: 'metadescription', size: 12 }],
       [{ name: 'cover_image', size: 6 }, { name: 'author', size: 6 }],
       [{ name: 'categories', size: 12 }],
@@ -67,9 +66,10 @@ export default {
       const CM_KEY = 'configuration_api::article.article';
       const existing = await CM_STORE.get({ key: CM_KEY }) as any;
       const editLayout: string[] = (existing?.layouts?.edit || []).flat().map((f: any) => f?.name);
-      if (!editLayout.includes('metadescription')) {
+      const excerptVisible = existing?.metadatas?.excerpt?.edit?.visible !== false;
+      if (!editLayout.includes('metadescription') || editLayout.includes('excerpt') || excerptVisible) {
         await CM_STORE.set({ key: CM_KEY, value: ARTICLE_LAYOUT });
-        strapi.log.info('[bootstrap] Article admin layout updated: added excerpt + metadescription');
+        strapi.log.info('[bootstrap] Article admin layout updated');
       } else {
         strapi.log.info('[bootstrap] Article admin layout already up to date');
       }
@@ -80,6 +80,21 @@ export default {
     process.on('unhandledRejection', (reason: any) => {
       strapi.log.error('[UNHANDLED] ' + (reason?.message || String(reason)));
       strapi.log.error('[UNHANDLED] stack: ' + (reason?.stack || ''));
+    });
+
+    // Sincronizar excerpt con metadescription automáticamente
+    (strapi.db as any).lifecycles.subscribe({
+      models: ['api::article.article'],
+      async beforeCreate(event: any) {
+        if (event.params?.data?.metadescription) {
+          event.params.data.excerpt = event.params.data.metadescription;
+        }
+      },
+      async beforeUpdate(event: any) {
+        if (event.params?.data?.metadescription) {
+          event.params.data.excerpt = event.params.data.metadescription;
+        }
+      },
     });
 
     (strapi.db as any).lifecycles.subscribe({
