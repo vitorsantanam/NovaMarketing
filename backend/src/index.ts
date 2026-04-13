@@ -64,15 +64,8 @@ export default {
     try {
       const CM_STORE = strapi.store({ type: 'plugin', name: 'content_manager' } as any);
       const CM_KEY = 'configuration_api::article.article';
-      const existing = await CM_STORE.get({ key: CM_KEY }) as any;
-      const editLayout: string[] = (existing?.layouts?.edit || []).flat().map((f: any) => f?.name);
-      const excerptVisible = existing?.metadatas?.excerpt?.edit?.visible !== false;
-      if (!editLayout.includes('metadescription') || editLayout.includes('excerpt') || excerptVisible) {
-        await CM_STORE.set({ key: CM_KEY, value: ARTICLE_LAYOUT });
-        strapi.log.info('[bootstrap] Article admin layout updated');
-      } else {
-        strapi.log.info('[bootstrap] Article admin layout already up to date');
-      }
+      await CM_STORE.set({ key: CM_KEY, value: ARTICLE_LAYOUT });
+      strapi.log.info('[bootstrap] Article admin layout applied');
     } catch (err: any) {
       strapi.log.warn('[bootstrap] Could not update article layout: ' + err?.message);
     }
