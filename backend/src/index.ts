@@ -1,5 +1,37 @@
 import type { Core } from '@strapi/strapi';
 
+const ARTICLE_LAYOUT = {
+  settings: { bulkable: true, filterable: true, searchable: true, pageSize: 10, mainField: 'title', defaultSortBy: 'title', defaultSortOrder: 'ASC' },
+  metadatas: {
+    id: { edit: {}, list: { label: 'id', searchable: true, sortable: true } },
+    title: { edit: { label: 'Título', description: '', placeholder: '', visible: true, editable: true }, list: { label: 'Título', searchable: true, sortable: true } },
+    slug: { edit: { label: 'Slug', description: '', placeholder: '', visible: true, editable: true }, list: { label: 'Slug', searchable: true, sortable: true } },
+    excerpt: { edit: { label: 'Extracto', description: 'Resumen visible en listados del blog', placeholder: 'Escribe un resumen breve...', visible: true, editable: true }, list: { label: 'Extracto', searchable: false, sortable: false } },
+    metadescription: { edit: { label: 'Meta Descripción SEO', description: 'Descripción para Google (150-160 caracteres)', placeholder: 'Escribe la meta descripción...', visible: true, editable: true }, list: { label: 'Meta Descripción', searchable: false, sortable: false } },
+    cover_image: { edit: { label: 'Imagen de portada', description: '', placeholder: '', visible: true, editable: true }, list: { label: 'cover_image', searchable: false, sortable: false } },
+    author: { edit: { label: 'Autor', description: '', placeholder: '', visible: true, editable: true }, list: { label: 'author', searchable: true, sortable: true } },
+    categories: { edit: { label: 'Categorías', description: '', placeholder: '', visible: true, editable: true }, list: { label: 'categories', searchable: false, sortable: false } },
+    page_blocks: { edit: { label: 'Contenido (bloques)', description: '', placeholder: '', visible: true, editable: true }, list: { label: 'page_blocks', searchable: false, sortable: false } },
+    createdAt: { edit: { label: 'createdAt', visible: false, editable: true }, list: { label: 'createdAt', searchable: true, sortable: true } },
+    updatedAt: { edit: { label: 'updatedAt', visible: false, editable: true }, list: { label: 'updatedAt', searchable: true, sortable: true } },
+    createdBy: { edit: { label: 'createdBy', visible: false, editable: true, mainField: 'firstname' }, list: { label: 'createdBy', searchable: true, sortable: true } },
+    updatedBy: { edit: { label: 'updatedBy', visible: false, editable: true, mainField: 'firstname' }, list: { label: 'updatedBy', searchable: true, sortable: true } },
+    documentId: { edit: {}, list: { label: 'documentId', searchable: true, sortable: true } },
+  },
+  layouts: {
+    list: ['id', 'title', 'slug', 'cover_image'],
+    edit: [
+      [{ name: 'title', size: 6 }, { name: 'slug', size: 6 }],
+      [{ name: 'excerpt', size: 12 }],
+      [{ name: 'metadescription', size: 12 }],
+      [{ name: 'cover_image', size: 6 }, { name: 'author', size: 6 }],
+      [{ name: 'categories', size: 12 }],
+      [{ name: 'page_blocks', size: 12 }],
+    ],
+  },
+  uid: 'api::article.article',
+};
+
 export default {
   register({ strapi }: { strapi: Core.Strapi }) {
     // Middleware Koa: intercepta TODOS los errores HTTP (admin + API)
@@ -27,7 +59,20 @@ export default {
     });
   },
 
-  bootstrap({ strapi }: { strapi: Core.Strapi }) {
+  async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    // Forzar layout del admin para artículos (excerpt + metadescription visibles)
+    try {
+      const CM_KEY = 'plugin_content_manager_configuration_content_types::api::article.article';
+      const existing = await strapi.store({ environment: '' }).get({ key: CM_KEY }) as any;
+      const editLayout: string[] = (existing?.layouts?.edit || []).flat().map((f: any) => f?.name);
+      if (!editLayout.includes('metadescription')) {
+        await strapi.store({ environment: '' }).set({ key: CM_KEY, value: ARTICLE_LAYOUT });
+        strapi.log.info('[bootstrap] Article admin layout updated: added excerpt + metadescription');
+      }
+    } catch (err: any) {
+      strapi.log.warn('[bootstrap] Could not update article layout: ' + err?.message);
+    }
+
     process.on('unhandledRejection', (reason: any) => {
       strapi.log.error('[UNHANDLED] ' + (reason?.message || String(reason)));
       strapi.log.error('[UNHANDLED] stack: ' + (reason?.stack || ''));
