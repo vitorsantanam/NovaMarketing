@@ -96,9 +96,7 @@ export default {
       </table>` : ''}
     `;
 
-    let adminError: string | null = null;
-    let userError: string | null = null;
-
+    // Admin notification — mandatory: fail the request if this doesn't send
     try {
       await transporter.sendMail({
         from: `"nova." <${SMTP_USER}>`,
@@ -108,10 +106,13 @@ export default {
         replyTo: email,
       });
     } catch (err: any) {
-      adminError = err.message;
       console.error('[Contact] Admin email error:', err.message);
+      ctx.status = 500;
+      ctx.body = { error: 'Failed to send admin notification', detail: err.message };
+      return;
     }
 
+    // User confirmation — best-effort, don't fail the request if this fails
     try {
       await transporter.sendMail({
         from: `"nova." <${SMTP_USER}>`,
@@ -120,16 +121,10 @@ export default {
         html: emailTemplate(confirmationBody),
       });
     } catch (err: any) {
-      userError = err.message;
-      console.error('[Contact] User email error:', err.message);
+      console.error('[Contact] User confirmation email error:', err.message);
     }
 
-    if (adminError && userError) {
-      ctx.status = 500;
-      ctx.body = { error: 'Failed to send emails', adminError, userError };
-    } else {
-      ctx.status = 200;
-      ctx.body = { ok: true, adminError, userError };
-    }
+    ctx.status = 200;
+    ctx.body = { ok: true };
   },
 };
