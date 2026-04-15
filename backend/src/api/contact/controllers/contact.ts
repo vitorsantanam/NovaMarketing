@@ -1,7 +1,57 @@
 import { Context } from 'koa';
 import nodemailer from 'nodemailer';
 
+function buildTransporter() {
+  return nodemailer.createTransport({
+    host: process.env.SMTP_HOST || 'smtp.hostinger.com',
+    port: parseInt(process.env.SMTP_PORT || '465'),
+    secure: true,
+    auth: {
+      user: process.env.SMTP_USER || '',
+      pass: process.env.SMTP_PASS || '',
+    },
+  });
+}
+
 export default {
+  // GET /api/contact/test — smoke-test SMTP without a real form submission
+  async test(ctx: Context) {
+    const SMTP_USER = process.env.SMTP_USER || '';
+    const CONTACT_TO = process.env.CONTACT_TO || 'hola@novamarketing.es';
+
+    if (!SMTP_USER || !process.env.SMTP_PASS) {
+      ctx.status = 500;
+      ctx.body = { error: 'SMTP_USER or SMTP_PASS env vars are not set' };
+      return;
+    }
+
+    const transporter = buildTransporter();
+
+    try {
+      await transporter.verify();
+    } catch (err: any) {
+      ctx.status = 500;
+      ctx.body = { error: 'SMTP verify failed', detail: err.message, code: err.code };
+      return;
+    }
+
+    try {
+      await transporter.sendMail({
+        from: `"nova. test" <${SMTP_USER}>`,
+        to: CONTACT_TO,
+        subject: '[TEST] SMTP contact form check',
+        text: 'Si recibes este email el SMTP funciona correctamente.',
+      });
+    } catch (err: any) {
+      ctx.status = 500;
+      ctx.body = { error: 'sendMail failed', detail: err.message, code: err.code };
+      return;
+    }
+
+    ctx.status = 200;
+    ctx.body = { ok: true, smtp_user: SMTP_USER, contact_to: CONTACT_TO };
+  },
+
   async send(ctx: Context) {
     const { name, email, url, phone, msg, source } = ctx.request.body as any;
 
@@ -11,18 +61,10 @@ export default {
       return;
     }
 
-    const SMTP_HOST = process.env.SMTP_HOST || 'smtp.hostinger.com';
-    const SMTP_PORT = parseInt(process.env.SMTP_PORT || '465');
     const SMTP_USER = process.env.SMTP_USER || '';
-    const SMTP_PASS = process.env.SMTP_PASS || '';
     const CONTACT_TO = process.env.CONTACT_TO || 'hola@novamarketing.es';
 
-    const transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: SMTP_PORT,
-      secure: true,
-      auth: { user: SMTP_USER, pass: SMTP_PASS },
-    });
+    const transporter = buildTransporter();
 
     const emailTemplate = (bodyContent: string) => `<!DOCTYPE html>
 <html lang="es">
