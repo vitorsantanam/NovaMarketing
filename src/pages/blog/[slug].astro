@@ -81,25 +81,35 @@ if (author) {
   } catch {}
 }
 
-// Posts de la misma categoría (máx 4, sin el actual)
-const categorySlug = post.category?.slug || (post.categories?.[0] as any)?.slug;
-const categoryLabel = post.category?.name || (post.categories?.[0] as any)?.name || '';
-let categoryPosts: any[] = [];
-if (categorySlug) {
+// Categorías del artículo (combina post.category y post.categories sin duplicados)
+const allCats: { slug: string; name: string }[] = [];
+const seenCatSlugs = new Set<string>();
+for (const cat of [post.category, ...((post.categories as any[]) ?? [])]) {
+  const s = cat?.slug; const n = cat?.name;
+  if (s && n && !seenCatSlugs.has(s)) { seenCatSlugs.add(s); allCats.push({ slug: s, name: n }); }
+}
+
+// Una fila por categoría (máx 4 posts cada una, sin el actual ni ya mostrados)
+const shownSlugs = new Set<string>([post.slug]);
+const categoryRows: { label: string; posts: any[] }[] = [];
+for (const cat of allCats) {
   try {
-    const res = await strapiClient.getBlogPosts('es', { category: categorySlug, limit: 5 });
-    categoryPosts = (res.data ?? [])
+    const res = await strapiClient.getBlogPosts('es', { category: cat.slug, limit: 8 });
+    const posts = (res.data ?? [])
       .map((i: any) => i.attributes ?? i)
-      .filter((p: any) => p.slug !== post.slug)
+      .filter((p: any) => !shownSlugs.has(p.slug))
       .slice(0, 4);
+    if (posts.length > 0) {
+      posts.forEach((p: any) => shownSlugs.add(p.slug));
+      categoryRows.push({ label: cat.name, posts });
+    }
   } catch {}
 }
 
-// Últimos 4 posts (sin el actual ni los que ya aparecen en categoría)
-const shownSlugs = new Set([post.slug, ...categoryPosts.map((p: any) => p.slug)]);
+// Últimos 4 posts (sin repetir ninguno ya mostrado)
 let latestPosts: any[] = [];
 try {
-  const res = await strapiClient.getBlogPosts('es', { limit: 12 });
+  const res = await strapiClient.getBlogPosts('es', { limit: 16 });
   latestPosts = (res.data ?? [])
     .map((i: any) => i.attributes ?? i)
     .filter((p: any) => !shownSlugs.has(p.slug))
@@ -270,21 +280,21 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
     </div>
   </main>
 
-  <!-- Posts de la misma categoría -->
-  {categoryPosts.length > 0 && (
-    <section class="py-16 px-6 sm:px-12 bg-white border-t border-zinc-100">
+  <!-- Una sección por cada categoría del artículo -->
+  {categoryRows.map((row, i) => (
+    <section class={`py-16 px-6 sm:px-12 border-t border-zinc-100 ${i % 2 === 0 ? 'bg-white' : 'bg-zinc-50'}`}>
       <div class="max-w-7xl mx-auto">
         <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">
-          Más sobre {categoryLabel}
+          Más sobre {row.label}
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {categoryPosts.map((p: any) => (
+          {row.posts.map((p: any) => (
             <BlogCard post={p} locale="es" />
           ))}
         </div>
       </div>
     </section>
-  )}
+  ))}
 
   <!-- Últimas noticias (sin repetir) -->
   {latestPosts.length > 0 && (
