@@ -191,15 +191,13 @@ function embedUrl(url: string): string {
       <div class="pb-timeline">
         {block.title && <p class="pb-timeline__label">{block.title}</p>}
         <div class="pb-timeline__track">
-          <!-- línea vertical de fondo -->
           <div class="pb-timeline__line-bg"></div>
-          <!-- línea de progreso (CSS) -->
           <div class="pb-timeline__line-fill"></div>
           <ol class="pb-timeline__list">
             {block.steps.map((step: any, i: number) => (
               <li class="pb-timeline__item">
                 <div class="pb-timeline__node">{String(i + 1).padStart(2, '0')}</div>
-                <div class="pb-timeline__card group">
+                <div class="pb-timeline__card">
                   {step.title && <h4 class="pb-timeline__title">{String(i + 1)}. {step.title}</h4>}
                   <div class="pb-timeline__accent-line"></div>
                   {step.desc && <p class="pb-timeline__desc">{step.desc}</p>}
@@ -873,29 +871,29 @@ function embedUrl(url: string): string {
   position: relative;
 }
 
-/* línea vertical gris de fondo */
+/* línea vertical gris de fondo — centrada con el círculo (2.75rem / 2 = 1.375rem) */
 .pb-timeline__line-bg {
   display: none;
   position: absolute;
-  left: 1.375rem;
-  top: 1.5rem;
-  bottom: 1.5rem;
+  left: calc(1.375rem - 0.5px);
+  top: 2.75rem;
+  bottom: 0;
   width: 1px;
   background: #e4e4e7;
+  z-index: 0;
 }
 
-/* línea de progreso azul (crece con CSS scroll-driven o estática al 100%) */
+/* línea de progreso azul — crece vía JS al hacer scroll */
 .pb-timeline__line-fill {
   display: none;
   position: absolute;
-  left: 1.375rem;
-  top: 1.5rem;
+  left: calc(1.375rem - 0.5px);
+  top: 2.75rem;
   width: 1px;
-  height: 100%;
+  height: 0%;
   background: #3b82f6;
-  transform-origin: top;
-  transform: scaleY(0);
-  transition: transform 0.6s ease;
+  z-index: 0;
+  transition: height 0.15s linear;
 }
 
 @media (min-width: 768px) {
@@ -1011,6 +1009,13 @@ function embedUrl(url: string): string {
   transform: scale(1.05);
 }
 
+/* nodo activo (scroll) */
+.pb-timeline__node.is-active {
+  border-color: #3b82f6;
+  background: #3b82f6;
+  color: #fff;
+}
+
 /* ── Comparison ── */
 .pb-comparison {
   display: grid;
@@ -1095,3 +1100,38 @@ function embedUrl(url: string): string {
   font-family: 'Inter', sans-serif;
 }
 </style>
+
+<script>
+function initPbTimelines() {
+  document.querySelectorAll<HTMLElement>('.pb-timeline__track').forEach((track) => {
+    const fill = track.querySelector<HTMLElement>('.pb-timeline__line-fill');
+    const bg   = track.querySelector<HTMLElement>('.pb-timeline__line-bg');
+    const nodes = Array.from(track.querySelectorAll<HTMLElement>('.pb-timeline__node'));
+    if (!fill || !bg) return;
+
+    function update() {
+      const rect = track.getBoundingClientRect();
+      const mid  = window.innerHeight / 2;
+      // porcentaje de la línea recorrido (de top a bottom del track)
+      const raw  = (mid - rect.top) / rect.height * 100;
+      const pct  = Math.max(0, Math.min(100, raw));
+      fill.style.height = pct + '%';
+
+      nodes.forEach((node) => {
+        const nodeRect = node.getBoundingClientRect();
+        if (nodeRect.top + nodeRect.height / 2 < mid) {
+          node.classList.add('is-active');
+        } else {
+          node.classList.remove('is-active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initPbTimelines);
+document.addEventListener('astro:page-load', initPbTimelines);
+</script>
