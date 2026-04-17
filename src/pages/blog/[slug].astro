@@ -42,12 +42,17 @@ export async function getStaticPaths() {
 
 const { post: initialPost, caSlug }: { post: BlogPost; caSlug: string } = Astro.props;
 
-// Fetch detallado para obtener page_blocks con deep populate (getBlogPosts usa populate=* superficial)
+// Deep-populate page_blocks (populate=* no incluye image/steps dentro de componentes dinámicos)
 let post: BlogPost = initialPost;
 try {
   const detailRes = await strapiClient.getBlogPost(initialPost.slug, 'es');
-  post = detailRes.data[0]?.attributes ?? detailRes.data[0] ?? initialPost;
-} catch {}
+  const detailData = detailRes.data[0]?.attributes ?? detailRes.data[0];
+  if (detailData?.page_blocks?.length > 0) {
+    post = { ...initialPost, page_blocks: detailData.page_blocks };
+  }
+} catch (err) {
+  console.error('[blog slug] getBlogPost failed:', err);
+}
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const canonicalPath = `/blog/${post.slug}`;

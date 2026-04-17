@@ -62,7 +62,12 @@ let allCategories = [];
 if (pageType === 'case-study') {
     try {
       const detailRes = await strapiClient.getCaseStudy(initialData.slug, 'ca');
-      caseStudy = detailRes.data[0]?.attributes ?? detailRes.data[0] ?? initialData;
+      const detailData = detailRes.data[0]?.attributes ?? detailRes.data[0];
+      if (detailData?.page_blocks?.length > 0) {
+        caseStudy = { ...initialData, page_blocks: detailData.page_blocks };
+      } else {
+        caseStudy = initialData;
+      }
     } catch (e) {
       console.error(`[slug CA] Error fetching case study ${initialData.slug}:`, e);
       caseStudy = initialData;
