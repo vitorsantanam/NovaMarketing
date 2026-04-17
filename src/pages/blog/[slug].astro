@@ -40,7 +40,15 @@ export async function getStaticPaths() {
   }
 }
 
-const { post, caSlug }: { post: BlogPost; caSlug: string } = Astro.props;
+const { post: initialPost, caSlug }: { post: BlogPost; caSlug: string } = Astro.props;
+
+// Fetch detallado para obtener page_blocks con deep populate (getBlogPosts usa populate=* superficial)
+let post: BlogPost = initialPost;
+try {
+  const detailRes = await strapiClient.getBlogPost(initialPost.slug, 'es');
+  post = detailRes.data[0]?.attributes ?? detailRes.data[0] ?? initialPost;
+} catch {}
+
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const canonicalPath = `/blog/${post.slug}`;
 const canonicalUrl = `${SITE_URL}${canonicalPath}`;
