@@ -26,10 +26,17 @@ interface Props {
 }
 const { blocks } = Astro.props;
 
+const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';
+
 function imgUrl(img: any): string {
   if (!img) return '';
-  if (img.url?.startsWith('http')) return img.url;
-  return img.url ?? '';
+  // Strapi v4: { data: { attributes: { url } } }
+  const v4url = img?.data?.attributes?.url;
+  if (v4url) return v4url.startsWith('http') ? v4url : `${STRAPI_URL}${v4url}`;
+  // Strapi v5 plano: { url }
+  if (!img.url) return '';
+  if (img.url.startsWith('http')) return img.url;
+  return `${STRAPI_URL}${img.url}`;
 }
 
 function embedUrl(url: string): string {
